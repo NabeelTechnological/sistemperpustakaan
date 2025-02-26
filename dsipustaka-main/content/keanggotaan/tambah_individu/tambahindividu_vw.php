@@ -216,7 +216,7 @@ if(isset($_POST['btnSaveSiswa'])){
 				<label class="col-lg-1 control-label">NIS</label>
                 (ID Anggota)
 				<div class="col-lg-3">
-					<input type="text" id="txtIdAnggotaS" name="txtIdAnggota" value="<?=@$dataNipnisS?>" class="form-control sm" required/>
+					<input type="text" id="txtIdAnggotaS" name="txtIdAnggota" placeholder="NIS / ID ANGGOTA" value="<?=@$dataNipnisS?>" class="form-control sm" required/>
 	    		</div>
 				<div class="col-lg-1">
                 <button type="button" id="cariAnggotaS" class="btn <?= $_SESSION['warnabar'] ?>"><i class="fa fa-search"></i> Cari</button>
@@ -226,7 +226,7 @@ if(isset($_POST['btnSaveSiswa'])){
         <div class="form-group">
             <label class="col-lg-1 control-label">Nama</label>
             <div class="col-lg-4">
-                <input type="text" id="txtNama" name="txtNama" value="<?=@$dataNamaS?>" class="form-control sm" required/></span>
+                <input type="text" id="txtNama" name="txtNama" placeholder="Nama Pengguna" value="<?=@$dataNamaS?>" class="form-control sm" required/></span>
             </div>
             <label class="col-lg-1 control-label">Jenis Kelamin</label>
             <div class="col-lg-4">
@@ -238,14 +238,14 @@ if(isset($_POST['btnSaveSiswa'])){
         <div class="form-group">
     <label class="control-label col-lg-1" for="separateFormInput1">Kota</label>
     <div class="col-lg-4">
-        <textarea name="txtAlamat" class="form-control" id="separateFormInput1" rows="2"><?= @$dataAlamatS ?></textarea>
+        <textarea name="txtAlamat" placeholder="Nama Kota" class="form-control" id="separateFormInput1" rows="2"><?= @$dataAlamatS ?></textarea>
     </div>
     </div>
 
     <div class="form-group">
         <label class="control-label col-lg-1" for="separateFormInput1">Alamat</label>
         <div class="col-lg-4">
-            <textarea name="txtAlamatAlt" class="form-control" id="separateFormInput3" rows="2"><?= @$dataAlamat2S ?></textarea>
+            <textarea name="txtAlamatAlt" placeholder="Nama Alamat" class="form-control" id="separateFormInput3" rows="2"><?= @$dataAlamat2S ?></textarea>
         </div>
     </div>
 
@@ -253,7 +253,7 @@ if(isset($_POST['btnSaveSiswa'])){
     <div class="form-group">
         <label class="col-lg-1 control-label">Telepon</label>
         <div class="col-lg-3">
-            <input type="text" id="txtTelp" name="txtTelp" value="<?= @$dataTelpS ?>" class="form-control sm" required/></span>
+            <input type="text" placeholder="Nomor Telepon" id="txtTelp" name="txtTelp" value="<?= @$dataTelpS ?>" class="form-control sm" required/></span>
         </div>
     </div>
 
@@ -295,7 +295,7 @@ if(isset($_POST['btnSaveSiswa'])){
 				<label class="col-lg-1 control-label">NIK</label>
                 (ID Anggota)
 				<div class="col-lg-3">
-					<input type="text" id="txtIdAnggotaGK" name="txtIdAnggota" value="<?=@$dataNipnisGK?>" class="form-control sm" required/>
+					<input type="text" id="txtIdAnggotaGK" name="txtIdAnggota" placeholder="NIK / ID ANGGOTA" value="<?=@$dataNipnisGK?>" class="form-control sm" required/>
 	    		</div>
                 <div class="col-lg-1">
                 <button type="button" id="cariAnggotaGK" class="btn <?= $_SESSION['warnabar'] ?>"><i class="fa fa-search"></i> Cari</button>
@@ -305,7 +305,7 @@ if(isset($_POST['btnSaveSiswa'])){
         <div class="form-group">
             <label class="col-lg-1 control-label">Nama</label>
             <div class="col-lg-4">
-                <input type="text" id="txtNama" name="txtNama" value="<?=@$dataNamaGK?>" class="form-control sm" required/></span>
+                <input type="text" id="txtNama" name="txtNama" placeholder="Nama Anggota" value="<?=@$dataNamaGK?>" class="form-control sm" required/></span>
             </div>
             <label class="col-lg-1 control-label">Jenis Kelamin</label>
             <div class="col-lg-4">
@@ -317,14 +317,14 @@ if(isset($_POST['btnSaveSiswa'])){
         <div class="form-group">
     <label class="control-label col-lg-1" for="separateFormInput1">Kota</label>
     <div class="col-lg-4">
-        <textarea name="txtAlamat" class="form-control" id="separateFormInput1" rows="2"><?= @$dataAlamatGK ?></textarea>
+        <textarea name="txtAlamat" placeholder="Nama Kota" class="form-control" id="separateFormInput1" rows="2"><?= @$dataAlamatGK ?></textarea>
     </div>
     </div>
 
     <div class="form-group">
         <label class="control-label col-lg-1" for="separateFormInput1">Alamat</label>
         <div class="col-lg-4">
-            <textarea name="txtAlamatAlt" class="form-control" id="separateFormInput3" rows="2"><?= @$dataAlamat2GK ?></textarea>
+            <textarea name="txtAlamatAlt" placeholder="Nama Alamat" class="form-control" id="separateFormInput3" rows="2"><?= @$dataAlamat2GK ?></textarea>
         </div>
     </div>
 
@@ -332,7 +332,7 @@ if(isset($_POST['btnSaveSiswa'])){
     <div class="form-group">
         <label class="col-lg-1 control-label">Telepon</label>
         <div class="col-lg-3">
-            <input type="text" id="txtTelp" name="txtTelp" value="<?= @$dataTelpGK ?>" class="form-control sm" required/></span>
+            <input type="text" id="txtTelp" name="txtTelp" placeholder="Nomor Telepon" value="<?= @$dataTelpGK ?>" class="form-control sm" required/></span>
         </div>
     </div>
 

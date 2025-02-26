@@ -204,7 +204,7 @@ License: You must have a valid license purchased only from themeforest(the above
             <a data-toggle="dropdown" href="javascript:;">PENGUNJUNG<i class="fa fa-angle-down"></i></a>
             <ul class="dropdown-menu">
               <li><a href="?content=pencatatan">Daftar Pengunjung</a></li>
-              <li><a href="?content=grafiktopten">Grafik Top Ten</a></li>
+              <li><a href="?content=grafiktopten">Grafik Top 10</a></li>
               <li><a href="?content=grafikjumlahpengunjung">Grafik Jumlah Pengunjung</a></li>
             </ul>
           </li>
@@ -253,7 +253,7 @@ License: You must have a valid license purchased only from themeforest(the above
         else if ($_SESSION['kdjab']=="2") { ?>
          
           <li class="classic-menu-dropdown">
-            <a data-toggle="dropdown" href="javascript:;">SIRKULASI<i class="fa fa-angle-down"></i></a>
+            <a data-toggle="dropdown" href="javascript:;">Peminjaman Buku<i class="fa fa-angle-down"></i></a>
             <ul class="dropdown-menu">
               <li class="dropdown-submenu"><a href="#" class="dropdown-item">Individu</a>
                   <ul class="dropdown-menu">
@@ -273,7 +273,7 @@ License: You must have a valid license purchased only from themeforest(the above
             <a data-toggle="dropdown" href="javascript:;">PENGUNJUNG<i class="fa fa-angle-down"></i></a>
             <ul class="dropdown-menu">
               <li><a href="?content=pencatatan">Daftar Pengunjung</a></li>
-              <li><a href="?content=grafiktopten">Grafik Top Ten</a></li>
+              <li><a href="?content=grafiktopten">Grafik Top 10</a></li>
               <li><a href="?content=grafikjumlahpengunjung">Grafik Jumlah Pengunjung</a></li>
               <li><a href="?content=pelaporan">Pelaporan</a></li>
             </ul>
@@ -430,7 +430,7 @@ License: You must have a valid license purchased only from themeforest(the above
           </li>
          
           <li class="dropdown">
-            <a href="#">SIRKULASI<span class="arrow"></span></a>
+            <a href="#">Peminjaman Buku<span class="arrow"></span></a>
             <ul class="sub-menu">
               <li><a href="#" >Individu</a>
                   <ul class="sub-menu">
@@ -450,7 +450,7 @@ License: You must have a valid license purchased only from themeforest(the above
             <a href="#">PENGUNJUNG<span class="arrow"></span></a>
             <ul class="sub-menu">
               <li><a href="?content=pencatatan">Daftar Pengunjung</a></li>
-              <li><a href="?content=grafiktopten">Grafik Top Ten</a></li>
+              <li><a href="?content=grafiktopten">Grafik Top 10</a></li>
               <li><a href="?content=grafikjumlahpengunjung">Grafik Jumlah Pengunjung</a></li>
               <li><a href="?content=pelaporan">Pelaporan</a></li>
             </ul>

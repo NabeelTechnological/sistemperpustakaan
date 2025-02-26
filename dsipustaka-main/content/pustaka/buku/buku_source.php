@@ -1,6 +1,6 @@
 <?php
  //security goes here
- 	$aColumns = array( 'idbuku','kode', 'kodebuku','pengarang', 'judul', 'idjnsbuku', 'subyek', 'pengarangnormal','pengarang2','pengarang3','namapenerbit','nmkota','thterbit','nmbahasa','nmasalbuku','jilid','edisi','cetakan','vol','isbn','tersedia','lokasi','Cover');
+ 	$aColumns = array( 'idbuku','kode', 'kodebuku','pengarang', 'judul', 'desjnsbuku', 'subyek', 'pengarangnormal','pengarang2','pengarang3','namapenerbit','nmkota','thterbit','nmbahasa','nmasalbuku','jilid','edisi','cetakan','vol','isbn','tersedia','lokasi','Cover');
 
 	//primary key
 	$sIndexColumn = "idbuku";
@@ -75,6 +75,36 @@
 		}
 	}
 	
+	$sWhere = " where noapk = $_SESSION[noapk] ";
+	if ( $_GET['sSearch'] != "" )
+	{
+		$sWhere = " WHERE noapk = $_SESSION[noapk] and (";
+		for ( $i=0 ; $i<count($aColumns) ; $i++ )
+		{
+			$sWhere .= $aColumns[$i]." LIKE '%".mysqli_real_escape_string( $gaSql['link'], $_GET['sSearch'] )."%' OR ";
+		}
+		$sWhere = substr_replace( $sWhere, "", -3 );
+		$sWhere .= ')';
+	}
+	
+	for ( $i=0 ; $i<count($aColumns) ; $i++ )
+	{
+		if (isset($GET['bSearchable'.$i])) {
+		if ( $GET['bSearchable'.$i] == "true" && $GET['sSearch'.$i] != '' )
+		{
+			if ( $sWhere == "" )
+			{
+				$sWhere = " WHERE noapk = $_SESSION[noapk] and ";
+			}
+			else
+			{
+				$sWhere .= " AND ";
+			}
+			$sWhere .= $aColumns[$i]." LIKE '%".mysqli_real_escape_string( $gaSql['link'],$GET['sSearch'.$i])."%' ";
+		}
+	}
+	}
+
 	$sQuery = "
 		SELECT SQL_CALC_FOUND_ROWS ".str_replace(" , ", " ", implode(", ", $aColumns))."
 		FROM $sTable
@@ -113,9 +143,10 @@
 		$idbuku		= $dataRow['idbuku'];
 		$kodebuku	= kodebuku($dataRow['kode'],$dataRow['pengarang'],$dataRow['judul'])."&nbsp;&nbsp; c.".$dataRow['kodebuku'];
 		$judul		= $dataRow['judul'];
-		$desjnsbuku		= $dataRow['idjnsbuku'];
+		$desjnsbuku		= $dataRow['desjnsbuku'];
 		$kode		= $dataRow['kode'];
 		$subyek		= $dataRow['subyek'];
+		$pengarangnormal = $dataRow['pengarangnormal'];
 		$pengarang		= $dataRow['pengarang'];
 		$pengarang2		= $dataRow['pengarang2'];
 		$pengarang3		= $dataRow['pengarang3'];
@@ -134,7 +165,7 @@
 		$lokasi		= $dataRow['lokasi'];
 		$cover		= $dataRow['Cover'];
 
-		$row = array($no,$idbuku,$kodebuku,$judul,$desjnsbuku,$kode,$subyek,$pengarang,$pengarang2,$pengarang3,$namapenerbit,$nmkota,$thterbit,$nmbahasa,$nmasalbuku,$jilid,$edisi,$cetakan,$vol,$isbn,$tersedia,$lokasi,$cover); 
+		$row = array($no,$idbuku,$kodebuku,$judul,$desjnsbuku,$kode,$pengarangnormal,$pengarang,$pengarang2,$pengarang3,$namapenerbit,$nmkota,$thterbit,$nmbahasa,$nmasalbuku,$jilid,$edisi,$cetakan,$vol,$isbn,$tersedia,$lokasi,$cover); 
 
 		$no++; 
 		$output['aaData'][] = $row;

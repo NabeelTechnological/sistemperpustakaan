@@ -110,7 +110,7 @@ if (!isset($_GET['id']) || $_GET['id'] == "") {
                 // echo "Nama: " . $dataNama;
                 // echo "Maks Item: " . $datamaksitem;
             } else {
-                echo "Data tidak ditemukan.";
+            
             }
         
             mysqli_stmt_close($stmt);
@@ -384,16 +384,33 @@ if (!isset($_GET['id']) || $_GET['id'] == "") {
                 <div class="form-body">
                     <input type="hidden" name="txtIdJnsAng" value="<?= $dataIdJnsAng ?>">
                     <div class="row">
-                        <div class="col-lg-6">
-                            <div class="form-group">
+                         <div class="col-lg-6">
+                            <!-- <div class="form-group">
                                 <label class="col-lg-3 control-label">ID Anggota</label>
                                 <div class="col-lg-3">
                                     <input type="text" id="txtIdAnggota" name="txtIdAnggota" value="<?= $dataNipnis ?>" class="form-control sm" required />
                                 </div>
-                                <div class="col-lg-1">
+                            </div> -->
+                            <div class="form-group">
+						<label class="col-lg-3 control-label">ID Anggota</label>
+						<div class="col-lg-6">
+							<select id="txtIdAnggota" name="txtIdAnggota" value="<?php echo @$dataNipnis; ?>" data-placeholder="- Pilih Id Anggota -" class="select2me form-control sm" class="kdbuku form-control sm" required>
+								<option value="<?php echo @$dataNipnis; ?>"></option>
+								<?php
+								$dataSql = "SELECT nipnis, nama FROM ranggota WHERE noapk = $_SESSION[noapk] ORDER BY id";
+								$dataQry = mysqli_query($koneksidb, $dataSql) or die("Gagal Query: " . mysqli_error($koneksidb));
+								while ($dataRow = mysqli_fetch_array($dataQry)) {
+									$cek = (@$dataNipnis == $dataRow['kode']) ? "selected" : "";
+									// echo "<option value='{$dataRow['kode']}' $cek>{$dataRow['kode']}</option>";
+									echo "<option value='{$dataRow['nipnis']}' data-nama='{$dataRow['nama']}' $selected>{$dataRow['nipnis']} - {$dataRow['nama']}</option>";
+								}
+								?>
+							</select>
+						</div>
+                        <div class="col-lg-1">
                                     <button type="button" id="cariAnggota" class="btn <?= $_SESSION['warnabar'] ?>"><i class="fa fa-search"></i> Cari</button>
                                 </div>
-                            </div>
+					</div>
 
                             <div class="form-group">
                                 <label class="col-lg-3 control-label">Nama</label>
@@ -474,13 +491,36 @@ if (!isset($_GET['id']) || $_GET['id'] == "") {
 
                             <div class="form-group">
                                 <?php // if ($_GET['jenis'] == "buku") { ?>
-                                    <label class="col-lg-2 control-label">ID Buku</label>
+                                    <!-- <label class="col-lg-2 control-label">ID Buku</label>
                                     <div class="col-lg-6">
                                         <input type="text" id="txtIdBuku" value="<?= $dataIdBuku ?>" name="txtIdBuku" class="form-control sm" required />
                                     </div>
                                     <div class="col-lg-2">
                                         <button type="button" id="cariBuku" class="btn <?= $_SESSION['warnabar'] ?>"><i class="fa fa-search"></i> Cari</button>
-                                    </div>
+                                    </div> -->
+                                    
+                                    <div class="form-group">
+						<label class="col-lg-2 control-label">ID Buku</label>
+						<div class="col-lg-6">
+							<select id="txtIdBuku" name="txtIdBuku" value="<?php echo @$dataIdBuku; ?>" data-placeholder="- Pilih Id Buku -" class="select2me form-control sm" class="kdbuku form-control sm" required>
+								<option value="<?php echo @$dataIdBuku; ?>"></option>
+								<?php
+								$dataSql = "SELECT idbuku, judul FROM tbuku WHERE noapk = $_SESSION[noapk] ORDER BY id";
+								$dataQry = mysqli_query($koneksidb, $dataSql) or die("Gagal Query: " . mysqli_error($koneksidb));
+								while ($dataRow = mysqli_fetch_array($dataQry)) {
+									$cek = (@$dataIdBuku == $dataRow['idbuku']) ? "selected" : "";
+									// echo "<option value='{$dataRow['kode']}' $cek>{$dataRow['kode']}</option>";
+									echo "<option value='{$dataRow['idbuku']}' data-nama='{$dataRow['judul']}' $selected>{$dataRow['idbuku']} - {$dataRow['judul']}</option>";
+								}
+								?>
+							</select>
+						</div>
+                        <div class="col-lg-1">
+                                    <button type="button" id="cariBuku" class="btn <?= $_SESSION['warnabar'] ?>"><i class="fa fa-search"></i> Cari</button>
+                                </div>
+					</div>
+
+
                                 <!-- <?php // } else if ($_GET['jenis'] == "cd") { ?>
                                     <label class="col-lg-2 control-label">ID CD</label>
                                     <div class="col-lg-6">

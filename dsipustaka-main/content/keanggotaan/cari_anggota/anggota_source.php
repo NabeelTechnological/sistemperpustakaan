@@ -113,7 +113,7 @@
       $pinjambuku = $dataRow['pinjambuku'];
       $alamat = $dataRow['alamat'];
       $alamatalt = $dataRow['alamat2'];
-
+	
 
 		$row = array( $no, $nipnis, $nama, $jnskel,$idjnsang, $alamat, $alamatalt); 
 

@@ -6,21 +6,21 @@
   
     <div class="portlet-body fieldset-form">
          
-<div class="form-group">
+<!-- <div class="form-group">
     <label class="col-lg-3 control-label">Pencarian Berdasarkan:</label>
     <div class="col-lg-3">
       <select id="searchType" class="form-control">
         <option value="judul">Judul</option>
         <option value="kode">Kode Klasifikasi</option>
-        <option value="idbuku">ID Buku</option>
-        <!-- <option value="jenis">Jenis Buku</option> -->
+        <option value="idbuku">ID Buku</option> -->
+        <!-- <option value="jenis">Jenis Buku</option>
       </select>
     </div>
     <label class="col-lg-2 control-label">PAKE INI ------ > SEARCH : </label>
     <div class="col-lg-4">
       <input type="text" id="searchVal" placeholder="Tekan [Enter] Setelah Input" class="form-control">
     </div>
-</div>
+</div> -->
 
 <div class="row">
   <div class="col-lg-8">
@@ -42,7 +42,7 @@
 <div class="row" style="margin-top: 50px;">
     <div class="col-lg-4">
       <div class="form-group">
-          <label class="col-lg-4 control-label">Jenis Buku( <br> 1:Fiksi <br> 2:Non Fiksi <br> 3:Referensi <br> 4:Buku Text)</label>
+          <label class="col-lg-4 control-label">Jenis Buku</label>
           <div class="col-lg-8">
           <input type="text" id="txtJenisBuku" class="form-control" readonly>
           </div>
@@ -179,7 +179,7 @@
       var table = $('#sample_2').DataTable( {  
           "bProcessing": true,
           "bServerSide": true,
-          "searching": false,
+          "searching": true,
           "bDestroy": true,
           "bFilter": true,
           "sAjaxSource": "action.php?act=9",
@@ -272,7 +272,11 @@
     }
   });
 
-  
+  $('#tabelData').DataTable({
+    "searching": false  // Matikan fitur search
+});
+
+
   </script>  
 
     	

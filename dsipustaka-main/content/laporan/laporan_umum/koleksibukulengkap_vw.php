@@ -20,24 +20,19 @@
        <div class="form-group">
           <label class="col-lg-2 control-label">Golongan Kode Buku</label>
             <div class="col-lg-5">
-                <select name="txtSubyek" data-placeholder="- Pilih Golongan -" class="select2me form-control" required>
-                    <option value=""></option>
-                    <?php
-                    $dataSql = "SELECT kode, subyek FROM rsubyek WHERE noapk = $_SESSION[noapk] ORDER BY kode ";
-                    $dataQry = mysqli_query($koneksidb, $dataSql) or die("Gagal Query" . mysqli_error($koneksidb));
-                    $kode = 0;
-                    while ($dataRow = mysqli_fetch_array($dataQry)) {
-                        if (@$dataSubyek."00" == $dataRow['kode']) {
-                            $cek = " selected";
-                        } else {
-                            $cek = "";
-                        }
-                        echo "<option value='$kode' $cek>[$dataRow[kode]] $dataRow[subyek]</option>";
-                        $kode++;
-                    }
-                    $sqlData = "";
-                    ?>
-                </select>
+            <select name="txtSubyek" data-placeholder="- Pilih Golongan -" class="select2me form-control" required>
+    <option value=""></option>
+    <?php
+    $dataSql = "SELECT kode, subyek FROM rsubyek WHERE noapk = '".mysqli_real_escape_string($koneksidb, $_SESSION['noapk'])."' ORDER BY kode";
+    $dataQry = mysqli_query($koneksidb, $dataSql) or die("Gagal Query: " . mysqli_error($koneksidb));
+    
+    while ($dataRow = mysqli_fetch_array($dataQry)) {
+        $cek = ($dataSubyek == $dataRow['kode']) ? "selected" : "";
+        echo "<option value='{$dataRow['kode']}' $cek>[{$dataRow['kode']}] {$dataRow['subyek']}</option>";
+    }
+    ?>
+</select>
+
             </div>
        </div>
     
@@ -365,6 +360,46 @@ mysqli_stmt_close($stmt);
         $("#txtLokasi").val(data[21]).prop("readonly", true);
     }
   });
+
+  $(document).ready(function() {
+    $("#txtIdAnggota").autocomplete({
+        source: function(request, response) {
+            $.ajax({
+                url: "cari_anggota.php",
+                type: "GET",
+                dataType: "json",
+                data: {
+                    term: request.term
+                },
+                success: function(data) {
+                    response($.map(data, function(item) {
+                        return {
+                            label: item.nipnis + " - " + item.nama,
+                            value: item.nipnis
+                        };
+                    }));
+                }
+            });
+        },
+        minLength: 2,
+        select: function(event, ui) {
+            $("#txtIdAnggota").val(ui.item.value);
+        }
+    });
+
+    // Fix for inconsistent value and options in select dropdown
+    $("select[name='txtSubyek']").on("change", function() {
+        let selectedVal = $(this).val();
+        $(this).find("option").each(function() {
+            if ($(this).val() === selectedVal) {
+                $(this).prop("selected", true);
+            } else {
+                $(this).prop("selected", false);
+            }
+        });
+    });
+});
+
 
   </script>  
 

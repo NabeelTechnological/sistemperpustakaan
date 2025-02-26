@@ -74,7 +74,7 @@ if (isset($_GET['btnsave'])){
             <tr class="active"> 
                 <td><div align="center">KARTU BERLAKU</div></td>
                 <td><div align="center">KARTU TDK BERLAKU</div></td> 
-                <td><div align="center">TOTAL</div></td> 
+                
             </tr>
         </thead>
         

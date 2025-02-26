@@ -216,7 +216,7 @@ if (isset($_POST['del'])) {
                             </div>
 
                             <div class="form-group tamu hidden">
-                                <label class="col-lg-2 control-label">Alamat/Lembaga</label>
+                                <label class="col-lg-2 control-label">Alamat/Lembaga/Kelas</label>
                                 <div class="col-lg-5">
                                     <input type="text" id="txtKettamu" name="txtKettamu" value="<?= @$dataKettamu ?>" class="form-control sm"/>
                                 </div>

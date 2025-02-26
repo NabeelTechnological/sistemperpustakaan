@@ -18,10 +18,10 @@ if(isset($_SESSION['pesanKesalahan'])) {
 }
 
 ?>
-<form action="export.php?lap=koleksipustaka_peminjamanindividu&page=<?= basename($_SERVER["SCRIPT_FILENAME"]) ?>" method="post" class="form-horizontal" data-validate="parsley" name="form1">
+<form action="export.php?lap=bukuteks_peminjamanindividu&page=<?= basename($_SERVER["SCRIPT_FILENAME"]) ?>" method="post" class="form-horizontal" data-validate="parsley" name="form1">
     <div class="portlet box <?= $_SESSION['warnabar'] ?>">
         <div class="portlet-title">
-            <div class="caption">Rincian Peminjaman Koleksi Perpustakaan </div>
+            <div class="caption">Rincian Peminjaman Buku Teks </div>
             <div class="tools">
                 <a href="javascript:;" class="collapse"></a>
                 <a href="javascript:;" class="reload"></a>
@@ -53,7 +53,7 @@ if(isset($_SESSION['pesanKesalahan'])) {
                             <label class="col-lg-4 control-label">Buku/CD: </label>
                             <div class="col-lg-6">
                                 <select name="txtBuku" data-placeholder="- Pilih Buku/Cd -" class="select2me form-control" required>
-                                    <?php 
+                                <?php 
                                     // $options = array("Buku", "CD");
 
                                     // foreach ($options as $option) {
@@ -91,7 +91,7 @@ if(isset($_SESSION['pesanKesalahan'])) {
                                     $options = array("Per Kelas", "Semua");
 
                                     foreach ($options as $option) {
-                                        $dataCakupan = ($dataCakupan) ? "$dataCakupan" : "Semua";
+                                        $dataCakupan = (@$dataCakupan) ? "$dataCakupan" : "Semua";
                                         $selected = ($dataCakupan == $option) ? " selected" : "";
                                         echo "<option value='$option'$selected>$option</option>";
                                     }
@@ -134,12 +134,25 @@ if(isset($_SESSION['pesanKesalahan'])) {
                             </div>
 
                             <div class="form-group well hidden" id="bulanan">
-                                <div><label class="control-label">Bulanan</label></div>
-                                <label class="col-lg-3 control-label" style="padding-left:0;">Bulan </label>
-                                <div class="col-lg-1">
-                                    <input type="number" name="txtBulan" value="<?= $dataBulan ?>" class="form-control sm" style="width:50px;">
-                                </div>
-                                <label class="col-lg-3 control-label" style="padding-left:0; margin-left:50px;">Tahun </label>
+                            <label class="col-lg-3 control-label" style="padding-left:0;">Bulan </label>
+<div class="col-lg-6">
+    <select name="txtBulan" class="form-control sm">
+        <option value="01" <?= $dataBulan == '01' ? 'selected' : '' ?>>Januari</option>
+        <option value="02" <?= $dataBulan == '02' ? 'selected' : '' ?>>Februari</option>
+        <option value="03" <?= $dataBulan == '03' ? 'selected' : '' ?>>Maret</option>
+        <option value="04" <?= $dataBulan == '04' ? 'selected' : '' ?>>April</option>
+        <option value="05" <?= $dataBulan == '05' ? 'selected' : '' ?>>Mei</option>
+        <option value="06" <?= $dataBulan == '06' ? 'selected' : '' ?>>Juni</option>
+        <option value="07" <?= $dataBulan == '07' ? 'selected' : '' ?>>Juli</option>
+        <option value="08" <?= $dataBulan == '08' ? 'selected' : '' ?>>Agustus</option>
+        <option value="09" <?= $dataBulan == '09' ? 'selected' : '' ?>>September</option>
+        <option value="10" <?= $dataBulan == '10' ? 'selected' : '' ?>>Oktober</option>
+        <option value="11" <?= $dataBulan == '11' ? 'selected' : '' ?>>November</option>
+        <option value="12" <?= $dataBulan == '12' ? 'selected' : '' ?>>Desember</option>
+    </select>
+</div>
+
+                                <label class="col-lg-3 control-label" style="padding-left:0; margin-left:1px;">Tahun </label>
                                 <div class="col-lg-1">
                                     <input type="number" name="txtTahun" value="<?= $dataTahun ?>" class="form-control sm" style="width:100px;">
                                 </div>
@@ -212,7 +225,6 @@ if(isset($_SESSION['pesanKesalahan'])) {
                 $('#' + pilihanBaru[1]).addClass('hidden');
             }
         });
-
         let dipilihValue = $('input[name="txtPilihan"]:checked').val();
             let pilihan = ["harian", "bulanan", "custom"];
 
@@ -275,7 +287,7 @@ if (isset($_GET['btnsave'])) {
     <br>
     <div class="portlet box <?= $_SESSION['warnabar'] ?>">
         <div class="portlet-title">
-            <div class="caption">Data Peminjaman Individu Koleksi Pustaka</div>
+            <div class="caption">Data Peminjaman Individu Buku Teks</div>
             <div class="actions">
 
             </div>
@@ -310,7 +322,7 @@ if (isset($_GET['btnsave'])) {
             $('#sample_2').dataTable({
                 "bProcessing": true,
                 "bServerSide": true,
-                "sAjaxSource": "action.php?act=23",
+                "sAjaxSource": "action.php?act=28",
                 "aColumns": [
                     null,
                     null,
@@ -366,7 +378,7 @@ if (isset($_GET['btnsave'])) {
     if (isset($_SESSION['dataPilihan'])) {
         unset($_SESSION['dataPilihan']);
     }
-
+?>
+<?php
 }
 ?>
-

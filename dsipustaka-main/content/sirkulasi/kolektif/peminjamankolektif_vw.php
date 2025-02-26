@@ -190,7 +190,7 @@ if (isset($_POST['del'])) {
                             <div class="form-group">
                                 <label class="col-lg-2 control-label">NIS - Nama Peminjam</label>
                                 <div class="col-lg-2">
-                                    <input type="text" id="txtIdAnggota" name="txtIdAnggota" value="<?= @$dataIdAnggota ?>" class="form-control sm" required />
+                                    <input type="text" id="txtIdAnggota" name="txtIdAnggota" placeholder="NIS / ID ANGGOTA" value="<?= @$dataIdAnggota ?>" class="form-control sm" required />
                                 </div>
                                 <div class="col-lg-4">
                                     <input type="text" id="txtNama" name="txtNama" value="<?= @$dataNama ?>" class="form-control sm" readonly required/>
@@ -205,7 +205,7 @@ if (isset($_POST['del'])) {
                             <div class="form-group">
                                     <label class="col-lg-2 control-label">ID Buku Master</label>
                                     <div class="col-lg-2">
-                                        <input type="text" id="txtIdBuku" value="<?= @$dataIdBuku ?>" name="txtIdBuku" class="form-control sm" required />
+                                        <input type="text" id="txtIdBuku" value="<?= @$dataIdBuku ?>" name="txtIdBuku" placeholder="ID Buku" class="form-control sm" required />
                                     </div>
                                     <div class="col-lg-2">
                                         <button type="button" id="cariBuku" class="btn <?= $_SESSION['warnabar'] ?>"><i class="fa fa-search"></i> Cari</button>
@@ -228,7 +228,7 @@ if (isset($_POST['del'])) {
                             <div class="form-group">
                                 <label class="col-lg-2 control-label">Jumlah Dipinjam</label>
                                 <div class="col-lg-2">
-                                    <input type="number" id="txtJmlPinjam" name="txtJmlPinjam" class="form-control sm" value="<?= @$dataJmlPinjam?>" required />
+                                    <input type="number" id="txtJmlPinjam" name="txtJmlPinjam" placeholder="Jumlah Dipinjam" class="form-control sm" value="<?= @$dataJmlPinjam?>" required />
                                 </div>
                             </div>
 

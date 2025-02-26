@@ -1,53 +1,59 @@
-<?php	
-//Security goes here
-	 
-//declare variable post
-$dataIdJnsAng 		=  isset($_POST['txtIdJnsAng']) ? $_POST['txtIdJnsAng'] : "";
-$datadesjenisang       =  isset($_POST['txtdesjenisang']) ? $_POST['txtdesjenisang'] : "";
-$dataIdJnsPustaka 	=  isset($_POST['txtIdJnsPustaka']) ? $_POST['txtIdJnsPustaka'] : "";
-$dataMaksItem    	=  isset($_POST['txtMaksItem']) ? $_POST['txtMaksItem'] : "";
-$dataMaksJkw   		=  isset($_POST['txtMaksJkw']) ? $_POST['txtMaksJkw'] : "";
-$dataPeriode 		=  isset($_POST['txtPeriode']) ? $_POST['txtPeriode'] : "";
-$dataDenda   		=  isset($_POST['txtDenda']) ? $_POST['txtDenda'] : "";
+<?php
+// Security measures (optional: include session checks)
 
-if (isset($_POST['btnSave'])){
-		//insert ket pinjam 
-		if(empty($dataIdJnsAng) || empty($dataIdJnsPustaka) || empty($dataMaksItem) || empty($dataMaksJkw) || empty($dataDenda) ){
-			echo "<div class='alert alert-danger alert-dismissable'>
-            <button type='button' class='close' data-dismiss='alert' aria-hidden='true'></button>
-            <strong><i class='fa fa-times'></i>&nbsp; Data Tidak Boleh Ada yang Kosong </strong>
-            </div>";
-		}else{
-			try{
-		// $insQry = "insert into rreftrans (idjnsang, idjnspustaka, maksitem, maksjkw, periode, denda, noapk, desjenisang) 
-		// values (?,?,?,?,?,?,?,$_SESSION[noapk]) ";
-		// $stmt = mysqli_prepare($koneksidb,$insQry) or die ("Gagal menyiapkan statement: " . mysqli_error($koneksidb));
-		// mysqli_stmt_bind_param($stmt,"sssssss",$dataIdJnsAng, $dataIdJnsPustaka, $dataMaksItem, $dataMaksJkw,$dataPeriode,$dataDenda, );
-		$insQry = "INSERT INTO rreftrans (idjnsang, idjnspustaka, maksitem, maksjkw, periode, denda, noapk, desjenisang) 
-           VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-$stmt = mysqli_prepare($koneksidb, $insQry) or die("Gagal menyiapkan statement: " . mysqli_error($koneksidb));
-mysqli_stmt_bind_param($stmt, "ssssssss", $dataIdJnsAng, $dataIdJnsPustaka, $dataMaksItem, $dataMaksJkw, $dataPeriode, $dataDenda, $_SESSION['noapk'], $datadesjenisang);
-		mysqli_stmt_execute($stmt) or die ("Gagal Query Insert Ket Pinjam : " . mysqli_error($koneksidb));
-		mysqli_stmt_close($stmt);
 
-		echo "<div class='alert alert-success alert-dismissable'>
-            <button type='button' class='close' data-dismiss='alert' aria-hidden='true'></button>
-            <strong><i class='fa fa-check'></i>&nbsp;Data</strong> Sukses insert. 
-            </div>";
-		
-			}catch(Exception $e){
-				if (strpos($e->getMessage(), "Duplicate entry") !== false) {
-				
-				echo "<div class='alert alert-danger alert-dismissable'>
-				<button type='button' class='close' data-dismiss='alert' aria-hidden='true'></button>
-				<strong><i class='fa fa-times'></i>&nbsp; Jenis Anggota dan Pustaka sudah ada, tidak boleh sama</strong>
-				</div>";
-				}
-			}
-		}
+
+// Declare variable post
+$dataIdJnsAng = isset($_POST['txtIdJnsAng']) ? $_POST['txtIdJnsAng'] : "";
+$datadesjenisang = isset($_POST['txtdesjenisang']) ? $_POST['txtdesjenisang'] : "";
+$dataIdJnsPustaka = isset($_POST['txtIdJnsPustaka']) ? $_POST['txtIdJnsPustaka'] : "";
+$dataMaksItem = isset($_POST['txtMaksItem']) ? $_POST['txtMaksItem'] : "";
+$dataMaksJkw = isset($_POST['txtMaksJkw']) ? $_POST['txtMaksJkw'] : "";
+$dataPeriode = isset($_POST['txtPeriode']) ? $_POST['txtPeriode'] : "";
+$dataDenda = isset($_POST['txtDenda']) ? $_POST['txtDenda'] : "";
+
+if (isset($_POST['btnSave'])) {
+    if (empty($dataIdJnsAng) || empty($dataIdJnsPustaka) || empty($dataMaksItem) || empty($dataMaksJkw) || empty($dataDenda)) {
+        echo "<div class='alert alert-danger'>
+                <strong><i class='fa fa-times'></i> Data tidak boleh ada yang kosong.</strong>
+              </div>";
+    } else {
+        // Cek apakah kombinasi idjnsang dan idjnspustaka sudah ada
+        $cekQry = "SELECT idjnsang FROM rreftrans WHERE idjnsang = ? AND idjnspustaka = ? LIMIT 1";
+        $stmtCek = mysqli_prepare($koneksidb, $cekQry);
+        mysqli_stmt_bind_param($stmtCek, "ss", $dataIdJnsAng, $dataIdJnsPustaka);
+        mysqli_stmt_execute($stmtCek);
+        mysqli_stmt_store_result($stmtCek);
+        $jumlahData = mysqli_stmt_num_rows($stmtCek);
+        mysqli_stmt_close($stmtCek);
+
+        if ($jumlahData > 0) {
+            echo "<div class='alert alert-danger'>
+                    <strong><i class='fa fa-times'></i> Data untuk jenis anggota dan pustaka ini sudah ada!</strong>
+                  </div>";
+        } else {
+            // Jika belum ada, lanjutkan insert data
+            try {
+                $insQry = "INSERT INTO rreftrans (idjnsang, idjnspustaka, maksitem, maksjkw, periode, denda, noapk, desjenisang) 
+                           VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+                $stmt = mysqli_prepare($koneksidb, $insQry);
+                mysqli_stmt_bind_param($stmt, "ssssssss", $dataIdJnsAng, $dataIdJnsPustaka, $dataMaksItem, $dataMaksJkw, $dataPeriode, $dataDenda, $_SESSION['noapk'], $datadesjenisang);
+                mysqli_stmt_execute($stmt);
+                mysqli_stmt_close($stmt);
+
+                echo "<div class='alert alert-success'>
+                        <strong><i class='fa fa-check'></i> Data berhasil disimpan.</strong>
+                      </div>";
+            } catch (Exception $e) {
+                echo "<div class='alert alert-danger'>
+                        <strong><i class='fa fa-times'></i> Terjadi kesalahan saat menyimpan data.</strong>
+                      </div>";
+            }
+        }
+    }
 }
-
 ?>
+
 	<SCRIPT language="JavaScript">
 	function submitform() {
 		document.form1.submit();

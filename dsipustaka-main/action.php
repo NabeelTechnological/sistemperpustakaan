@@ -13,6 +13,7 @@ ini_set("memory_limit", "4096M");
 ini_set('max_execution_time', 6000);
 set_time_limit(0);
 
+
 if (isset($_GET['act'])){
 	// PENGATURAN
 	if ($_GET['act']=="1"){

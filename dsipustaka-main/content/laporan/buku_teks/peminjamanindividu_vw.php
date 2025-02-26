@@ -21,7 +21,7 @@ if(isset($_SESSION['pesanKesalahan'])) {
 <form action="export.php?lap=bukuteks_peminjamanindividu&page=<?= basename($_SERVER["SCRIPT_FILENAME"]) ?>" method="post" class="form-horizontal" data-validate="parsley" name="form1">
     <div class="portlet box <?= $_SESSION['warnabar'] ?>">
         <div class="portlet-title">
-            <div class="caption">Rincian Peminjaman Buku Teks </div>
+            <div class="caption">Rincian Peminjaman Buku Fiksi</div>
             <div class="tools">
                 <a href="javascript:;" class="collapse"></a>
                 <a href="javascript:;" class="reload"></a>
@@ -382,4 +382,3 @@ if (isset($_GET['btnsave'])) {
 <?php
 }
 ?>
-

@@ -63,7 +63,7 @@ if(isset($_POST['btnTampil'])){
 <form action="<?php $_SERVER['PHP_SELF']; ?>" method="post" class="form-horizontal" data-validate="parsley" name="form1">
     <div class="portlet box <?= $_SESSION['warnabar'] ?>">
         <div class="portlet-title">
-            <div class="caption">Grafik Top Ten Pengunjung Perpustakaan</div>
+            <div class="caption">Grafik Top 10 Pengunjung Perpustakaan</div>
             <div class="tools">
                 <a href="javascript:;" class="collapse"></a>
                 <a href="javascript:;" class="reload"></a>

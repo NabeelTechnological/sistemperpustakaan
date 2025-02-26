@@ -26,9 +26,10 @@ if ($dataHarian != "" && $dataPilihan == "harian") {
 
 }
 
-$sWhereDefault .= "AND idjnsbuku = 4 AND nipnis=$dataAnggota AND noapk = $_SESSION[noapk]";
+$sWhereDefault .= "AND idjnsbuku < 4 AND nipnis=$dataAnggota AND noapk = $_SESSION[noapk]";
 
 $gaSql['link'] = mysqli_connect($gaSql['server'], $gaSql['user'], $gaSql['password']) or die('Could not open connection to server');
+
 mysqli_select_db($gaSql['link'], $gaSql['db']) or die('Could not select database ' . $gaSql['db']);
 
 $sLimit = "";

@@ -5,13 +5,12 @@ $dataTahun = isset($_SESSION['dataTahun']) ? $_SESSION['dataTahun'] : "";
 $dataDariTanggal = isset($_SESSION['dataDariTanggal']) ? $_SESSION['dataDariTanggal'] : "";
 $dataSampaiTanggal = isset($_SESSION['dataSampaiTanggal']) ? $_SESSION['dataSampaiTanggal'] : "";
 $tampil = isset($_SESSION['tampil']) ? $_SESSION['tampil'] : "";
-$dataAnggota            = (isset($_SESSION['dataAnggota'])) ? $_SESSION['dataAnggota'] : "";
-$dataBuku               = (isset($_SESSION['dataBuku'])) ? $_SESSION['dataBuku'] : "";
-$dataJnskelamin         = (isset($_SESSION['dataJnskelamin'])) ? $_SESSION['dataJnskelamin'] : "";
-$dataCakupan               = (isset($_SESSION['dataCakupan'])) ? $_SESSION['dataCakupan'] : "";
-$dataKelas               = (isset($_SESSION['dataKelas'])) ? $_SESSION['dataKelas'] : "";
-$dataPilihan               = (isset($_SESSION['dataPilihan'])) ? $_SESSION['dataPilihan'] : "";
-
+$dataAnggota = isset($_SESSION['dataAnggota']) ? $_SESSION['dataAnggota'] : "";
+$dataBuku = isset($_SESSION['dataBuku']) ? $_SESSION['dataBuku'] : "";
+$dataJnskelamin = isset($_SESSION['dataJnskelamin']) ? $_SESSION['dataJnskelamin'] : "";
+$dataKelas = isset($_SESSION['dataKelas']) ? $_SESSION['dataKelas'] : "";
+$dataCakupan = isset($_SESSION['dataCakupan']) ? $_SESSION['dataCakupan'] : "";
+$dataPilihan = isset($_SESSION['dataPilihan']) ? $_SESSION['dataPilihan'] : "";
 
 $aColumns = array('idbuku', 'judul', 'tglpinjam', 'tglhrskembali');
 $sTable = "(SELECT a.noapk, a.idjnsbuku AS idjnsbuku, a.idbuku AS idbuku, a.judul AS judul, b.tglpinjam AS tglpinjam, b.tglhrskembali AS tglhrskembali, c.idjnsang AS idjnsang, c.jnskel AS jnskel, c.idkelas AS idkelas
@@ -26,7 +25,6 @@ if ($dataHarian != "" && $dataPilihan == "harian") {
 
 } elseif ($dataDariTanggal != "" && $dataSampaiTanggal != "" && $dataPilihan == "custom") {
     $sWhereDefault = " WHERE tglpinjam >= '" . $dataDariTanggal . "' AND tglpinjam <= '" . $dataSampaiTanggal . "' ";
-
 }
 
 if($dataAnggota=="Siswa"){
@@ -49,9 +47,7 @@ if ($dataCakupan == "Per Kelas") {
     $sWhereDefault .= " AND idkelas = '$dataKelas' ";
 
 }
-
-$sWhereDefault .= "AND idjnsbuku = 4";
-$sWhereDefault .= " AND noapk = $_SESSION[noapk] ";
+$sWhereDefault .= "AND idjnsbuku<4 AND noapk = $_SESSION[noapk]";
 
 $gaSql['link'] = mysqli_connect($gaSql['server'], $gaSql['user'], $gaSql['password']) or die('Could not open connection to server');
 mysqli_select_db($gaSql['link'], $gaSql['db']) or die('Could not select database ' . $gaSql['db']);
@@ -61,9 +57,8 @@ if (isset($_GET['iDisplayStart']) && $_GET['iDisplayLength'] != '-1') {
     $sLimit = "LIMIT " . mysqli_real_escape_string($gaSql['link'], $_GET['iDisplayStart']) . ", " .
         mysqli_real_escape_string($gaSql['link'], $_GET['iDisplayLength']);
 }
-
 if (isset($_GET['iSortCol_0'])) {
-    $sOrder = "ORDER BY ";
+    $sOrder = "ORDER BY  ";
     $sortingCols = intval($_GET['iSortingCols']); 
     for ($i = 0; $i < $sortingCols; $i++) {
         $sortableColumnIndex = intval($_GET['iSortCol_' . $i]);
@@ -130,18 +125,16 @@ $output = array(
 
 $no = $_GET['iDisplayStart'] + 1;
 while ($dataRow = mysqli_fetch_array($rResult)) {
-
         $idbuku = $dataRow['idbuku'];
         $judul = $dataRow['judul'];
         $tglpinjam = $dataRow['tglpinjam'];
         $tglhrskembali = $dataRow['tglhrskembali'];
-
-            $row = array($no, $idbuku, $judul ,$tglpinjam, $tglhrskembali);
         
+        $row = array($no, $idbuku, $judul,$tglpinjam, $tglhrskembali);
         $no++;
         $output['aaData'][] = $row;
-    
-}
+    }
+
 
 echo json_encode($output);
 ?>
