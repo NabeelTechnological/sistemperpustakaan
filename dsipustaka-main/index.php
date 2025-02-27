@@ -6,65 +6,49 @@ error_reporting(E_ALL ^ (E_NOTICE | E_WARNING));
 
 ?>
 
-<!DOCTYPE html>
-<!-- 
-Template Name: Metronic - Responsive Admin Dashboard Template build with Twitter Bootstrap 3.1.1
-Version: 2.0.2
-Author: KeenThemes
-Website: http://www.keenthemes.com/
-Contact: support@keenthemes.com
-Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021469?ref=keenthemes
-License: You must have a valid license purchased only from themeforest(the above link) in order to legally use the theme for your project.
--->
-<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
-<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
-<!--[if !IE]><!-->
-<html lang="en" class="no-js">
-<!--<![endif]-->
-<!-- BEGIN HEAD -->
+<html lang="en">
 <head>
-<meta charset="utf-8"/>
-<title>DSI Pustaka - Panel Login</title>
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<meta content="" name="description"/>
-<meta content="" name="author"/>
-<!-- BEGIN GLOBAL MANDATORY STYLES -->
-<link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css"/>
-<link href="assets/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
-<link href="assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
-<link href="assets/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css"/>
-<!-- END GLOBAL MANDATORY STYLES -->
-<!-- BEGIN PAGE LEVEL STYLES -->
-<link rel="stylesheet" type="text/css" href="assets/plugins/select2/select2.css"/>
-<link rel="stylesheet" type="text/css" href="assets/plugins/select2/select2-metronic.css"/>
-<!-- END PAGE LEVEL SCRIPTS -->
-<!-- BEGIN THEME STYLES -->
-<link href="assets/css/style-metronic.css" rel="stylesheet" type="text/css"/>
-<link href="assets/css/style.css" rel="stylesheet" type="text/css"/>
-<link href="assets/css/style-responsive.css" rel="stylesheet" type="text/css"/>
-<link href="assets/css/plugins.css" rel="stylesheet" type="text/css"/>
-<link href="assets/css/themes/default.css" rel="stylesheet" type="text/css" id="style_color"/>
-<link href="assets/css/pages/login-soft.css" rel="stylesheet" type="text/css"/>
-<link href="assets/css/custom.css" rel="stylesheet" type="text/css"/>
-<!-- END THEME STYLES -->
-<link rel="shortcut icon" href="favicon.ico"/>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Login Page</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+    <script>
+        function togglePasswordVisibility() {
+            const passwordInput = document.getElementById('password');
+            const eyeIcon = document.getElementById('eye-icon');
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                eyeIcon.classList.remove('fa-eye');
+                eyeIcon.classList.add('fa-eye-slash');
+            } else {
+                passwordInput.type = 'password';
+                eyeIcon.classList.remove('fa-eye-slash');
+                eyeIcon.classList.add('fa-eye');
+            }
+        }
+    </script>
 </head>
-<!-- END HEAD -->
-<!-- BEGIN BODY -->
-<body class="login">
-<!-- BEGIN LOGO -->
-<div class="logo">
-  <a>
-    <!-- <img src="assets/img/DSIPustaka.png" alt="" width="360px"/> -->
-  </a>
-</div>
-<!-- END LOGO -->
-<!-- BEGIN LOGIN -->
-<div class="content">
+<body class="bg-gray-100">
+    <div class="flex h-screen">
+        <!-- Left Image Section -->
+        <div class="hidden lg:block lg:w-3/5">
+            <img alt="cover left" class="w-full h-full object-cover" height="600" src="assets/img/pustaka.png" width="800"/>
+        </div>
+        <!-- Right Form Section -->
+        <div class="flex flex-col justify-center items-center w-full lg:w-2/5 bg-white p-8 relative top-[-20px]">
+        <h1 class="text-3xl font-bold mb-4">
+        <span class="text-red-500">D</span>
+        <span class="text-yellow-500">S</span>
+        <span class="text-green-500">I</span> 
+        <span class="text-grey-500">Pustaka</span>
+        </h1>
+            <!-- <img alt="Dsi Pustaka logo" class="mb-4" height="20" src="assets/img/logo pt.dsi.png" width="100"/> -->
+            <h2 class="text-xl mb-6">Halaman DSI Pustaka Login</h2>
+            <div class="content">
   <!-- BEGIN LOGIN FORM -->
-  <form class="login-form" action="masuk.php" method="post">
-    <h4 class="form-title">DSI Pustaka Login</h4>
+  <form class="login-form w-[400px] mx-auto" action="masuk.php" method="post">
+    <!-- <h4 class="form-title">DSI Pustaka Login</h4> -->
     <?php
       if (isset($_SESSION['pesan']) && $_SESSION['pesan'] <> '') {
           echo '<div class="alert alert-danger alert-dismissable">
@@ -72,28 +56,29 @@ License: You must have a valid license purchased only from themeforest(the above
         }
       $_SESSION['pesan'] = '';
       ?>
-    <div class="form-group">
+    <div class="mb-4">
       <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
-      <label class="control-label visible-ie8 visible-ie9">Username</label>
+      <label class="block text-black text-lg  mb-2">Username</label>
       <div class="input-icon">
-        <i class="fa fa-user"></i>
-        <input class="form-control placeholder-no-fix" type="text" autocomplete="off" placeholder="Username" name="username"/>
+        <!-- <i class="fa fa-user"></i> <br> -->
+        <input class="rounded-md w-full border-b-2 border-transparent py-2 px-1 text-gray-700 focus:outline-none focus:border-blue-500" type="text" autocomplete="off" placeholder="Masukkan Username" name="username" id="username"/>
       </div>
     </div>
-    <div class="form-group">
-      <label class="control-label visible-ie8 visible-ie9">Password</label>
-      <div class="input-icon">
-        <i class="fa fa-lock"></i>
-        <input class="form-control placeholder-no-fix" type="password" autocomplete="off" placeholder="Password" name="password"/>
-      </div>
+    <div class="mb-6">
+        <label class="block text-black text-lg  mb-2" for="password">Password</label>
+        <div class="relative">
+          <i class="fas fa-eye absolute right-3 top-3 text-gray-500 cursor-pointer" id="eye-icon" onclick="togglePasswordVisibility()"></i>
+          <input class="rounded-md w-full border-b-2 border-transparent py-2 px-1 text-gray-700 focus:outline-none focus:border-blue-500" id="password" type="password" autocomplete="off" placeholder="Masukkan Password" name="password"/>
+        </div>
     </div>
     <div class="form-actions">
       <label class="checkbox">
-      <input type="checkbox" name="txtAdmin" value="admin"/> Remember </label>
-      <button type="submit" class="btn blue pull-right" name="btnLogin">
-      Login <i class="m-icon-swapright m-icon-white"></i>
-      </button>
-    </div>
+      <!-- <input type="checkbox" name="txtAdmin" value="admin"/> Remember </label> -->
+      <button type="submit" class="relative flex items-center justify-center mx-auto shadow-2xl border-2 border-blue-500 text-white font-bold py-2 px-20 w-full rounded focus:outline-none focus:shadow-outline bg-blue-500 hover:bg-transparent hover:text-blue-500 active:bg-transparent active:text-blue-500">
+    login
+</button>
+
+    </div> <br>
     <div class="forget-password">
       <h5>Lupa password anda ?</h5>
       <p>
@@ -102,44 +87,35 @@ License: You must have a valid license purchased only from themeforest(the above
     </div>
   </form>
 </div>
-<!-- END LOGIN -->
-<!-- BEGIN COPYRIGHT -->
-<br>
-<div class="copyright">
-   Hubungi : office@klikdsi.com 
-</div>
-<!-- END COPYRIGHT -->
-<!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
-<!-- BEGIN CORE PLUGINS -->
-<!--[if lt IE 9]>
-  <script src="assets/plugins/respond.min.js"></script>
-  <script src="assets/plugins/excanvas.min.js"></script> 
-  <![endif]-->
-<script src="assets/plugins/jquery-1.10.2.min.js" type="text/javascript"></script>
-<script src="assets/plugins/jquery-migrate-1.2.1.min.js" type="text/javascript"></script>
-<script src="assets/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
-<script src="assets/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js" type="text/javascript"></script>
-<script src="assets/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
-<script src="assets/plugins/jquery.blockui.min.js" type="text/javascript"></script>
-<script src="assets/plugins/jquery.cokie.min.js" type="text/javascript"></script>
-<script src="assets/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
-<!-- END CORE PLUGINS -->
-<!-- BEGIN PAGE LEVEL PLUGINS -->
-<script src="assets/plugins/jquery-validation/dist/jquery.validate.min.js" type="text/javascript"></script>
-<script src="assets/plugins/backstretch/jquery.backstretch.min.js" type="text/javascript"></script>
-<script type="text/javascript" src="assets/plugins/select2/select2.min.js"></script>
-<!-- END PAGE LEVEL PLUGINS -->
-<!-- BEGIN PAGE LEVEL SCRIPTS -->
-<script src="assets/scripts/core/app.js" type="text/javascript"></script>
-<script src="assets/scripts/custom/login-soft.js" type="text/javascript"></script>
-<!-- END PAGE LEVEL SCRIPTS -->
-<script>
-    jQuery(document).ready(function() {     
-      App.init();
-      Login.init();
-    });
-  </script>
-<!-- END JAVASCRIPTS -->
+            <!-- <div class="mt-8 text-center">
+                <p class="text-gray-500">Powered by :</p>
+                <img alt="Dsi Pustaka logo" class="mx-auto my-2" height="50" src="assets/img/logo_esikat.png" width="150"/>
+                <p class="text-gray-500"><i class="fas fa-envelope"></i> office@klikdsi.com</p>
+                <p class="text-gray-500"><i class="fas fa-phone"></i>0857-4000-8282 (Reza)</p>
+            </div> -->
+
+            <div class="text-center mt-10">
+   <p class="text-lg font-semibold">
+    Powered by :
+   </p>
+   <div class="flex items-center justify-center mt-2">
+    <img alt="esikatERP logo with text 'esikatERP by DSi'" class="border p-1 mr-4" height="50" src="assets/img/logo_esikat.png" width="120"/>
+    <div class="text-left">
+     <div class="flex items-center mt-1">
+      <i class="fas fa-envelope mr-1">
+      </i>
+      <span>
+       office@klikdsi.com
+      </span>
+     </div>
+     <div class="flex items-center mt-1">
+      <i class="fas fa-phone mr-1">
+      </i>
+      <span>
+       0857-4000-8282 (Reza)
+      </span>
+     </div>
+        </div>
+    </div>
 </body>
-<!-- END BODY -->
 </html>
