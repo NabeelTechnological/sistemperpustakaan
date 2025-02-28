@@ -1,0 +1,43 @@
+Minute of meeting MK Sabtu 8 Maret 2023
+Informasi :
+- ada 9 mesin finger print
+- setiap hari impor data
+- berupa file text
+- sudah dipakai sebelum 2018
+- kalau datang : 15 menit sebelum 7, jam 06.45 - 07.00
+- kalau pulang : maksimal 15 menit
+
+Permintaan : 
+- Realnya hari sabtu itu pulang s.d 16.00 tapi untuk Laporan audit disistem tampilnya hanya sampai jam 12
+- Ditambahkan keterangan absen(izin, sakit atau alfa) dilampirkan surat pendukung (Surat Dokter atau yg lain) untuk laporan audit.
+	Form penambahan absensi
+- Dibuatkan report penggajian harian. Ini hanya untuk overtime, uangnya tetap bersamaan dengan penggajian bulanan.
+  param :   per jumlah jam 
+			per hari 
+			
+	LAPORAN PENGGAJIAN OVERTIME 
+	TANGGAL 11 APRIL 2023 
+	UNTUK OVERTIME 1 JAM
+
+- Ditambahkan fitur upload Surat pengalaman kerja (ini data pegawai)
+- menu laporan bisa menampilkan datanya.
+
+
+UPDATE 11/4:
+1. Perubahan Modul Master dan Semua Laporan
+	AREA  		diubah menjadi DEPARTEMEN		tabel tetap : t_cabang
+	DEPARTEMEN  diubah menjadi BAGIAN 			tabel tetap : t_bagian
+	
+	file : 
+	laporan_penggajian.php
+	spl_tambah.php menambahkan data bagian pada SPL
+	spl_data.php
+	lembur_data.php
+	lembur_tambah.php
+	
+	DB: 
+	ALTER TABLE `t_spl`
+	ADD COLUMN `id_bagian`  int(5) NOT NULL DEFAULT 11 AFTER `id_user`;
+	ALTER TABLE `t_spl`
+	ADD COLUMN `kategori_lembur`  int(1) NOT NULL DEFAULT 1 AFTER `id_bagian`;
+	
