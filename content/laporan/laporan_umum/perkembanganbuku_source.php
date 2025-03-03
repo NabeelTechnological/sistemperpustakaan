@@ -160,6 +160,7 @@ $no = $_GET['iDisplayStart'] + 1;
 
 		$no++; 
 		$output['aaData'][] = $row;
+
 	}
 	echo json_encode($output);
 ?>

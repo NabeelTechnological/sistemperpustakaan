@@ -23,16 +23,15 @@
                     <?php
                     $dataSql = "SELECT kode, subyek FROM ttemsubyek WHERE noapk = $_SESSION[noapk] ORDER BY kode ";
                     $dataQry = mysqli_query($koneksidb, $dataSql) or die("Gagal Query" . mysqli_error($koneksidb));
-                    $kode = 0;
+                    
                     while ($dataRow = mysqli_fetch_array($dataQry)) {
-                        if (@$dataSubyek."00" == $dataRow['kode']) {
-                            $cek = " selected";
-                        } else {
-                            $cek = "";
-                        }
-                        echo "<option value='$kode' $cek>[$dataRow[kode]] $dataRow[subyek]</option>";
-                        $kode++;
+                        // Pastikan nilai yang dipilih tetap sesuai
+                        $cek = ($dataSubyek == $dataRow['kode']) ? "selected" : "";
+                        
+                        // Perbaiki value agar sesuai dengan database
+                        echo "<option value='".$dataRow['kode']."' $cek>[".$dataRow['kode']."] ".$dataRow['subyek']."</option>";
                     }
+                    
                     $sqlData = "";
                     ?>
               </select>

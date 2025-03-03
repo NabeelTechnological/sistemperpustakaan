@@ -18,7 +18,7 @@
 <form action="export.php?lap=pelaporan&page=<?= basename($_SERVER["SCRIPT_FILENAME"])?>" method="post" class="form-horizontal" data-validate="parsley"  name="form1">
 <div class="portlet box <?= $_SESSION['warnabar'] ?>">
     <div class="portlet-title">
-        <div class="caption">Laporan Pengunjung</div>
+        <div class="caption">Pelaporan Pengunjung</div>
         <div class="tools">
             <a href="javascript:;" class="collapse"></a>
             <a href="javascript:;" class="reload"></a>
@@ -160,7 +160,7 @@ if (isset($_GET['btnsave'])){
 <br>
 <div class="portlet box <?= $_SESSION['warnabar'] ?>">
     <div class="portlet-title">
-      <div class="caption">Data Pelaporan</div>
+      <div class="caption">Data Pelaporan Pengunjung</div>
       <div class="actions">
  
       </div>

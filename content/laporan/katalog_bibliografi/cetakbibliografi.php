@@ -1,7 +1,8 @@
 <?php 
 $kode = $_POST['txtSubyek'];
-$kodeSubyek = $kode."00";
-$dataSubyekQry = $kode."%";
+$kodeSubyek = $kode;
+$dataSubyekQry = $kode . "%";
+
 
 if ($kode==NULL) {
     echo "<div class='alert alert-danger alert-dismissable'>

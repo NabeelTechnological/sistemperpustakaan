@@ -16,7 +16,6 @@ if(!isset($_SESSION['iduser'])){
 $_SESSION['warnabar'] = 'blue';
 $_SESSION['warnatombol'] = 'blue';
  
- 
 
 $sqlAmbil = "SELECT * FROM ruser WHERE iduser='".$_SESSION['iduser']."'";
 $qryAmbil = mysqli_query( $koneksidb, $sqlAmbil) or die ("Eror hapus data".mysqli_error($koneksidb));
@@ -206,6 +205,8 @@ License: You must have a valid license purchased only from themeforest(the above
               <li><a href="?content=pencatatan">Daftar Pengunjung</a></li>
               <li><a href="?content=grafiktopten">Grafik Top 10</a></li>
               <li><a href="?content=grafikjumlahpengunjung">Grafik Jumlah Pengunjung</a></li>
+              <li><a href="?content=pelaporan" class="dropdown-item">Pelaporan Anggota</a></li>
+              <li><a href="?content=grafikpeminjamanbuku" class="dropdown-item">Grafik Peminjaman Buku</a></li>
             </ul>
           </li>
           <li class="classic-menu-dropdown">
@@ -225,6 +226,7 @@ License: You must have a valid license purchased only from themeforest(the above
                   <ul class="dropdown-menu">
                     <li><a href="?content=cetakkatalog" class="dropdown-item">Cetak Katalog</a></li>
                     <li><a href="?content=cetakkodebukucd" class="dropdown-item">Cetak Kode (Punggung) Buku/CD</a></li>
+                    <li><a href="?content=cetakbibliografi" class="dropdown-item">Cetak Bibliografi</a></li>
                   </ul>
               </li>
               <li class="dropdown-submenu"><a href="#" class="dropdown-item">Laporan Umum</a>
@@ -234,9 +236,12 @@ License: You must have a valid license purchased only from themeforest(the above
                     <!-- <li><a href="?content=koleksibukureferensi" class="dropdown-item">Koleksi Kode klasifikasi</a></li> -->
                     <!-- <li><a href="?content=koleksicdlengkap" class="dropdown-item">Koleksi CD Lengkap</a></li> -->
                     <li><a href="?content=rekapkoleksibuku" class="dropdown-item">Rekap Koleksi Buku</a></li> 
+                    <li><a href="?content=perkembanganbuku" class="dropdown-item">Perkembangan Buku</a></li>
+                    <li><a href="?content=rekapdenda" class="dropdown-item">Rekap Denda</a></li>
                     <li>-------------------------</li> 
                     <li><a href="?content=daftaranggota" class="dropdown-item">Daftar Anggota</a></li>
-                    <li><a href="?content=rekapjumlahanggota" class="dropdown-item">Rekap Jumlah Anggota</a></li>
+                    <li><a href="?content=rekapjumlahanggota" class="dropdown-item">Rekap Jumlah Pengunjung / Anggota</a></li>
+                    <li><a href="?content=kartubebastanggungan" class="dropdown-item">Kartu Bebas Tanggungan</a></li>
                   </ul>
               </li>
             </ul>
@@ -306,7 +311,7 @@ License: You must have a valid license purchased only from themeforest(the above
                     <li><a href="?content=rekapkoleksibuku" class="dropdown-item">Rekap Koleksi Buku</a></li> 
                     <li>-------------------------</li> 
                     <li><a href="?content=daftaranggota" class="dropdown-item">Daftar Anggota</a></li>
-                    <li><a href="?content=rekapjumlahanggota" class="dropdown-item">Rekap Jumlah Anggota</a></li>
+                    <li><a href="?content=rekapjumlahanggota" class="dropdown-item">Rekap Jumlah Pengunjung / Anggota</a></li>
                   </ul>
               </li>
             </ul>
@@ -483,7 +488,7 @@ License: You must have a valid license purchased only from themeforest(the above
                     <li><a href="?content=rekapkoleksibuku" >Rekap Koleksi Buku</a></li> 
                     <li>-------------------------</li> 
                     <li><a href="?content=daftaranggota" >Daftar Anggota</a></li>
-                    <li><a href="?content=rekapjumlahanggota" >Rekap Jumlah Anggota</a></li>
+                    <li><a href="?content=rekapjumlahanggota" >Rekap Jumlah Pengunjung / Anggota</a></li>
                   </ul>
               </li>
             </ul>

@@ -11,7 +11,7 @@
 <form action="export.php?lap=rekapjumlahanggota&page=<?= basename($_SERVER["SCRIPT_FILENAME"])?>" method="post" class="form-horizontal" data-validate="parsley" role="form"  name="form1">
 <div class="portlet box <?= $_SESSION['warnabar'] ?>">
     <div class="portlet-title">
-        <div class="caption">Rekapitulasi Anggota</div>
+        <div class="caption">Rekapitulasi Pengunjung / Anggota </div>
     </div>
     
     <div class="portlet-body form">
@@ -59,7 +59,7 @@ if (isset($_GET['btnsave'])){
 <br>
 <div class="portlet box <?= $_SESSION['warnabar'] ?>">
     <div class="portlet-title">
-      <div class="caption">Data Rekapitulasi Anggota</div>
+      <div class="caption">Data Rekapitulasi Pengunjung / Anggota </div>
       <div class="actions">
  
       </div>

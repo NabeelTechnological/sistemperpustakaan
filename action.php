@@ -240,6 +240,10 @@ if (isset($_GET['act'])){
 		//rekap jumlah anggota
 		include "content/laporan/laporan_umum/rekapjumlahanggota_source.php";
 	}
-
+	
+	else if($_GET['act']=="46"){
+		//grafik peminjaman buku
+		include "content/pengunjung/grafik_peminjaman_buku/peminjamanbuku.php";
+	}
 }
 ?>

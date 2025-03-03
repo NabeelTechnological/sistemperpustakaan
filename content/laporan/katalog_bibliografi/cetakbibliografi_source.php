@@ -1,7 +1,7 @@
 <?php 
 $kode = $_POST['txtSubyek'];
-$kodeSubyek = $kode."00";
-$dataSubyekQry = $kode."%";
+$kodeSubyek = $kode;
+$dataSubyekQry = $kode . "%";
 
 if ($kode==NULL) {
     echo "<div class='alert alert-danger alert-dismissable'>
@@ -43,7 +43,8 @@ if ($kode==NULL) {
 </style>
 
 <div style="margin: 20px;">
-    <h4>[<?= $kode ?>00] <?= $subyek ?></h4>
+<h4>[<?= str_pad($kode, 3, "0", STR_PAD_LEFT) ?>] <?= $subyek ?></h4>
+
 </div>
 
 <?php while (mysqli_stmt_fetch($stmt)) {
