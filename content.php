@@ -89,7 +89,7 @@ if($pg=="home"){ include "content/home_administrator.php"; }
 		elseif($pg=="grafiktopten"){ include "content/pengunjung/grafik_top_ten/grafiktopten_vw.php"; }
 		elseif($pg=="grafikjumlahpengunjung"){ include "content/pengunjung/grafik_jumlah_pengunjung/grafikjumlahpengunjung_vw.php"; }
 		elseif($pg=="pelaporan"){ include "content/pengunjung/pelaporan/pelaporan_vw.php"; }
-		elseif($pg=="peminjamanbuku"){ include "content/pengunjung/grafik_peminjaman_buku/peminjamanbuku.php"; }
+		elseif($pg=="grafikpeminjamanbuku"){ include "content/pengunjung/grafik_peminjaman_buku/peminjamanbuku.php"; }
 
 //LAPORAN
 	//Koleksi Perpustakaan

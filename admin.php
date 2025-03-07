@@ -319,14 +319,13 @@ License: You must have a valid license purchased only from themeforest(the above
         <?php }else { 
         ?>  
          <li class="classic-menu-dropdown">
-            <a data-toggle="dropdown" href="javascript:;">PUSTAKA<i class="fa fa-angle-down"></i></a>
-            <ul class="dropdown-menu">
-              <li class="dropdown-submenu"><a href="#" class="dropdown-item">Buku</a>
-                  <ul class="dropdown-menu">
-                    <li><a href="?content=buku" class="dropdown-item">Cari Buku</a></li>
-                  </ul>
-              </li>
-            </ul>
+            <a  href="?content=buku">CARI BUKU<i class=""></i></a>
+            
+          </li>
+          <li class="classic-menu-dropdown">
+
+            <a href="?content=pencatatan">ABSENSI<i class=""></i></a>
+            
           </li>
         <?php  
         } //Akhir Menu Bea Cukai

@@ -1,3 +1,4 @@
+
 <?php 
 
 $dataHarian         = (isset($_SESSION['dataHarian'])) ? $_SESSION['dataHarian'] : "";
@@ -127,22 +128,25 @@ $aResultFilterTotal = mysqli_fetch_array($rResultFilterTotal);
 $iFilteredTotal = $aResultFilterTotal[0];
 
 
-if($dataHarian != "" && $dataPilihan == "harian"){
+if ($dataHarian != "" && $dataPilihan == "harian , bulanan , custom") {
     $sQuery = "
-    SELECT COUNT($sIndexColumn)
-    FROM  $sTable
-    $sWhereDefault
+    SELECT SQL_CALC_FOUND_ROWS tglkunjung, nipnis, nama
+    FROM $sTable
+    $sWhere 
+    $sOrder
+    $sLimit
     ";
-}else{
+} else {
     $sQuery = "
-    SELECT COUNT(*)
-    FROM  (SELECT ".str_replace(" , ", " ", implode(", ", $aColumns))." ,COUNT(*) AS jmlpengunjung
-    FROM   $sTable
-    $sWhereDefault
+    SELECT SQL_CALC_FOUND_ROWS tglkunjung, COUNT(*) AS jmlpengunjung
+    FROM $sTable
+    $sWhere 
     $sGroup
-    ) AS subquery
+    $sOrder
+    $sLimit
     ";
 }
+
 
 $rResultTotal = mysqli_query( $gaSql['link'],$sQuery ) or die(mysqli_error($gaSql['link']));
 $aResultTotal = mysqli_fetch_array($rResultTotal);
@@ -156,24 +160,27 @@ $output = array(
 );
 
 $no = $_GET['iDisplayStart'] + 1;
-	while ( $dataRow = mysqli_fetch_array( $rResult ) )
-	{
-        $tanggal 		= $dataRow['tglkunjung'];
-        if($dataHarian != "" && $dataPilihan == "harian"){
-            $nipnis         =  $dataRow['nipnis'];
-            $nama           =  $dataRow['nama'];
+while ($dataRow = mysqli_fetch_array($rResult)) {
+    $tanggal = $dataRow['tglkunjung'];
+    
+    if ($dataHarian != "" && $dataPilihan == "harian") {
+        $nipnis = $dataRow['nipnis'];
+        $nama = $dataRow['nama'];
 
-            if($tampil == "tampilAnggota"){
-                $row = array($no, $tanggal, $nipnis, $nama);      
-            }else if($tampil == "tampilTamu"){
-                $row = array($no, $tanggal, "-", $nipnis);  
-            }
-        }else{
-            $jumlah_pengunjung = $dataRow['jmlpengunjung'];
-            $row = array($no, $tanggal, $jumlah_pengunjung); 
+        if ($tampil == "tampilAnggota") {
+            $row = array($no, $tanggal, $nipnis, $nama);
+        } else if ($tampil == "tampilTamu") {
+            $row = array($no, $tanggal, "-", $nipnis);
         }
-		$no++; 
-		$output['aaData'][] = $row;
-	}
+    } else {
+        // Jika data bulanan atau custom, kita hanya tampilkan jumlah pengunjung
+        $jumlah_pengunjung = $dataRow['jmlpengunjung'];
+        $row = array($no, $tanggal, $jumlah_pengunjung);
+    }
+
+    $no++;
+    $output['aaData'][] = $row;
+}
+
 	echo json_encode($output);
 ?>

@@ -38,8 +38,21 @@
             <div><label class="control-label">Bulanan</label></div>
 			<label class="col-lg-3 control-label" style="padding-left:0;">Bulan </label>
 			<div class="col-lg-1">
-				<input type="number" name="txtBulan" value="<?= $dataBulan ?>" class="form-control sm" style="width:50px;">
-        	</div>
+    <select name="txtBulan" class="form-control sm">
+        <option value="01" <?= $dataBulan == '01' ? 'selected' : '' ?>>Januari</option>
+        <option value="02" <?= $dataBulan == '02' ? 'selected' : '' ?>>Februari</option>
+        <option value="03" <?= $dataBulan == '03' ? 'selected' : '' ?>>Maret</option>
+        <option value="04" <?= $dataBulan == '04' ? 'selected' : '' ?>>April</option>
+        <option value="05" <?= $dataBulan == '05' ? 'selected' : '' ?>>Mei</option>
+        <option value="06" <?= $dataBulan == '06' ? 'selected' : '' ?>>Juni</option>
+        <option value="07" <?= $dataBulan == '07' ? 'selected' : '' ?>>Juli</option>
+        <option value="08" <?= $dataBulan == '08' ? 'selected' : '' ?>>Agustus</option>
+        <option value="09" <?= $dataBulan == '09' ? 'selected' : '' ?>>September</option>
+        <option value="10" <?= $dataBulan == '10' ? 'selected' : '' ?>>Oktober</option>
+        <option value="11" <?= $dataBulan == '11' ? 'selected' : '' ?>>November</option>
+        <option value="12" <?= $dataBulan == '12' ? 'selected' : '' ?>>Desember</option>
+    </select>
+</div>
 			<label class="col-lg-3 control-label" style="padding-left:0; margin-left:50px;">Tahun </label>
 			<div class="col-lg-1" >
 				<input type="number" name="txtTahun" value="<?= $dataTahun ?>" class="form-control sm" style="width:100px;">

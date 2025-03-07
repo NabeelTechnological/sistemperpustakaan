@@ -52,7 +52,7 @@ if(isset($_POST['btnTampil'])){
 <form action="<?php $_SERVER['PHP_SELF']; ?>" method="post" class="form-horizontal" data-validate="parsley" name="form1">
     <div class="portlet box <?= $_SESSION['warnabar'] ?>">
         <div class="portlet-title">
-            <div class="caption">Grafik Peminjaman Buku Perpustakaan</div>
+            <div class="caption">Grafik Peminjaman Kolektif Buku Perpustakaan</div>
             <div class="tools">
                 <a href="javascript:;" class="collapse"></a>
                 <a href="javascript:;" class="reload"></a>
@@ -110,7 +110,7 @@ if(isset($_POST['btnTampil'])){
         Highcharts.chart('container_1', {
             chart: { type: 'column' },
             title: { 
-                text: 'Grafik Peminjaman Buku Perpustakaan',
+                text: 'Grafik Peminjaman Kolektif Buku Perpustakaan',
                 style: { fontSize: '14px', fontFamily: 'karnel' }
             },
             xAxis: { title: { text: 'Bulan' }, categories: categories },
