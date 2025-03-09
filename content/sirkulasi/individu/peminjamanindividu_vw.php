@@ -502,18 +502,9 @@ if (!isset($_GET['id']) || $_GET['id'] == "") {
                                     <div class="form-group">
 						<label class="col-lg-2 control-label">ID Buku</label>
 						<div class="col-lg-6">
-							<select id="txtIdBuku" name="txtIdBuku" value="<?php echo @$dataIdBuku; ?>" data-placeholder="- Pilih Id Buku -" class="select2me form-control sm" class="kdbuku form-control sm" required>
-								<option value="<?php echo @$dataIdBuku; ?>"></option>
-								<?php
-								$dataSql = "SELECT idbuku, judul FROM tbuku WHERE noapk = $_SESSION[noapk] ORDER BY id";
-								$dataQry = mysqli_query($koneksidb, $dataSql) or die("Gagal Query: " . mysqli_error($koneksidb));
-								while ($dataRow = mysqli_fetch_array($dataQry)) {
-									$cek = (@$dataIdBuku == $dataRow['idbuku']) ? "selected" : "";
-									// echo "<option value='{$dataRow['kode']}' $cek>{$dataRow['kode']}</option>";
-									echo "<option value='{$dataRow['idbuku']}' data-nama='{$dataRow['judul']}' $selected>{$dataRow['idbuku']} - {$dataRow['judul']}</option>";
-								}
-								?>
-							</select>
+							<input id="txtIdBuku" name="txtIdBuku" value="<?php echo @$dataIdBuku; ?>" data-placeholder="- Pilih Id Buku -" class="select2me form-control sm" class="kdbuku form-control sm" required>
+
+							</input>
 						</div>
                         <div class="col-lg-1">
                                     <button type="button" id="cariBuku" class="btn <?= $_SESSION['warnabar'] ?>"><i class="fa fa-search"></i> Cari</button>

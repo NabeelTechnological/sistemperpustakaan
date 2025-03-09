@@ -21,7 +21,7 @@
               <select id="txtSubyek" name="txtSubyek" data-placeholder="- Pilih Golongan -" class="select2me form-control" required>
               <option value=""></option>
                     <?php
-                    $dataSql = "SELECT kode, subyek FROM ttemsubyek WHERE noapk = $_SESSION[noapk] ORDER BY kode ";
+                    $dataSql = "SELECT kode, subyek FROM rsubyek WHERE noapk = $_SESSION[noapk] ORDER BY kode ";
                     $dataQry = mysqli_query($koneksidb, $dataSql) or die("Gagal Query" . mysqli_error($koneksidb));
                     
                     while ($dataRow = mysqli_fetch_array($dataQry)) {

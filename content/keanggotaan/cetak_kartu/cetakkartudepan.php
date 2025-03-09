@@ -74,6 +74,11 @@ if($jenis=="1"){
 else if($jenis=="2"){
     $jenis_anggota = "GURU/KARYAWAN";
 }    
+
+// Konversi BLOB ke Base64
+$photo_base64 = base64_encode($photo);
+$photo_src = "data:image/jpeg;base64," . $photo_base64;
+
 ?>
 
 <div class="col-xs-6">
@@ -123,7 +128,9 @@ else if($jenis=="2"){
             </div>
         </div>
         <div class="col-xs-4 text-right" style="margin-top:5px;">
-            <img src="<?= $photo ?>" alt="foto" style="width:2.25cm; height:2.8cm">
+            <!-- <img src="<?= $photo ?>" alt="foto" style="width:2.25cm; height:2.8cm"> -->
+            <img src="data:image/jpeg;base64,<?= base64_encode($photo) ?>" alt="foto" style="width:2.25cm; height:2.8cm">
+
         </div>
     </div>
 </div>

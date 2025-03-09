@@ -163,7 +163,11 @@
 		$tersedia = desTersediaBuku($dataRow['tersedia']);
 
 		$lokasi		= $dataRow['lokasi'];
-		$cover		= $dataRow['Cover'];
+		// $cover      =$dataRow['Cover'];
+		$cover = !empty($dataRow['Cover']) ? "data:image/jpeg;base64," . base64_encode($dataRow['Cover']) : "";
+ 
+
+
 
 		$row = array($no,$idbuku,$kodebuku,$judul,$desjnsbuku,$kode,$pengarangnormal,$pengarang,$pengarang2,$pengarang3,$namapenerbit,$nmkota,$thterbit,$nmbahasa,$nmasalbuku,$jilid,$edisi,$cetakan,$vol,$isbn,$tersedia,$lokasi,$cover); 
 

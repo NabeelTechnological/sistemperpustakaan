@@ -11,6 +11,8 @@
     $dataPhoto = NULL;
     if(isset($_FILES['txtFoto'])){
     if ($_FILES['txtFoto']['error'] == UPLOAD_ERR_OK) {
+        // $fileTmp  = $_FILES['txtFoto']['tmp_name'];
+        // $fileData = file_get_contents($fileTmp); // Ubah menjadi binary
         $qry = mysqli_query($koneksidb,"SELECT photo FROM ranggota WHERE nipnis = '$dataNipnis' AND noapk = $_SESSION[noapk]");
         $cek = mysqli_fetch_row($qry);
         if($cek){
