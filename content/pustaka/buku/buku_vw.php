@@ -38,6 +38,9 @@
     <div class="col-lg-4">
       <img id="txtCover" alt="Cover Buku" width="70%" height="70%">
     </div>
+    <div class="col-lg-4">
+      <img id="txtCover1" alt="Cover Buku" width="70%" height="70%">
+    </div>
 </div>
 <div class="row" style="margin-top: 50px;">
     <div class="col-lg-4">
@@ -226,6 +229,7 @@
             null,
             null,
             null,
+            null,
             null
           ],
           "fnInitComplete": function() {
@@ -242,7 +246,7 @@
             },
           "columnDefs": [
           { className: "dt-center", "targets": [0] }  ,
-          { "targets": [4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22], "visible": false }
+          { "targets": [4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23], "visible": false }
           ],
           "iDisplayLength": 10,
           "bInfo": true,
@@ -268,7 +272,16 @@
         $("#txtISBN").val(data[19]).prop("readonly", true);
         $("#txtStatus").val(data[20]).prop("readonly", true);
         $("#txtLokasi").val(data[21]).prop("readonly", true);
-        $("#txtCover").attr('src', data[22]);
+        console.log(data[22]);
+        if (data[22]) {
+        $("#txtCover").attr("src", data[22]).show();
+        $("#txtCover1").hide();
+    } else if (data[23]) {
+        $("#txtCover1").attr("src", data[23]).show();
+        $("#txtCover").hide();
+    } else {
+        $("#txtCover, #txtCover1").hide();
+    }
     }
   });
 

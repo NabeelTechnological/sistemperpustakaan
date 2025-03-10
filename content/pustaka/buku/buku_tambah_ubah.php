@@ -47,19 +47,19 @@ if (isset($_POST['btnSave'])) {
 	$dataIsbn        		=  isset($_POST['txtIsbn']) ? $_POST['txtIsbn'] : "";
 	$dataLokasi        		=  isset($_POST['txtLokasi']) ? $_POST['txtLokasi'] : "";
 	
-	$dataCover = "";
+	$dataCover1 = "";
 	$dataNmFile = "";
-    if(isset($_FILES['txtCover'])){
-    if ($_FILES['txtCover']['error'] == UPLOAD_ERR_OK) {
-        $qry = mysqli_query($koneksidb,"SELECT cover FROM tbuku WHERE idbuku = '$dataIdBuku' AND noapk = $_SESSION[noapk]");
+    if(isset($_FILES['txtCover1'])){
+    if ($_FILES['txtCover1']['error'] == UPLOAD_ERR_OK) {
+        $qry = mysqli_query($koneksidb,"SELECT cover1 FROM tbuku WHERE idbuku = '$dataIdBuku' AND noapk = $_SESSION[noapk]");
         $cek = mysqli_fetch_row($qry);
         if($cek){
             if($cek[0] != NULL){
                 unlink($cek[0]);
             }
         }
-        $dataCover = uploadFoto('txtCover');
-		$dataNmFile = basename($dataCover);
+        $dataCover1 = uploadFoto('txtCover1');
+		$dataNmFile = basename($dataCover1);
     }
     }
 
@@ -85,10 +85,10 @@ if (isset($_POST['btnSave'])) {
 		$cek = isIdBuku($koneksidb,$dataIdBuku);
 
 		if($cek > 0){
-			$insQry = "UPDATE tbuku SET kode = ?, idjnsbuku = ?, desjnsbuku = ?, judul = ?, pengarangnormal = ?, pengarang = ?, pengarang2 = ?, pengarang3 = ?, kodebuku = ?, Namapenerbit = ?, nmkota = ?, thterbit = ?, nmbahasa = ?, nmasalbuku = ?, cetakan = ?, edisi = ?, vol = ?, indeks = ?, halpdh = ?, tebal = ?, illus = ?, panjang = ?, jilid = ?, bibli = ?, halbibli = ?, isbn = ?, lokasi = ?, tglentri=CURDATE(), Cover = ?, nmfile = ?, jmlcopy = ?
+			$insQry = "UPDATE tbuku SET kode = ?, idjnsbuku = ?, desjnsbuku = ?, judul = ?, pengarangnormal = ?, pengarang = ?, pengarang2 = ?, pengarang3 = ?, kodebuku = ?, Namapenerbit = ?, nmkota = ?, thterbit = ?, nmbahasa = ?, nmasalbuku = ?, cetakan = ?, edisi = ?, vol = ?, indeks = ?, halpdh = ?, tebal = ?, illus = ?, panjang = ?, jilid = ?, bibli = ?, halbibli = ?, isbn = ?, lokasi = ?, tglentri=CURDATE(), Cover1 = ?, nmfile = ?, jmlcopy = ?
 			WHERE idbuku = ? AND noapk = $_SESSION[noapk]";
 			$stmt = mysqli_prepare($koneksidb, $insQry) or die("Gagal menyiapkan statement: " . mysqli_error($koneksidb));
-			mysqli_stmt_bind_param($stmt, "sssssssssssssssssssssssssssssss", $dataKode, $dataJnsBuku, $desjnsbuku, $dataJudul, $dataPengarangNormal, $dataPengarang, $dataPengarang2, $dataPengarang3, $dataKodeBuku, $dataNamaPenerbit, $dataNmKota, $dataTahunTerbit, $dataNmBahasa, $dataNmasalbuku, $dataCetakan,$dataEdisi,$dataVol,$dataIndeks,$dataHalPdh,$dataTebal,$dataIllus,$dataPanjang,$dataJilid,$dataBibli,$dataHalBibli,$dataIsbn,$dataLokasi,$dataCover,$dataNmFile,$dataKodeBuku,$dataIdBuku);
+			mysqli_stmt_bind_param($stmt, "sssssssssssssssssssssssssssssss", $dataKode, $dataJnsBuku, $desjnsbuku, $dataJudul, $dataPengarangNormal, $dataPengarang, $dataPengarang2, $dataPengarang3, $dataKodeBuku, $dataNamaPenerbit, $dataNmKota, $dataTahunTerbit, $dataNmBahasa, $dataNmasalbuku, $dataCetakan,$dataEdisi,$dataVol,$dataIndeks,$dataHalPdh,$dataTebal,$dataIllus,$dataPanjang,$dataJilid,$dataBibli,$dataHalBibli,$dataIsbn,$dataLokasi,$dataCover1,$dataNmFile,$dataKodeBuku,$dataIdBuku);
 			mysqli_stmt_execute($stmt) or die("Gagal Query Update Buku : " . mysqli_error($koneksidb));
 			mysqli_stmt_close($stmt);
 
@@ -102,7 +102,7 @@ if (isset($_POST['btnSave'])) {
 				idbuku, kode, idjnsbuku, desjnsbuku, judul, pengarangnormal, pengarang, pengarang2, pengarang3, 
 				kodebuku, idpenerbit,  namapenerbit, nmkota, thterbit, nmbahasa, nmasalbuku, cetakan, edisi, vol, 
 				indeks, halpdh, tebal, illus, panjang, jilid, bibli, halbibli, isbn, lokasi, 
-				tglentri, tersedia, Cover, nmfile, jmlcopy, noapk
+				tglentri, tersedia, Cover1, nmfile, jmlcopy, noapk
 			) 
 			VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, CURDATE(), 1, ?, ?, ?, ?)
 			";
@@ -139,7 +139,7 @@ mysqli_stmt_bind_param($stmt, "sssssssssssssssssssssssssssssssss",
     $dataHalBibli, 
     $dataIsbn, 
     $dataLokasi, 
-    $dataCover, 
+    $dataCover1, 
     $dataNmFile, 
     $dataJmlCopy, 
     $_SESSION['noapk']
@@ -178,11 +178,11 @@ if (isset($_POST['btnSaveEntriMasal'])) {
 		<strong><i class='fa fa-times'></i>&nbsp; Data Tidak Boleh Kosong </strong>
 		</div>";
 	}else{
-		$qryCek   = "SELECT idbuku,kode,idjnsbuku,desjnsbuku,judul,pengarangnormal,pengarang,pengarang2,pengarang3,kodebuku,subyek,namapenerbit,nmkota,thterbit,nmbahasa,nmasalbuku,cetakan,edisi,vol,indeks,halpdh,tebal,illus,panjang,jilid,bibli,halbibli,isbn,lokasi,Cover,nmfile FROM vw_tbuku WHERE idbuku = ? AND noapk = $_SESSION[noapk]";
+		$qryCek   = "SELECT idbuku,kode,idjnsbuku,desjnsbuku,judul,pengarangnormal,pengarang,pengarang2,pengarang3,kodebuku,subyek,namapenerbit,nmkota,thterbit,nmbahasa,nmasalbuku,cetakan,edisi,vol,indeks,halpdh,tebal,illus,panjang,jilid,bibli,halbibli,isbn,lokasi,Cover1,nmfile FROM vw_tbuku WHERE idbuku = ? AND noapk = $_SESSION[noapk]";
 		$stmt  = mysqli_prepare($koneksidb,$qryCek) or die ("Gagal menyiapkan statement: " . mysqli_error($koneksidb));
 		mysqli_stmt_bind_param($stmt,"s",$txtIdBukuMasal);
 		mysqli_stmt_execute($stmt) or die ("Gagal query ambil data: " . mysqli_error($koneksidb));
-		mysqli_stmt_bind_result($stmt,$dataIdBuku,$dataKode,$dataJnsBuku,$desjnsbuku,$dataJudul,$dataPengarangNormal,$dataPengarang,$dataPengarang2,$dataPengarang3,$dataKodeBuku,$dataSubyek,$dataNamaPenerbit,$dataNmKota,$dataTahunTerbit,$dataNmBahasa,$dataNmasalbuku,$dataCetakan,$dataEdisi,$dataVol,$dataIndeks,$dataHalPdh,$dataTebal,$dataIllus,$dataPanjang,$dataJilid,$dataBibli,$dataHalBibli,$dataIsbn,$dataLokasi,$dataCover,$dataNmFile);
+		mysqli_stmt_bind_result($stmt,$dataIdBuku,$dataKode,$dataJnsBuku,$desjnsbuku,$dataJudul,$dataPengarangNormal,$dataPengarang,$dataPengarang2,$dataPengarang3,$dataKodeBuku,$dataSubyek,$dataNamaPenerbit,$dataNmKota,$dataTahunTerbit,$dataNmBahasa,$dataNmasalbuku,$dataCetakan,$dataEdisi,$dataVol,$dataIndeks,$dataHalPdh,$dataTebal,$dataIllus,$dataPanjang,$dataJilid,$dataBibli,$dataHalBibli,$dataIsbn,$dataLokasi,$dataCover1,$dataNmFile);
 		mysqli_stmt_fetch($stmt);
 		mysqli_stmt_close($stmt);
 		for ($i=0; $i < $txtJmlMasal ; $i++) { 
@@ -192,10 +192,10 @@ if (isset($_POST['btnSaveEntriMasal'])) {
 			// $dataKodeBuku = $txtHasilDari + $i++;
 			//$dataKodeBuku = $txtHasilDari + $i++; // Menghasilkan ID buku yang unik
 
-$insQry = "insert into tbuku (idbuku, kode, idjnsbuku, desjnsbuku, judul, pengarangnormal, pengarang, pengarang2, pengarang3, kodebuku, namapenerbit, nmkota, thterbit, nmbahasa, nmasalbuku, cetakan, edisi, vol, indeks, halpdh, tebal, illus, panjang, jilid, bibli, halbibli, isbn, lokasi, tglentri, tersedia, Cover, nmfile, jmlcopy, noapk) 
+$insQry = "insert into tbuku (idbuku, kode, idjnsbuku, desjnsbuku, judul, pengarangnormal, pengarang, pengarang2, pengarang3, kodebuku, namapenerbit, nmkota, thterbit, nmbahasa, nmasalbuku, cetakan, edisi, vol, indeks, halpdh, tebal, illus, panjang, jilid, bibli, halbibli, isbn, lokasi, tglentri, tersedia, Cover1, nmfile, jmlcopy, noapk) 
 			values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, CURDATE(), 1,?,?,?,$_SESSION[noapk]) ";
 			$stmt = mysqli_prepare($koneksidb, $insQry) or die("Gagal menyiapkan statement: " . mysqli_error($koneksidb));
-			mysqli_stmt_bind_param($stmt, "sssssssssssssssssssssssssssssss", $txtHasilDari, $dataKode, $dataJnsBuku, $desjnsbuku, $dataJudul, $dataPengarangNormal, $dataPengarang, $dataPengarang2, $dataPengarang3, $dataKodeBuku, $dataNamaPenerbit, $dataNmKota, $dataTahunTerbit, $dataNmBahasa, $dataNmasalbuku, $dataCetakan,$dataEdisi,$dataVol,$dataIndeks,$dataHalPdh,$dataTebal,$dataIllus,$dataPanjang,$dataJilid,$dataBibli,$dataHalBibli,$dataIsbn,$dataLokasi,$dataCover,$dataNmFile,$dataKodeBuku);
+			mysqli_stmt_bind_param($stmt, "sssssssssssssssssssssssssssssss", $txtHasilDari, $dataKode, $dataJnsBuku, $desjnsbuku, $dataJudul, $dataPengarangNormal, $dataPengarang, $dataPengarang2, $dataPengarang3, $dataKodeBuku, $dataNamaPenerbit, $dataNmKota, $dataTahunTerbit, $dataNmBahasa, $dataNmasalbuku, $dataCetakan,$dataEdisi,$dataVol,$dataIndeks,$dataHalPdh,$dataTebal,$dataIllus,$dataPanjang,$dataJilid,$dataBibli,$dataHalBibli,$dataIsbn,$dataLokasi,$dataCover1,$dataNmFile,$dataKodeBuku);
 			mysqli_stmt_execute($stmt) or die("Gagal Query Insert Buku Masal : " . mysqli_error($koneksidb));
 			mysqli_stmt_close($stmt);
 			
@@ -537,7 +537,7 @@ $insQry = "insert into tbuku (idbuku, kode, idjnsbuku, desjnsbuku, judul, pengar
 						<div class="form-group">
 							<label class="col-lg-2 control-label">Cover</label>
 							<div class="col-lg-10">
-								<input type="file" id="txtCover" name="txtCover" class="form-control sm" /></span>
+								<input type="file" id="txtCover1" name="txtCover1" class="form-control sm" /></span>
 							</div>
 						</div>
 

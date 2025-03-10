@@ -1,6 +1,6 @@
 <?php
  //security goes here
- 	$aColumns = array( 'idbuku','kode', 'kodebuku','pengarang', 'judul', 'desjnsbuku', 'subyek', 'pengarangnormal','pengarang2','pengarang3','namapenerbit','nmkota','thterbit','nmbahasa','nmasalbuku','jilid','edisi','cetakan','vol','isbn','tersedia','lokasi','Cover');
+ 	$aColumns = array( 'idbuku','kode', 'kodebuku','pengarang', 'judul', 'desjnsbuku', 'subyek', 'pengarangnormal','pengarang2','pengarang3','namapenerbit','nmkota','thterbit','nmbahasa','nmasalbuku','jilid','edisi','cetakan','vol','isbn','tersedia','lokasi','Cover','Cover1');
 
 	//primary key
 	$sIndexColumn = "idbuku";
@@ -164,12 +164,23 @@
 
 		$lokasi		= $dataRow['lokasi'];
 		// $cover      =$dataRow['Cover'];
-		$cover = !empty($dataRow['Cover']) ? "data:image/jpeg;base64," . base64_encode($dataRow['Cover']) : "";
+		$cover = !empty($dataRow['Cover']) 
+		? "data:image/jpeg;base64," . base64_encode($dataRow['Cover']) 
+		: $dataRow['Cover1'];
+		
+		$cover1 = ['']; 
+	
+
+		
+
+		// $path = pathinfo($dataRow['Cover'],PATHINFO_EXTENSION);
+		// $data = file_get_contents($path);
+		// $cover = !empty($data) ? "data:image/jpeg;base64," . base64_encode($data) : "";
  
 
 
 
-		$row = array($no,$idbuku,$kodebuku,$judul,$desjnsbuku,$kode,$pengarangnormal,$pengarang,$pengarang2,$pengarang3,$namapenerbit,$nmkota,$thterbit,$nmbahasa,$nmasalbuku,$jilid,$edisi,$cetakan,$vol,$isbn,$tersedia,$lokasi,$cover); 
+		$row = array($no,$idbuku,$kodebuku,$judul,$desjnsbuku,$kode,$pengarangnormal,$pengarang,$pengarang2,$pengarang3,$namapenerbit,$nmkota,$thterbit,$nmbahasa,$nmasalbuku,$jilid,$edisi,$cetakan,$vol,$isbn,$tersedia,$lokasi,$cover,$cover1); 
 
 		$no++; 
 		$output['aaData'][] = $row;
