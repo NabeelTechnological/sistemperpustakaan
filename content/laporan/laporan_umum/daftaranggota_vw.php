@@ -111,7 +111,7 @@ if (isset($_GET['btnsave'])){
 
       <div id="separateForm" style="margin-top: 50px;"> </div>
     <div class="form-group">
-    <label class="control-label col-lg-1" for="separateFormInput1">Kota</label>
+    <label class="control-label col-lg-1" for="separateFormInput1">Alamat</label>
     <div class="col-lg-6">
         <textarea class="form-control" id="separateFormInput1" rows="1"></textarea>
     </div>
@@ -121,10 +121,7 @@ if (isset($_GET['btnsave'])){
     </div>
 
     <div class="form-group">
-    <label class="control-label col-lg-1" for="separateFormInput1";>Alamat</label>
-    <div class="col-lg-6">
-        <textarea class="form-control" id="separateFormInput3" rows="1"></textarea>
-    </div>
+
     <div  class="col-lg-4">
         <input class="form-control" type="hidden" id="separateFormInput4">
     </div>

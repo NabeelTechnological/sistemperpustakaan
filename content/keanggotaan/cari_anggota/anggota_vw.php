@@ -60,8 +60,7 @@
                 <td>NAMA</td>
                 <td>JENIS KELAMIN : <Br> L : Laki-Laki <br> P : Perempuan </td>
                 <td>ID STATUS : <br> 1 : Siswa <br> 2 : Guru / Karyawan </td>
-                <td>KOTA</td>
-                <Td>ALAMAT</Td>
+                <td>ALAMAT</td>
               </tr>
         </thead>
          
@@ -93,15 +92,9 @@
     </div>
     </div>
     <div class="col-lg-6">
-    <label class="control-label" for="separateFormInput1">KOTA</label>
-    <div>
-        <textarea class="form-control" id="separateFormInput5" rows="2" readonly></textarea>
-    </div>
-    </div>
-    <div class="col-lg-6">
     <label class="control-label" for="separateFormInput1">ALAMAT</label>
     <div>
-        <textarea class="form-control" id="separateFormInput6" rows="2" readonly></textarea>
+        <textarea class="form-control" id="separateFormInput5" rows="2" readonly></textarea>
     </div>
     </div>
 </div>

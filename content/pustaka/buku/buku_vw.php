@@ -36,10 +36,10 @@
       </table>
     </div>
     <div class="col-lg-4">
-      <img id="txtCover" alt="Cover Buku" width="70%" height="70%">
+      <img id="txtCover" alt="Cover Buku Tidak Ada" width="70%" height="70%">
     </div>
     <div class="col-lg-4">
-      <img id="txtCover1" alt="Cover Buku" width="70%" height="70%">
+      <img id="txtCover1" alt="Cover Buku Tidak Ada" width="70%" height="70%">
     </div>
 </div>
 <div class="row" style="margin-top: 50px;">
