@@ -1,4 +1,5 @@
 <?php 
+
 if (!isset($_POST['selected_data'])) {
 		$pagename = $_GET['page'];
         $_SESSION['pesanKesalahan'] = "<div class='alert alert-danger alert-dismissable'>
@@ -13,7 +14,7 @@ if (!isset($_POST['selected_data'])) {
     $r = mysqli_fetch_assoc($qry);
     $jml = $r['jml'];
 
-    logTransaksi($iduser, date('Y-m-d H:i:s'), 'Kartu Belakang Dicetak', $noapk);
+
 ?>
 
 <style>

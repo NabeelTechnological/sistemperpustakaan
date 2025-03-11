@@ -1,4 +1,4 @@
-<?php 
+<?php
 if (!isset($_POST['selected_data'])) {
     $pagename 		= $_GET['page'];
     $_SESSION['pesanKesalahan'] = "<div class='alert alert-danger alert-dismissable'>
@@ -16,6 +16,7 @@ echo "<script>window.location='".$pagename."?content=cetakkartu'</script>";
  mysqli_stmt_execute($stmt) or die ("Gagal Query Select Anggota : " . mysqli_error($koneksidb));
  mysqli_stmt_bind_result($stmt,$nomor,$jenis,$kelas,$nama,$alamat,$berlaku,$jnskel,$photo,$photo1);
 
+ 
 ?>
 
     <style>
@@ -81,7 +82,6 @@ $photo_src = "data:image/jpeg;base64," . $photo_base64;
 
  
 
-logTransaksi($iduser, date('Y-m-d H:i:s'), 'Kartu depan dicetak', $noapk);
 
 ?>
 

@@ -27,6 +27,8 @@ if (isset($_POST['btnSave'])){
 		mysqli_stmt_execute($stmt) or die ("Gagal Query Insert Penerbit : " . mysqli_error($koneksidb));
 		mysqli_stmt_close($stmt);
 
+		logTransaksi($iduser, date('Y-m-d H:i:s'), 'Data Penerbit Ditambah', $noapk);
+
 		echo "<div class='alert alert-success alert-dismissable'>
             <button type='button' class='close' data-dismiss='alert' aria-hidden='true'></button>
             <strong><i class='fa fa-check'></i>&nbsp;".$dataNamaPenerbit ."</strong> Sukses insert. 
