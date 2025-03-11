@@ -266,7 +266,7 @@ if(isset($_POST['btnSaveSiswa'])){
         </div>
         <label class="col-lg-2 control-label">Insert Foto</label>
         <div class="col-lg-3">
-            <input type="file" id="txtFoto" name="txtFoto"  class="form-control sm"/></span>
+            <input type="file" id="txtFoto1" name="txtFoto1"  class="form-control sm"/></span>
         </div>
     </div>
 
@@ -345,7 +345,7 @@ if(isset($_POST['btnSaveSiswa'])){
         </div>
         <label class="col-lg-2 control-label">Insert Foto</label>
         <div class="col-lg-3">
-            <input type="file" id="txtFoto" name="txtFoto"  class="form-control sm"/></span>
+            <input type="file" id="txtFoto1" name="txtFoto1"  class="form-control sm"/></span>
         </div>
     </div>
 
