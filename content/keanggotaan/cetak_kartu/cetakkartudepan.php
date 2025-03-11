@@ -11,10 +11,10 @@ echo "<script>window.location='".$pagename."?content=cetakkartu'</script>";
 
  $selectedData = isset($_POST['selected_data']) ? $_POST['selected_data'] : array();
  $conditions = implode(',', array_map('intval', $selectedData));
- $qry = "SELECT nipnis, idjnsang, idkelas, nama, alamat, berlaku, jnskel, photo FROM ranggota WHERE noapk = $_SESSION[noapk] AND nipnis IN ($conditions)";
+ $qry = "SELECT nipnis, idjnsang, idkelas, nama, alamat, berlaku, jnskel, photo, photo1 FROM ranggota WHERE noapk = $_SESSION[noapk] AND nipnis IN ($conditions)";
  $stmt = mysqli_prepare($koneksidb,$qry) or die ("Gagal menyiapkan statement: " . mysqli_error($koneksidb));
  mysqli_stmt_execute($stmt) or die ("Gagal Query Select Anggota : " . mysqli_error($koneksidb));
- mysqli_stmt_bind_result($stmt,$nomor,$jenis,$kelas,$nama,$alamat,$berlaku,$jnskel,$photo);
+ mysqli_stmt_bind_result($stmt,$nomor,$jenis,$kelas,$nama,$alamat,$berlaku,$jnskel,$photo,$photo1);
 
 ?>
 
@@ -79,6 +79,10 @@ else if($jenis=="2"){
 $photo_base64 = base64_encode($photo);
 $photo_src = "data:image/jpeg;base64," . $photo_base64;
 
+ 
+
+
+
 ?>
 
 <div class="col-xs-6">
@@ -129,7 +133,11 @@ $photo_src = "data:image/jpeg;base64," . $photo_base64;
         </div>
         <div class="col-xs-4 text-right" style="margin-top:5px;">
             <!-- <img src="<?= $photo ?>" alt="foto" style="width:2.25cm; height:2.8cm"> -->
-            <img src="data:image/jpeg;base64,<?= base64_encode($photo) ?>" alt="foto" style="width:2.25cm; height:2.8cm">
+            <?php
+            $photo_src = !empty($photo) ? "data:image/jpeg;base64," . base64_encode($photo) : $photo1;
+            ?>
+            <img src="<?= htmlspecialchars($photo_src) ?>" alt="foto" style="width:2.25cm; height:2.8cm">
+
 
         </div>
     </div>
