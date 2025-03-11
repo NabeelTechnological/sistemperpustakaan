@@ -205,7 +205,7 @@ $insQry = "insert into tbuku (idbuku, kode, idjnsbuku, desjnsbuku, judul, pengar
 			
 			$txtHasilDari++;
 
-
+			logTransaksi($iduser, date('Y-m-d H:i:s'), 'Buku di Entri Masal', $noapk);
 		}
 
 		echo "<div class='alert alert-success alert-dismissable'>
