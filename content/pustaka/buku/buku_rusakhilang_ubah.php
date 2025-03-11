@@ -3,6 +3,10 @@
 
 
 //declare variable post
+
+$iduser = $_SESSION['iduser'];
+$noapk  = $_SESSION['noapk'];
+
 if (isset($_POST['btnSave'])){
     $txtID    = isset($_POST['txtIdBuku']) ? $_POST['txtIdBuku'] : "";
     $dataKondisi   = isset($_POST['txtKondisi']) ? $_POST['txtKondisi'] : "";
@@ -19,6 +23,8 @@ if (isset($_POST['btnSave'])){
         mysqli_stmt_bind_param($stmt,"ii",$dataKondisi,$txtID);
         mysqli_stmt_execute($stmt) or die ("Gagal query ubah kondisi buku: " . mysqli_error($koneksidb));
         mysqli_stmt_close($stmt);
+
+        logTransaksi($iduser, date('Y-m-d H:i:s'), 'Kondisi data Buku Diubah', $noapk);
 
         echo "<div class='alert alert-success alert-dismissable'>
 				<button type='button' class='close' data-dismiss='alert' aria-hidden='true'></button>

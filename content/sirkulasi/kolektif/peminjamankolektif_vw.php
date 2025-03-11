@@ -1,5 +1,7 @@
 <?php
 //security goes here 
+$iduser = $_SESSION['iduser'];
+$noapk  = $_SESSION['noapk'];
 
 if (isset($_GET['id'])) {
     $txtID = $_GET['id'];
@@ -84,6 +86,8 @@ mysqli_stmt_execute($stmt) or die("Gagal Query Insert Pinjam Buku Kolektif : " .
 mysqli_stmt_close($stmt);
 
 
+logTransaksi($iduser, date('Y-m-d H:i:s'), 'Buku Dipinjam [Kolektif]', $noapk);
+
         echo "<div class='alert alert-success alert-dismissable'>
               <button type='button' class='close' data-dismiss='alert' aria-hidden='true'></button>
               <strong><i class='fa fa-check'></i>&nbsp;</strong>Data Sukses insert. 
@@ -108,6 +112,8 @@ if (isset($_POST['del'])) {
             <button type='button' class='close' data-dismiss='alert' aria-hidden='true'></button>
             <strong><i class='fa fa-check'></i>&nbsp;</strong>Berhasil melakukan pembatalan peminjaman.
             </div>";
+
+            logTransaksi($iduser, date('Y-m-d H:i:s'), 'Buku Batal Dipinjam [Kolektif]', $noapk);
         } 
     } else {
         echo "<div class='alert alert-danger alert-dismissable'>

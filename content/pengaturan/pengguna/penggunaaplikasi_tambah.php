@@ -22,6 +22,7 @@ if (isset($_POST['btnSave'])){
 		mysqli_stmt_execute($stmt) or die ("Gagal Query Insert User : " . mysqli_error($koneksidb));
 		mysqli_stmt_close($stmt);
 
+
 		echo "<div class='alert alert-success alert-dismissable'>
             <button type='button' class='close' data-dismiss='alert' aria-hidden='true'></button>
             <strong><i class='fa fa-check'></i>&nbsp;".$dataIdUser ."</strong> Sukses insert. 

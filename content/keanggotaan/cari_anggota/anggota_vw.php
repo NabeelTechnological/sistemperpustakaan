@@ -9,6 +9,8 @@
 		mysqli_stmt_execute($stmt) or die ("Gagal Query Hapus User : " . mysqli_error($koneksidb));
 		mysqli_stmt_close($stmt);
 
+        logTransaksi($iduser, date('Y-m-d H:i:s'), 'Data Anggota Dihapus', $noapk);
+
         echo "<div class='alert alert-success alert-dismissable'>
             <button type='button' class='close' data-dismiss='alert' aria-hidden='true'></button>
             <strong><i class='fa fa-check'></i>&nbsp;</strong>Data Sukses dihapus. 

@@ -1,4 +1,8 @@
 <?php
+
+$iduser = $_SESSION['iduser'];
+$noapk  = $_SESSION['noapk'];
+
         if(isset($_POST['btnPengembalian'])){
             if(empty($_POST['btnPengembalian'])){
                 echo "<div class='alert alert-danger alert-dismissable'>
@@ -14,6 +18,8 @@
                 mysqli_stmt_bind_param($stmt, "ii", $txtJmlKembali,$txtPengembalian);
                 mysqli_stmt_execute($stmt) or die("Gagal Query Update Tersedia : " . mysqli_error($koneksidb));
                 mysqli_stmt_close($stmt);
+
+                logTransaksi($iduser, date('Y-m-d H:i:s'), 'Buku Dikembalikan [Kolektif]', $noapk);
 
                 echo "<div class='alert alert-success alert-dismissable'>
             <button type='button' class='close' data-dismiss='alert' aria-hidden='true'></button>
@@ -36,6 +42,8 @@
                 mysqli_stmt_bind_param($stmt, "i", $txtPembatalan);
                 mysqli_stmt_execute($stmt) or die("Gagal Query Update Tersedia : " . mysqli_error($koneksidb));
                 mysqli_stmt_close($stmt);
+
+                logTransaksi($iduser, date('Y-m-d H:i:s'), 'Buku Batal Dikembalikan [Kolektif]', $noapk);
 
                 echo "<div class='alert alert-success alert-dismissable'>
                 <button type='button' class='close' data-dismiss='alert' aria-hidden='true'></button>

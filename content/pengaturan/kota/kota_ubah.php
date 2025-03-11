@@ -1,7 +1,8 @@
 <?php	
 // Ensure database connection is established
 // Assuming $koneksidb is the MySQL connection resource
-
+$iduser = $_SESSION['iduser'];
+$noapk  = $_SESSION['noapk'];
 // If the save button is pressed
 if (isset($_POST['btnSave'])){
 	$dataIdkota = isset($_POST['txtIdKota']) ? $_POST['txtIdKota'] : "";
@@ -20,6 +21,8 @@ if (isset($_POST['btnSave'])){
 		mysqli_stmt_bind_param($stmt, "sii", $dataKota, $dataIdkota, $_SESSION['noapk']);
 		mysqli_stmt_execute($stmt) or die ("Gagal Query Update Kota : " . mysqli_error($koneksidb));
 		mysqli_stmt_close($stmt);
+
+		logTransaksi($iduser, date('Y-m-d H:i:s'), 'Data Kota Diubah', $noapk);
 
 		echo "<div class='alert alert-success alert-dismissable'>
             <button type='button' class='close' data-dismiss='alert' aria-hidden='true'></button>

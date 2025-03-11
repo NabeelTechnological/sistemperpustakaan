@@ -25,6 +25,9 @@
     }
     }
 
+    $iduser = $_SESSION['iduser'];
+    $noapk  = $_SESSION['noapk'];
+
 if(isset($_POST['btnSaveSiswa'])){
     if(empty($dataNipnis) || empty($dataIdKelas) || empty($dataNama) || empty($dataJnskel) || empty($dataBerlaku) || empty($dataAlamat) ){
 
@@ -41,8 +44,8 @@ if(isset($_POST['btnSaveSiswa'])){
             mysqli_stmt_bind_param($stmt, "sssssssss", $dataIdKelas, $dataNama, $dataJnskel, $dataTelp, $dataBerlaku, $dataAlamat, $dataAlamat2, $dataPhoto, $dataNipnis);
             mysqli_stmt_execute($stmt) or die("Gagal Query Update Anggota : " . mysqli_error($koneksidb));
             mysqli_stmt_close($stmt);
-        
 
+            logTransaksi($iduser, date('Y-m-d H:i:s'), 'Data Anggota diubah', $noapk);
     
             echo "<div class='alert alert-success alert-dismissable'>
                 <button type='button' class='close' data-dismiss='alert' aria-hidden='true'></button>
@@ -62,6 +65,7 @@ if(isset($_POST['btnSaveSiswa'])){
                         <button type='button' class='close' data-dismiss='alert' aria-hidden='true'></button>
                         <strong><i class='fa fa-check'></i>&nbsp;</strong>Data Sukses insert. 
                     </div>";
+                    logTransaksi($iduser, date('Y-m-d H:i:s'), 'Data Anggota Ditambah', $noapk);
                 } else {
                     echo "<div class='alert alert-danger'>Gagal insert data anggota.</div>";
                 }

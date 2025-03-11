@@ -1,5 +1,7 @@
 <?php
 //security goes here 
+$iduser = $_SESSION['iduser'];
+$noapk  = $_SESSION['noapk'];
 
 if(isset($_POST['del'])){
     $txtID1    = $_POST['id1'];
@@ -21,6 +23,8 @@ if(isset($_POST['del'])){
         mysqli_stmt_execute($stmt) or die ("Gagal Query Hapus Keterangan Pinjam : " . mysqli_error($koneksidb));
         mysqli_stmt_close($stmt);
 
+        logTransaksi($iduser, date('Y-m-d H:i:s'), 'Data Ketentuan Peminjaman Dihapus', $noapk);
+        
         echo "<div class='alert alert-success alert-dismissable'>
             <button type='button' class='close' data-dismiss='alert' aria-hidden='true'></button>
             <strong><i class='fa fa-check'></i>&nbsp;</strong>Data Sukses dihapus. 

@@ -1,6 +1,8 @@
 <?php	
 //Security goes here
 
+$iduser = $_SESSION['iduser'];
+$noapk  = $_SESSION['noapk'];
 
 //declare variable post
 if (isset($_POST['btnSave'])){

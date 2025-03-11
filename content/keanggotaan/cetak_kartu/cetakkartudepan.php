@@ -81,7 +81,7 @@ $photo_src = "data:image/jpeg;base64," . $photo_base64;
 
  
 
-
+logTransaksi($iduser, date('Y-m-d H:i:s'), 'Kartu depan dicetak', $noapk);
 
 ?>
 

@@ -9,6 +9,9 @@ $dataTelpon  		 	=  isset($_POST['txtTelponPenerbit']) ? $_POST['txtTelponPenerb
 $dataFax  				=  isset($_POST['txtFaxPenerbit']) ? $_POST['txtFaxPenerbit'] : "";
 $dataWebsite   			=  isset($_POST['txtWebsite']) ? $_POST['txtWebsite'] : "";
 
+$iduser = $_SESSION['iduser'];
+$noapk  = $_SESSION['noapk'];
+
 if (isset($_POST['btnSave'])){
 		//insert idpenerbit 
 		if(empty($dataNamaPenerbit) || empty($dataAlamatPenerbit) || empty($datanmkota)){

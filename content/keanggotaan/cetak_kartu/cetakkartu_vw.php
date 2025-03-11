@@ -1,4 +1,7 @@
 <?php 
+$iduser = $_SESSION['iduser'];
+$noapk  = $_SESSION['noapk'];
+
 if(isset($_POST['editKartu'])){
 $isiKartu = $_POST['editKartu'];
 $qry = "UPDATE tkartublkng SET isi = ? WHERE noapk = $_SESSION[noapk]";
@@ -11,6 +14,7 @@ echo "<div class='alert alert-success alert-dismissable'>
 <button type='button' class='close' data-dismiss='alert' aria-hidden='true'></button>
 <strong><i class='fa fa-check'></i>&nbsp;</strong>Kartu belakang Sukses diedit. 
 </div>";
+logTransaksi($iduser, date('Y-m-d H:i:s'), 'Kartu Belakang Diedit', $noapk);
 }
 
 if(isset($_SESSION['pesanKesalahan'])) {

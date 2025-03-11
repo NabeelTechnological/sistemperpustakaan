@@ -6,6 +6,9 @@ if (!isset($_SESSION['noapk'])) {
     die("Session noapk tidak ditemukan. Silakan login ulang.");
 }
 
+$iduser = $_SESSION['iduser'];
+$noapk  = $_SESSION['noapk'];
+
 // Declare variable post
 if (isset($_POST['btnSave'])) {
     $dataIdJnsAng     = isset($_POST['txtIdJnsAng']) ? $_POST['txtIdJnsAng'] : "";
@@ -55,6 +58,8 @@ if (isset($_POST['btnSave'])) {
                 <button type='button' class='close' data-dismiss='alert' aria-hidden='true'></button>
                 <strong><i class='fa fa-check'></i>&nbsp;</strong>Data Sukses diubah. 
                 </div>";
+                logTransaksi($iduser, date('Y-m-d H:i:s'), 'Ubah Data Ketentuan Peminjaman', $noapk);
+                
         } else {
             echo "<div class='alert alert-warning alert-dismissable'>
                 <button type='button' class='close' data-dismiss='alert' aria-hidden='true'></button>

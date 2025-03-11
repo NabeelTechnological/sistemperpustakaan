@@ -5,6 +5,9 @@
 // Declare variable
 $datanmkota = isset($_POST['txtKota']) ? trim($_POST['txtKota']) : "";
 
+$iduser = $_SESSION['iduser'];
+$noapk  = $_SESSION['noapk'];
+
 // Jika tombol Simpan ditekan
 if (isset($_POST['btnSave'])){
     if(empty($datanmkota)){
@@ -19,6 +22,8 @@ if (isset($_POST['btnSave'])){
         mysqli_stmt_bind_param($stmt, "si", $datanmkota, $_SESSION['noapk']);
         mysqli_stmt_execute($stmt) or die ("Gagal Query Insert kota : " . mysqli_error($koneksidb));
         mysqli_stmt_close($stmt);
+
+		logTransaksi($iduser, date('Y-m-d H:i:s'), 'Data Kota Ditambah', $noapk);
 
         echo "<div class='alert alert-success alert-dismissable'>
             <button type='button' class='close' data-dismiss='alert' aria-hidden='true'></button>

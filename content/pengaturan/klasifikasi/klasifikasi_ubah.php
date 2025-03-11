@@ -3,6 +3,9 @@
 
 
 //declare variable post
+$iduser = $_SESSION['iduser'];
+$noapk  = $_SESSION['noapk'];
+
 if (isset($_POST['btnSave'])){
 	$dataKode   	=  isset($_POST['txtKodeKlasifikasi']) ? $_POST['txtKodeKlasifikasi'] : "";
 	$dataSubyek     =  isset($_POST['txtSubyek']) ? $_POST['txtSubyek'] : "";
@@ -21,6 +24,8 @@ $dataKodeBaru = isset($_POST['txtKodeKlasifikasi']) ? $_POST['txtKodeKlasifikasi
         mysqli_stmt_bind_param($stmt, "ssss", $dataKodeBaru, $dataSubyek, $dataKodeLama, $_SESSION['noapk']);      
 		mysqli_stmt_execute($stmt) or die ("Gagal Query Update Klasifikasi : " . mysqli_error($koneksidb));
 		mysqli_stmt_close($stmt);
+
+		logTransaksi($iduser, date('Y-m-d H:i:s'), 'Data Pengelompokkan Diubah', $noapk);
 
 			echo "<div class='alert alert-success alert-dismissable'>
 	            <button type='button' class='close' data-dismiss='alert' aria-hidden='true'></button>

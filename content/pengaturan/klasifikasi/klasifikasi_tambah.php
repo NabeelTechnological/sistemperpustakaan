@@ -5,6 +5,9 @@
 $dataKode   	=  isset($_POST['txtKodeKlasifikasi']) ? $_POST['txtKodeKlasifikasi'] : "";
 $dataSubyek     =  isset($_POST['txtSubyek']) ? $_POST['txtSubyek'] : "";
 
+$iduser = $_SESSION['iduser'];
+$noapk  = $_SESSION['noapk'];
+
 if (isset($_POST['btnSave'])){
 		//insert Klasifikasi 
 		if(empty($dataKode) || empty($dataSubyek) ){
@@ -19,6 +22,8 @@ if (isset($_POST['btnSave'])){
 		mysqli_stmt_bind_param($stmt,"ss",$dataKode, $dataSubyek);
 		mysqli_stmt_execute($stmt) or die ("Gagal Query Insert Klasifikasi : " . mysqli_error($koneksidb));
 		mysqli_stmt_close($stmt);
+
+		logTransaksi($iduser, date('Y-m-d H:i:s'), 'Data Pengelompokkan Ditambah', $noapk);
 
 		echo "<div class='alert alert-success alert-dismissable'>
             <button type='button' class='close' data-dismiss='alert' aria-hidden='true'></button>

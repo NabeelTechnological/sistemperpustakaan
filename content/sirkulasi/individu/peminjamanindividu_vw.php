@@ -21,7 +21,8 @@ if(isset($_SESSION['toastMessage'])) {
 
 
 
-
+$iduser = $_SESSION['iduser'];
+$noapk  = $_SESSION['noapk'];
 
 if (!isset($_GET['id']) || $_GET['id'] == "") {
     
@@ -243,6 +244,8 @@ if (!isset($_GET['id']) || $_GET['id'] == "") {
                             mysqli_stmt_execute($stmt) or die("Gagal Query Update Tersedia : " . mysqli_error($koneksidb));
                             mysqli_stmt_close($stmt);
 
+                            logTransaksi($iduser, date('Y-m-d H:i:s'), 'Buku Dipinjam [Individu]', $noapk);
+
                             $_SESSION['toastMessage'] = "<div class='alert alert-success alert-dismissable'>
                     <button type='button' class='close' data-dismiss='alert' aria-hidden='true'></button>
                     <strong><i class='fa fa-check'></i>&nbsp;</strong>Data Sukses insert. 
@@ -290,6 +293,8 @@ if (!isset($_GET['id']) || $_GET['id'] == "") {
                         mysqli_stmt_bind_param($stmt, "s", $txtIDBuku);
                         mysqli_stmt_execute($stmt) or die("Gagal Query Update Tersedia : " . mysqli_error($koneksidb));
                         mysqli_stmt_close($stmt);
+
+                        logTransaksi($iduser, date('Y-m-d H:i:s'), 'Buku Batal Dipinjam [Individu]', $noapk);
 
                         echo "<div class='alert alert-success alert-dismissable'>
                     <button type='button' class='close' data-dismiss='alert' aria-hidden='true'></button>

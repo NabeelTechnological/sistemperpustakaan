@@ -1,4 +1,8 @@
 <?php
+
+$iduser = $_SESSION['iduser'];
+$noapk  = $_SESSION['noapk'];
+
 if (!isset($_GET['id'])) {
     echo "<div class='alert alert-danger alert-dismissable'>
     <button type='button' class='close' data-dismiss='alert' aria-hidden='true'></button>
@@ -53,6 +57,8 @@ if (!isset($_GET['id'])) {
                 mysqli_stmt_close($stmt);
             }
 
+            logTransaksi($iduser, date('Y-m-d H:i:s'), 'Buku Dikembalikan [Individu]', $noapk);
+
             echo "<div class='alert alert-success alert-dismissable'>
             <button type='button' class='close' data-dismiss='alert' aria-hidden='true'></button>
             <strong><i class='fa fa-check'></i>&nbsp;</strong>Buku Berhasil Dikembalikan. 
@@ -80,6 +86,8 @@ if (!isset($_GET['id'])) {
                 mysqli_stmt_execute($stmt) or die("Gagal Query Update Tersedia : " . mysqli_error($koneksidb));
                 mysqli_stmt_close($stmt);
             }
+
+            logTransaksi($iduser, date('Y-m-d H:i:s'), 'Buku Batal Ditampilkan [Individu]', $noapk);
 
             echo "<div class='alert alert-success alert-dismissable'>
             <button type='button' class='close' data-dismiss='alert' aria-hidden='true'></button>

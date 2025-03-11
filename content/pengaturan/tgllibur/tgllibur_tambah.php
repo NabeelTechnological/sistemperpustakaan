@@ -4,6 +4,8 @@
 //declare variable post
 $dataTgllibur=  isset($_POST['txtTanggal']) ? $_POST['txtTanggal'] : "";
 
+$iduser = $_SESSION['iduser'];
+$noapk  = $_SESSION['noapk'];
 
 
 if (isset($_POST['btnSaveHaribesar'])) {
@@ -45,6 +47,8 @@ if (isset($_POST['btnSaveHaribesar'])) {
 
         // Tutup statement setelah sukses eksekusi
         mysqli_stmt_close($stmt);
+
+		logTransaksi($iduser, date('Y-m-d H:i:s'), 'Data Tanggal Libur Ditambah', $noapk);
 
         echo "<div class='alert alert-success alert-dismissable'>
             <button type='button' class='close' data-dismiss='alert' aria-hidden='true'></button>

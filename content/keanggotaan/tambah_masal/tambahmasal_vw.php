@@ -1,5 +1,8 @@
 <?php
 //security goes here 
+$iduser = $_SESSION['iduser'];
+$noapk  = $_SESSION['noapk'];
+
   if(isset($_POST['del'])){
     $txtID    = $_POST['id'];
 
@@ -20,6 +23,7 @@
         <button type='button' class='close' data-dismiss='alert' aria-hidden='true'></button>
         <strong><i class='fa fa-check'></i>&nbsp;</strong>Data Siswa $txtID Sukses dihapus. 
         </div>";
+        logTransaksi($iduser, date('Y-m-d H:i:s'), 'Data Siswa Dihapus', $noapk);
 
     }else{
         $insQry = "DELETE FROM ranggota WHERE idjnsang = 2 AND noapk = $_SESSION[noapk]";
@@ -31,6 +35,7 @@
             <button type='button' class='close' data-dismiss='alert' aria-hidden='true'></button>
             <strong><i class='fa fa-check'></i>&nbsp;</strong>Data Guru/Karyawan Sukses dihapus. 
             </div>";
+            logTransaksi($iduser, date('Y-m-d H:i:s'), 'Data Guru Dihapus', $noapk);
     }
   }
 ?>

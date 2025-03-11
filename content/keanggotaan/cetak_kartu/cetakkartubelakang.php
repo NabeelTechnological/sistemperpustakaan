@@ -12,6 +12,8 @@ if (!isset($_POST['selected_data'])) {
     $qry = mysqli_query($koneksidb, "SELECT COUNT(*) as jml FROM ranggota WHERE nipnis IN ($conditions) AND noapk = $_SESSION[noapk]");
     $r = mysqli_fetch_assoc($qry);
     $jml = $r['jml'];
+
+    logTransaksi($iduser, date('Y-m-d H:i:s'), 'Kartu Belakang Dicetak', $noapk);
 ?>
 
 <style>
@@ -75,6 +77,8 @@ if (!isset($_POST['selected_data'])) {
     </div>
 <?php endfor; ?>
 </div>
+
+
 
 <script>
     (function() {

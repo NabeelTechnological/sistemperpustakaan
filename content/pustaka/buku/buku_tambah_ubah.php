@@ -15,6 +15,8 @@ if (isset($_POST['txtJnsBuku'])) {
     mysqli_query($koneksidb, $insertQuery) or die("Gagal menyimpan data: " . mysqli_error($koneksidb));
 }
 
+$iduser = $_SESSION['iduser'];
+$noapk  = $_SESSION['noapk'];
 
 if (isset($_POST['btnSave'])) {
 	//declare variable post
@@ -91,6 +93,8 @@ if (isset($_POST['btnSave'])) {
 			mysqli_stmt_bind_param($stmt, "sssssssssssssssssssssssssssssss", $dataKode, $dataJnsBuku, $desjnsbuku, $dataJudul, $dataPengarangNormal, $dataPengarang, $dataPengarang2, $dataPengarang3, $dataKodeBuku, $dataNamaPenerbit, $dataNmKota, $dataTahunTerbit, $dataNmBahasa, $dataNmasalbuku, $dataCetakan,$dataEdisi,$dataVol,$dataIndeks,$dataHalPdh,$dataTebal,$dataIllus,$dataPanjang,$dataJilid,$dataBibli,$dataHalBibli,$dataIsbn,$dataLokasi,$dataCover1,$dataNmFile,$dataKodeBuku,$dataIdBuku);
 			mysqli_stmt_execute($stmt) or die("Gagal Query Update Buku : " . mysqli_error($koneksidb));
 			mysqli_stmt_close($stmt);
+
+			logTransaksi($iduser, date('Y-m-d H:i:s'), 'Data Buku Ditambah/diubah', $noapk);
 
 			echo "<div class='alert alert-success alert-dismissable'>
 				<button type='button' class='close' data-dismiss='alert' aria-hidden='true'></button>
