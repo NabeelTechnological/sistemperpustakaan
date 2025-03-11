@@ -128,7 +128,7 @@ License: You must have a valid license purchased only from themeforest(the above
       <ul class="nav navbar-nav" style="display:flex; justify-content: space-between;">
         <!-- <li class="classic-menu-dropdown"><a href="?content=home">Halaman Utama</a></li> -->
         <?php 
-        if ($_SESSION['kdjab']=='1'){
+        if ($_SESSION['kdjab']=="1"){
           //Awal Menu Admin Kaber   
         ?>
           <li class="classic-menu-dropdown">
@@ -176,7 +176,7 @@ License: You must have a valid license purchased only from themeforest(the above
           <li class="classic-menu-dropdown">
               <a data-toggle="dropdown" href="javascript:;">KEANGGOTAAN<i class="fa fa-angle-down"></i></a> 
               <ul class="dropdown-menu">
-                <li><a href="?content=tambahindividu">Tambah Anggota</a></li>
+                <li><a href="?content=tambahindividu">Tambah[Ubah] Anggota</a></li>
                 <li><a href="?content=carianggota">Cari Anggota</a></li>
                 <li><a href="?content=cetakkartu">Cetak Kartu</a></li>
               </ul>
@@ -242,6 +242,7 @@ License: You must have a valid license purchased only from themeforest(the above
                     <li><a href="?content=daftaranggota" class="dropdown-item">Daftar Anggota</a></li>
                     <li><a href="?content=rekapjumlahanggota" class="dropdown-item">Rekap Jumlah Pengunjung / Anggota</a></li>
                     <li><a href="?content=kartubebastanggungan" class="dropdown-item">Kartu Bebas Tanggungan</a></li>
+                    <li><a href="?content=logtransaksi" class="dropdown-item">Log History</a></li>
                   </ul>
               </li>
             </ul>
@@ -312,6 +313,7 @@ License: You must have a valid license purchased only from themeforest(the above
                     <li>-------------------------</li> 
                     <li><a href="?content=daftaranggota" class="dropdown-item">Daftar Anggota</a></li>
                     <li><a href="?content=rekapjumlahanggota" class="dropdown-item">Rekap Jumlah Pengunjung / Anggota</a></li>
+                    <li><a href="?content=logtransaksi" class="dropdown-item">Log History</a></li>
                   </ul>
               </li>
             </ul>

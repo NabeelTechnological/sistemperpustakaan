@@ -1,6 +1,7 @@
 <?php
 session_start();
 include "config/inc.connection.php";
+include "config/inc.library.php";
 	  
 	
 $txtUsername 		= $_POST['username'];
@@ -24,6 +25,7 @@ if(password_verify($txtPassword, $pw)){
  
 	//$_SESSION['pesan'] = 'Selamat datang '.$login['nama'].'  di esikatERP ';
 	
+	logTransaksi($iduser, date('Y-m-d H:i:s'), 'Masuk sistem',$noapk);
 
 	
 	echo '<script>window.location="admin.php"</script>';

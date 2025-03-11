@@ -127,6 +127,7 @@ if($pg=="home"){ include "content/home_administrator.php"; }
 		elseif($pg=="perkembanganbuku"){ include "content/laporan/laporan_umum/perkembanganbuku_vw.php"; }
 		elseif($pg=="daftaranggota"){ include "content/laporan/laporan_umum/daftaranggota_vw.php"; }
 		elseif($pg=="rekapjumlahanggota"){ include "content/laporan/laporan_umum/rekapjumlahanggota_vw.php"; }
+		elseif($pg=="logtransaksi"){ include "content/laporan/laporan_umum/logtransaksi_vw.php"; }
 		
 	else {
 	echo "	<div class='alert alert-danger alert-dismissable'>

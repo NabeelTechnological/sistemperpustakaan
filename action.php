@@ -245,5 +245,10 @@ if (isset($_GET['act'])){
 		//grafik peminjaman buku
 		include "content/pengunjung/grafik_peminjaman_buku/peminjamanbuku.php";
 	}
+
+	else if($_GET['act']=="47"){
+		//grafik log history
+		include "content/laporan/laporan_umum/logtransaksi_source.php";
+	}
 }
 ?>

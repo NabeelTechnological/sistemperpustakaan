@@ -8,12 +8,12 @@
     $dataAlamat		    =  isset($_POST['txtAlamat']) ? $_POST['txtAlamat'] : "";
     $dataAlamat2		=  isset($_POST['txtAlamatAlt']) ? $_POST['txtAlamatAlt'] : "";
 
-    $dataPhoto1 = NULL;
-    if(isset($_FILES['txtFoto1'])){
-    if ($_FILES['txtFoto1']['error'] == UPLOAD_ERR_OK) {
+    $dataPhoto = NULL;
+    if(isset($_FILES['txtFoto'])){
+    if ($_FILES['txtFoto']['error'] == UPLOAD_ERR_OK) {
         // $fileTmp  = $_FILES['txtFoto']['tmp_name'];
         // $fileData = file_get_contents($fileTmp); // Ubah menjadi binary
-        $qry = mysqli_query($koneksidb,"SELECT photo1 FROM ranggota WHERE nipnis = '$dataNipnis' AND noapk = $_SESSION[noapk]");
+        $qry = mysqli_query($koneksidb,"SELECT photo FROM ranggota WHERE nipnis = '$dataNipnis' AND noapk = $_SESSION[noapk]");
         $cek = mysqli_fetch_row($qry);
         if($cek){
             if($cek[0] != NULL){
@@ -21,7 +21,7 @@
             }
         }
 
-        $dataPhoto1 = uploadFoto('txtFoto1');
+        $dataPhoto = uploadFoto('txtFoto');
     }
     }
 
@@ -36,9 +36,9 @@ if(isset($_POST['btnSaveSiswa'])){
 
         if ($_POST['idEdit'] != "") {
             // Update Data
-            $insQry = "UPDATE ranggota SET idkelas = ?, nama = ?, jnskel = ?, telp = ?, berlaku = ?, alamat = ?, alamat2 = ?, photo1 = ? WHERE nipnis = ? AND noapk = $_SESSION[noapk]";
+            $insQry = "UPDATE ranggota SET idkelas = ?, nama = ?, jnskel = ?, telp = ?, berlaku = ?, alamat = ?, alamat2 = ?, photo = ? WHERE nipnis = ? AND noapk = $_SESSION[noapk]";
             $stmt = mysqli_prepare($koneksidb, $insQry) or die("Gagal menyiapkan statement: " . mysqli_error($koneksidb));
-            mysqli_stmt_bind_param($stmt, "sssssssss", $dataIdKelas, $dataNama, $dataJnskel, $dataTelp, $dataBerlaku, $dataAlamat, $dataAlamat2, $dataPhoto1, $dataNipnis);
+            mysqli_stmt_bind_param($stmt, "sssssssss", $dataIdKelas, $dataNama, $dataJnskel, $dataTelp, $dataBerlaku, $dataAlamat, $dataAlamat2, $dataPhoto, $dataNipnis);
             mysqli_stmt_execute($stmt) or die("Gagal Query Update Anggota : " . mysqli_error($koneksidb));
             mysqli_stmt_close($stmt);
         
@@ -51,12 +51,12 @@ if(isset($_POST['btnSaveSiswa'])){
     }else {
         // Insert Data
         try {
-            $insQry = "INSERT INTO ranggota (nipnis, idjnsang, tgldaftar, nama, alamat, telp, berlaku, alamat2, photo1, jnskel, noapk) 
+            $insQry = "INSERT INTO ranggota (nipnis, idjnsang, tgldaftar, nama, alamat, telp, berlaku, alamat2, photo, jnskel, noapk) 
             VALUES (?, 1, CURDATE(), ?, ?, ?, ?, ?, ?, ?, ?)";
             
             $stmt = mysqli_prepare($koneksidb, $insQry);
             if ($stmt) {
-                mysqli_stmt_bind_param($stmt, "ssssssssi", $dataNipnis, $dataNama, $dataAlamat, $dataTelp, $dataBerlaku, $dataAlamat2, $dataPhoto1, $dataJnskel, $_SESSION['noapk']);
+                mysqli_stmt_bind_param($stmt, "ssssssssi", $dataNipnis, $dataNama, $dataAlamat, $dataTelp, $dataBerlaku, $dataAlamat2, $dataPhoto, $dataJnskel, $_SESSION['noapk']);
                 if (mysqli_stmt_execute($stmt)) {
                     echo "<div class='alert alert-success alert-dismissable'>
                         <button type='button' class='close' data-dismiss='alert' aria-hidden='true'></button>
@@ -90,9 +90,9 @@ if(isset($_POST['btnSaveSiswa'])){
     
         if ($_POST['idEdit'] != "") {
             // Update Data
-            $insQry = "UPDATE ranggota SET idkelas = ?, nama = ?, jnskel = ?, telp = ?, berlaku = ?, alamat = ?, alamat2 = ?, photo1 = ? WHERE nipnis = ? AND noapk = $_SESSION[noapk]";
+            $insQry = "UPDATE ranggota SET idkelas = ?, nama = ?, jnskel = ?, telp = ?, berlaku = ?, alamat = ?, alamat2 = ?, photo = ? WHERE nipnis = ? AND noapk = $_SESSION[noapk]";
             $stmt = mysqli_prepare($koneksidb, $insQry) or die("Gagal menyiapkan statement: " . mysqli_error($koneksidb));
-            mysqli_stmt_bind_param($stmt, "sssssssss", $dataIdKelas, $dataNama, $dataJnskel, $dataTelp, $dataBerlaku, $dataAlamat, $dataAlamat2, $dataPhoto1, $dataNipnis);
+            mysqli_stmt_bind_param($stmt, "sssssssss", $dataIdKelas, $dataNama, $dataJnskel, $dataTelp, $dataBerlaku, $dataAlamat, $dataAlamat2, $dataPhoto, $dataNipnis);
             mysqli_stmt_execute($stmt) or die("Gagal Query Update Anggota : " . mysqli_error($koneksidb));
             mysqli_stmt_close($stmt);
         
@@ -104,12 +104,12 @@ if(isset($_POST['btnSaveSiswa'])){
     }else{
 
         try{
-            $insQry = "INSERT INTO ranggota (nipnis, idjnsang, tgldaftar, nama, alamat, telp, berlaku, alamat2, photo1, jnskel, noapk) 
+            $insQry = "INSERT INTO ranggota (nipnis, idjnsang, tgldaftar, nama, alamat, telp, berlaku, alamat2, photo, jnskel, noapk) 
                 VALUES (?, 1, CURDATE(), ?, ?, ?, ?, ?, ?, ?, ?)";
                 
                 $stmt = mysqli_prepare($koneksidb, $insQry);
                 if ($stmt) {
-                    mysqli_stmt_bind_param($stmt, "ssssssssi", $dataNipnis, $dataNama, $dataAlamat, $dataTelp, $dataBerlaku, $dataAlamat2, $dataPhoto1, $dataJnskel, $_SESSION['noapk']);
+                    mysqli_stmt_bind_param($stmt, "ssssssssi", $dataNipnis, $dataNama, $dataAlamat, $dataTelp, $dataBerlaku, $dataAlamat2, $dataPhoto, $dataJnskel, $_SESSION['noapk']);
                     if (mysqli_stmt_execute($stmt)) {
                         echo "<div class='alert alert-success alert-dismissable'>
                             <button type='button' class='close' data-dismiss='alert' aria-hidden='true'></button>
@@ -266,7 +266,7 @@ if(isset($_POST['btnSaveSiswa'])){
         </div>
         <label class="col-lg-2 control-label">Insert Foto</label>
         <div class="col-lg-3">
-            <input type="file" id="txtFoto1" name="txtFoto1"  class="form-control sm"/></span>
+            <input type="file" id="txtFoto" name="txtFoto"  class="form-control sm"/></span>
         </div>
     </div>
 
@@ -345,7 +345,7 @@ if(isset($_POST['btnSaveSiswa'])){
         </div>
         <label class="col-lg-2 control-label">Insert Foto</label>
         <div class="col-lg-3">
-            <input type="file" id="txtFoto1" name="txtFoto1"  class="form-control sm"/></span>
+            <input type="file" id="txtFoto" name="txtFoto"  class="form-control sm"/></span>
         </div>
     </div>
 

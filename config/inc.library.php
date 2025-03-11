@@ -2,8 +2,8 @@
 include "inc.connection.php";
 date_default_timezone_set("Asia/Jakarta");
 
-function getNmsekolah($koneksidb){
-    $sistem = mysqli_prepare($koneksidb,"SELECT nmsekolah FROM sistem WHERE noapk = $_SESSION[noapk]");
+function getnmsekolah($koneksidb){
+    $sistem = mysqli_prepare($koneksidb,"SELECT nmsekolah FROM rsekolah WHERE noapk = $_SESSION[noapk]");
     mysqli_stmt_execute($sistem);
     mysqli_stmt_bind_result($sistem,$nmsekolah);
     mysqli_stmt_fetch($sistem);
@@ -11,6 +11,28 @@ function getNmsekolah($koneksidb){
 
     return $nmsekolah;
 }
+
+function logTransaksi($Iduser, $Tanggal, $Aktivitas, $noapk)
+{
+    global $koneksidb;
+
+    $sql = "INSERT INTO tlogtransaksi (iduser, tanggal, aktivitas, noapk) VALUES (?, ?, ?,?)";
+    $stmt = mysqli_prepare($koneksidb, $sql);
+
+    if ($stmt) {
+        mysqli_stmt_bind_param($stmt, "sssi", $Iduser, $Tanggal, $Aktivitas, $noapk);
+
+        if (mysqli_stmt_execute($stmt)) {
+            mysqli_stmt_close($stmt);
+            
+        } else {
+            die("Kesalahan saat menjalankan pernyataan: " . mysqli_error($koneksidb));
+        }
+    } else {
+        die("Kesalahan saat mempersiapkan pernyataan: " . mysqli_error($koneksidb));
+    }
+}
+
 
 function persentase($pembilang,$penyebut){
     try {

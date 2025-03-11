@@ -1,21 +1,23 @@
 <?php
 session_start();
+include "config/inc.connection.php";
+include "config/inc.library.php";
 error_reporting(E_ALL ^ (E_NOTICE | E_WARNING));
 
+// Simpan iduser sebelum menghapus session
+$iduser = $_SESSION['iduser'];
+$noapk = $_SESSION['noapk'];
 
-    $_SESSION['iduser']     = "";
-    $_SESSION['namauser']   = "";
-    $_SESSION['isloginsukses'] = false;
-    $_SESSION['kdjab']      = "";
-    $_SESSION['noapk']      = "";
-    $_SESSION['isLogIndsiPOk1']= "";
+// Catat log sebelum session dihapus
+if (!empty($iduser)) {
+    logTransaksi($iduser, date('Y-m-d H:i:s'), 'Keluar sistem', $noapk);
+}
 
-	unset($_SESSION['iduser']);
-    unset($_SESSION['namauser']);
-	unset($_SESSION['isloginsukses']);
-	unset($_SESSION['kdjab']);
-	unset($_SESSION['noapk']);
-    unset($_SESSION['isLogIndsiPOk1']);
-	
-    echo '<script>window.location="index.php"</script>';
+// Hapus semua session
+$_SESSION = array();
+session_destroy();
+
+// Redirect ke halaman login
+echo '<script>window.location="index.php"</script>';
+
 ?>
