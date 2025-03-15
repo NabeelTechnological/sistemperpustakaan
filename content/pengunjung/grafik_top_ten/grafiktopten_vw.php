@@ -114,6 +114,8 @@ if(isset($_POST['btnTampil'])){
                         <div class="col-lg-offset-2 col-lg-10">
                             <button type="submit" name="btnTampil" class="btn blue"><i class="fa fa-bar-chart-o"></i> VIEW</button>
                             <a href="?content=grafikjumlahpengunjung" class="btn blue"><i class="fa fa-undo"></i> Kembali</a>
+                            <a href="content/pengunjung/grafik_top_ten/grafiktopten_excel.php?tahun=<?= urlencode($_POST['txtTahun']) ?>&jenis=<?= urlencode($_POST['txtJenis']) ?>&bulan=<?= urlencode($_POST['txtBulan']) ?>" class="btn blue"><i class="fa fa-file-excel-o"></i> Export Excel</a>
+
                         </div>
                     </div>
                 </div>

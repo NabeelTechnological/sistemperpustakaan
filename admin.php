@@ -197,6 +197,7 @@ License: You must have a valid license purchased only from themeforest(the above
                     <li><a href="?content=pengembaliankolektif" class="dropdown-item">Pengembalian Kolektif</a></li>
                   </ul>
               </li>
+              <li><a href="?content=bukuteks_daftarpustakaterpinjam" class="dropdown-item">Daftar Pustaka Terpinjam</a></li> 
             </ul>
           </li>
           <li class="classic-menu-dropdown">
@@ -219,7 +220,7 @@ License: You must have a valid license purchased only from themeforest(the above
                     <li><a href="?content=bukuteks_peminjamanperanggota" class="dropdown-item">Peminjaman per Anggota</a></li>
                     <li><a href="?content=bukuteks_peminjamanperjenis" class="dropdown-item">Peminjaman Jenis</a></li> 
                     <li><a href="?content=bukuteks_peminjamankolektif" class="dropdown-item">Peminjaman Kolektif</a></li> 
-                    <li><a href="?content=bukuteks_daftarpustakaterpinjam" class="dropdown-item">Daftar Pustaka Terpinjam</a></li> 
+                    
                   </ul>
               </li>
               <li class="dropdown-submenu"><a href="#" class="dropdown-item">Katalog & Bibliografi</a>
@@ -273,6 +274,7 @@ License: You must have a valid license purchased only from themeforest(the above
                     <li><a href="?content=pengembaliankolektif" class="dropdown-item">Pengembalian Kolektif</a></li>
                   </ul>
               </li>
+              <li><a href="?content=bukuteks_daftarpustakaterpinjam" class="dropdown-item">Daftar Pustaka Terpinjam</a></li> 
             </ul>
           </li>
           <li class="classic-menu-dropdown">
@@ -294,7 +296,7 @@ License: You must have a valid license purchased only from themeforest(the above
                     <li><a href="?content=bukuteks_peminjamanperanggota" class="dropdown-item">Peminjaman per Anggota</a></li>
                     <li><a href="?content=bukuteks_peminjamanperjenis" class="dropdown-item">Peminjaman Jenis</a></li> 
                     <li><a href="?content=bukuteks_peminjamankolektif" class="dropdown-item">Peminjaman Kolektif</a></li> 
-                    <li><a href="?content=bukuteks_daftarpustakaterpinjam" class="dropdown-item">Daftar Pustaka Terpinjam</a></li> 
+                    
                   </ul>
               </li>
               <li class="dropdown-submenu"><a href="#" class="dropdown-item">Katalog & Bibliografi</a>
@@ -450,6 +452,7 @@ License: You must have a valid license purchased only from themeforest(the above
                     <li><a href="?content=pengembaliankolektif" >Pengembalian Kolektif</a></li>
                   </ul>
               </li>
+              <li><a href="?content=bukuteks_daftarpustakaterpinjam" >Daftar Pustaka Terpinjam</a></li> 
             </ul>
           </li>
           <li class="dropdown">
@@ -471,7 +474,7 @@ License: You must have a valid license purchased only from themeforest(the above
                     <li><a href="?content=bukuteks_peminjamanperanggota" >Peminjaman per Anggota</a></li>
                     <li><a href="?content=bukuteks_peminjamanperjenis" >Peminjaman Jenis</a></li> 
                     <li><a href="?content=bukuteks_peminjamankolektif" >Peminjaman Kolektif</a></li> 
-                    <li><a href="?content=bukuteks_daftarpustakaterpinjam" >Daftar Pustaka Terpinjam</a></li> 
+                   
                   </ul>
               </li>
               <li><a href="#" >Katalog & Bibliografi</a>

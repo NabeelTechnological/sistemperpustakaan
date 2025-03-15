@@ -19,9 +19,9 @@ if (isset($_POST['btnSave'])) {
               </div>";
     } else {
         // Cek apakah kombinasi idjnsang dan idjnspustaka sudah ada
-        $cekQry = "SELECT idjnsang FROM rreftrans WHERE idjnsang = ? AND idjnspustaka = ? LIMIT 1";
+        $cekQry = "SELECT idjnsang FROM rreftrans WHERE idjnsang = ? AND idjnspustaka = ? AND noapk = ? LIMIT 1";
         $stmtCek = mysqli_prepare($koneksidb, $cekQry);
-        mysqli_stmt_bind_param($stmtCek, "ss", $dataIdJnsAng, $dataIdJnsPustaka);
+        mysqli_stmt_bind_param($stmtCek, "ssi", $dataIdJnsAng, $dataIdJnsPustaka, $_SESSION['noapk']);
         mysqli_stmt_execute($stmtCek);
         mysqli_stmt_store_result($stmtCek);
         $jumlahData = mysqli_stmt_num_rows($stmtCek);

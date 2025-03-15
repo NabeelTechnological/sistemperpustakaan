@@ -123,6 +123,7 @@ if(isset($_POST['btnTampil'])){
                         <div class="col-lg-offset-2 col-lg-10">
                             <button type="submit" name="btnTampil" class="btn blue"><i class="fa fa-bar-chart-o"></i> VIEW</button>
                             <a href="?content=grafikjumlahpengunjung" class="btn blue"><i class="fa fa-undo"></i> Kembali</a>
+                            <a href="content/pengunjung/grafik_jumlah_pengunjung/export_kunjungan.php?tahun=<?= $_POST['txtTahun'] ?>&bulan=<?= $_POST['txtBulan'] ?>" class="btn blue" class="btn btn-succes <i class="fa fa-file-excel-o" class="btn blue"></i> Export Excel</a>
                         </div>
                     </div>
                 </div>
