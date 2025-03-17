@@ -10,6 +10,7 @@ if($pg=="home"){ include "content/home_administrator.php"; }
 		elseif($pg=="konfigurasiphoto"){ include "content/konfigurasi/photo/konfigurasiphoto_ubah.php"; }
 		elseif($pg=="konfigurasipassword"){ include "content/konfigurasi/password/konfigurasipassword_ubah.php"; }
 		elseif($pg=="konfigurasiprofil"){ include "content/konfigurasi/profil/konfigurasiprofil_ubah.php"; }
+		elseif($pg=="konfigurasiwa"){ include "content/konfigurasi/wa/konfigurasiwa_ubah.php"; }
 
 // PENGATURAN
 	// Pengguna

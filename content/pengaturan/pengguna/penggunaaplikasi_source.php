@@ -1,7 +1,7 @@
 <?php
  //security goes here
  
- 	$aColumns = array( 'iduser', 'nmuser', 'leveluser');
+ 	$aColumns = array( 'iduser', 'nmuser', 'leveluser', 'wa');
 
 	//primary key
 	$sIndexColumn = "iduser";
@@ -119,11 +119,13 @@
 			break;
 	  }
 
+	  $wa = $dataRow['wa'];
+
 	  $aksi 	  = "<a href=?content=ubahpengguna&id=".urlencode($iduser)." class='btn btn-xs ".$_SESSION['warnatombol']." tooltips' data-placement='top' data-original-title='Edit'><i class='fa fa-edit'></i></a>".
 	    	"<button data-toggle='modal' data-target='#deleteConfirmationModal' data-id='$iduser' class='delPopUp btn btn-xs ".$_SESSION['warnatombol']." tooltips' data-placement='top' data-original-title='Delete'><i class='fa fa-trash-o' ></i></button>"; 
 	     
 	    //CEK Hari Libur
-		$row = array( $no, $iduser, $nama, $leveluser, $aksi); 
+		$row = array( $no, $iduser, $nama, $leveluser, $wa, $aksi); 
 
 		$no++; 
 		$output['aaData'][] = $row;

@@ -12,6 +12,7 @@ if (isset($_POST['btnSave'])){
 	else
 		{ $dataPassword = $_POST['pwduser']; }
 	$dataNama     	=  isset($_POST['txtNama']) ? $_POST['txtNama'] : "";
+	$datawa         =  isset($_POST['txtWa']) ? $_POST['txtWa'] : "";
 	$dataLevel   	=  isset($_POST['txtLevel']) ? $_POST['txtLevel'] : "";
 
 		//update iduser 
@@ -21,9 +22,9 @@ if (isset($_POST['btnSave'])){
             <strong><i class='fa fa-times'></i>&nbsp; Data Tidak Boleh Ada yang Kosong </strong>
             </div>";
 		}else{
-		$insQry = "update ruser set nmuser = ? , pwduser = ?, leveluser = ? WHERE iduser = ?";
+		$insQry = "update ruser set nmuser = ? , pwduser = ?, wa = ?, leveluser = ? WHERE iduser = ?";
 		$stmt = mysqli_prepare($koneksidb,$insQry) or die ("Gagal menyiapkan statement: " . mysqli_error($koneksidb));
-		mysqli_stmt_bind_param($stmt,"ssss", $dataNama, $dataPassword, $dataLevel, $dataIdUser);
+		mysqli_stmt_bind_param($stmt,"sssss", $dataNama, $dataPassword, $datawa, $dataLevel, $dataIdUser);
 		mysqli_stmt_execute($stmt) or die ("Gagal Query Update User : " . mysqli_error($koneksidb));
 		mysqli_stmt_close($stmt);
 
@@ -36,13 +37,14 @@ if (isset($_POST['btnSave'])){
 		}				
 }else {
 		$txtID    = isset($_GET['id']) ? $_GET['id'] : "";
-		$qryCek   = mysqli_query($koneksidb, "SELECT iduser,nmuser,pwduser, leveluser FROM ruser 
+		$qryCek   = mysqli_query($koneksidb, "SELECT iduser,nmuser,pwduser, wa, leveluser FROM ruser 
 								WHERE iduser = '".mysqli_real_escape_string($koneksidb, $txtID)."'	") or die('Gagal Query Cek.'. mysqli_error($koneksidb));
 		if (mysqli_num_rows($qryCek)>0){
 			  $rs = mysqli_fetch_array($qryCek);
 		   		$dataNama		  = $rs['nmuser'];
 			    $dataPwdUser      = $rs['pwduser']; 
 				$dataLevel        = $rs['leveluser']; 
+				$datawa			  = $rs['wa'];
 				$dataIdUser   	  = $txtID;
 		} 
 }
@@ -82,6 +84,12 @@ if (isset($_POST['btnSave'])){
 				<label class="col-lg-2 control-label">Nama</label>
 				<div class="col-lg-3">
 					<input type="text" id="txtNama" name="txtNama" value="<?php echo $dataNama; ?>"  class="form-control sm" required/></span>
+	    		</div>
+			</div>
+			<div class="form-group">
+				<label class="col-lg-2 control-label">Wa</label>
+				<div class="col-lg-3">
+					<input type="text" id="txtWa" name="txtWa" value="<?php echo $datawa; ?>"  class="form-control sm" /></span>
 	    		</div>
 			</div>
   	    	<div class="form-group">

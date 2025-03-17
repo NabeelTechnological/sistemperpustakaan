@@ -76,6 +76,8 @@ if(isset($_POST['btnTampil'])){
                         <div class="col-lg-offset-2 col-lg-10">
                             <button type="submit" name="btnTampil" class="btn blue"><i class="fa fa-bar-chart-o"></i> VIEW</button>
                             <a href="?content=grafikpeminjamanbuku" class="btn blue"><i class="fa fa-undo"></i> Kembali</a>
+                            <a href="content/pengunjung/grafik_peminjaman_buku/export_peminjaman.php?tahun=<?= $_POST['txtTahun'] ?>" class="btn blue" class="btn btn-success">
+    <i class="fa fa-file-excel-o"></i> Export Excel</a>
                         </div>
                     </div>
                 </div>

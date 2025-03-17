@@ -5,20 +5,21 @@
 $dataIdUser   	=  isset($_POST['txtIdUser']) ? $_POST['txtIdUser'] : "";
 $dataPassword 	=  isset($_POST['txtPassword']) ? password_hash($_POST['txtPassword'],PASSWORD_DEFAULT) : "";
 $dataNama     	=  isset($_POST['txtNama']) ? $_POST['txtNama'] : "";
+$dataWa     	=  isset($_POST['txtWa']) ? $_POST['txtWa'] : "";
 $dataLevel   =  isset($_POST['txtLevel']) ? $_POST['txtLevel'] : "";
 
 if (isset($_POST['btnSave'])){
 		//insert iduser 
-		if(empty($dataIdUser) || empty($dataPassword) || empty($dataNama) || empty($dataLevel) ){
+		if(empty($dataIdUser) || empty($dataPassword) || empty($dataNama) || empty($dataWa) || empty($dataLevel) ){
 			echo "<div class='alert alert-danger alert-dismissable'>
             <button type='button' class='close' data-dismiss='alert' aria-hidden='true'></button>
             <strong><i class='fa fa-times'></i>&nbsp; Data Tidak Boleh Ada yang Kosong </strong>
             </div>";
 		}else{
-		$insQry = "insert into ruser (iduser, nmuser, pwduser, leveluser, noapk) 
+		$insQry = "insert into ruser (iduser, nmuser, pwduser, wa, leveluser, noapk) 
 		values (?, ?, ?, ?, $_SESSION[noapk]) ";
 		$stmt = mysqli_prepare($koneksidb,$insQry) or die ("Gagal menyiapkan statement: " . mysqli_error($koneksidb));
-		mysqli_stmt_bind_param($stmt,"ssss",$dataIdUser, $dataNama, $dataPassword, $dataLevel);
+		mysqli_stmt_bind_param($stmt,"sssss",$dataIdUser, $dataNama, $dataPassword, $dataWa, $dataLevel);
 		mysqli_stmt_execute($stmt) or die ("Gagal Query Insert User : " . mysqli_error($koneksidb));
 		mysqli_stmt_close($stmt);
 
@@ -59,6 +60,12 @@ if (isset($_POST['btnSave'])){
 				<label class="col-lg-2 control-label">Password</label>
 				<div class="col-lg-3">
 					<input type="password" id="txtPassword" name="txtPassword" class="form-control sm" required/></span>
+	    		</div>
+			</div>
+			<div class="form-group">
+				<label class="col-lg-2 control-label">Wa</label>
+				<div class="col-lg-3">
+					<input type="text" id="txtWa" name="txtWa" class="form-control sm" required/></span>
 	    		</div>
 			</div>
 			<div class="form-group">

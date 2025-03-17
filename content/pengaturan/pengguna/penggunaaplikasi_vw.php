@@ -49,6 +49,7 @@ $noapk  = $_SESSION['noapk'];
                 <td>ID USER</td>
                 <td>NAMA</td>
                 <td>HAK AKSES</td>
+                <td>WA</td>
                 <td width="5%"><div align="center">ACTION</div></td>
               </tr>
         </thead>

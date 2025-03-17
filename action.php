@@ -250,5 +250,10 @@ if (isset($_GET['act'])){
 		//grafik log history
 		include "content/laporan/laporan_umum/logtransaksi_source.php";
 	}
+
+	else if($_GET['act']=="48"){
+		//grafik log history
+		include "content/konfigurasi/wa/konfigurasiwa_ubah.php";
+	}
 }
 ?>

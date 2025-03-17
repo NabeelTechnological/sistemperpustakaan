@@ -63,7 +63,7 @@ if (isset($_POST['btnSave'])){
 			        <div class="form-group">
 			            <div class="col-lg-offset-2 col-lg-10">
 			                <button type="submit" name="btnSave" class="btn <?= $_SESSION['warnabar'] ?>"><i class="fa fa-save"></i> Simpan Data</button>
-			                <a href="?content=konfigurasiphoto" class="btn <?= $_SESSION['warnabar'] ?>"><i class="fa fa-undo"></i> Kembali</a>
+			                <a href="admin.php" class="btn <?= $_SESSION['warnabar'] ?>"><i class="fa fa-undo"></i> Kembali</a>
 			            </div>
 			        </div>
 			    </div>

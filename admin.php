@@ -220,7 +220,7 @@ License: You must have a valid license purchased only from themeforest(the above
                     <li><a href="?content=bukuteks_peminjamanperanggota" class="dropdown-item">Peminjaman per Anggota</a></li>
                     <li><a href="?content=bukuteks_peminjamanperjenis" class="dropdown-item">Peminjaman Jenis</a></li> 
                     <li><a href="?content=bukuteks_peminjamankolektif" class="dropdown-item">Peminjaman Kolektif</a></li> 
-                    
+                    <!-- <li><a href="?content=bukuteks_peminjamanbuku"class="dropdown-item">Peminjaman Buku</a></li>          -->
                   </ul>
               </li>
               <li class="dropdown-submenu"><a href="#" class="dropdown-item">Katalog & Bibliografi</a>
@@ -338,7 +338,7 @@ License: You must have a valid license purchased only from themeforest(the above
           </a>
       </ul>
     </div>
-    <p style="font-size:10px; color: yellow; margin-top:10px;"><?= getNmsekolah($koneksidb) ?></p>
+    <p style="font-size:15px; color: yellow; margin-top:10px;"><?= getNmsekolah($koneksidb) ?></p>
     <!-- END HORIZANTAL MENU -->
     <!-- BEGIN RESPONSIVE MENU TOGGLER -->
     <a href="javascript:;" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -359,7 +359,8 @@ License: You must have a valid license purchased only from themeforest(the above
         <ul class="dropdown-menu">
           <li><a href="?content=konfigurasiphoto"><i class="fa fa-picture-o"></i> Ganti Photo</a></li>
           <li><a href="?content=konfigurasipassword"><i class="fa fa-lock"></i> Ganti Password</a></li>
-          <li><a href="?content=konfigurasiprofil"><i class="fa fa-user"></i> Ganti Profil</a></li>
+          <li><a href="?content=konfigurasiprofil"><i class="fa fa-user"></i> Ganti Nama Profil</a></li>
+          <li><a href="?content=konfigurasiwa"><i class="fa fa-user"></i> Ganti Nomor Wa</a></li>
           <li><a href="keluar.php"><i class="fa fa-sign-out"></i> Log Out</a></li>
         </ul>
       </li>
@@ -474,7 +475,6 @@ License: You must have a valid license purchased only from themeforest(the above
                     <li><a href="?content=bukuteks_peminjamanperanggota" >Peminjaman per Anggota</a></li>
                     <li><a href="?content=bukuteks_peminjamanperjenis" >Peminjaman Jenis</a></li> 
                     <li><a href="?content=bukuteks_peminjamankolektif" >Peminjaman Kolektif</a></li> 
-                   
                   </ul>
               </li>
               <li><a href="#" >Katalog & Bibliografi</a>
