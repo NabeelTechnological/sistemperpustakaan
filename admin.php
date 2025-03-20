@@ -131,7 +131,7 @@ License: You must have a valid license purchased only from themeforest(the above
         if ($_SESSION['kdjab']=="1"){
           //Awal Menu Admin Kaber   
         ?>
-
+          <li><a href="?content=dashboard">Dashboard</a></li>
          <li><a href="?content=ebook">E-BOOK</a></li>
             
           <li class="classic-menu-dropdown">
@@ -250,7 +250,7 @@ License: You must have a valid license purchased only from themeforest(the above
                   </ul>
               </li>
             </ul>
-            <li><a href="?content=dashboard">Dashboard</a></li>
+            
           </li>
           <!-- <li class="classic-menu-dropdown">
             <a data-toggle="dropdown" href="javascript:;">DATABASE<i class="fa fa-angle-down"></i></a>
