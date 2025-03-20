@@ -131,6 +131,9 @@ License: You must have a valid license purchased only from themeforest(the above
         if ($_SESSION['kdjab']=="1"){
           //Awal Menu Admin Kaber   
         ?>
+
+         <li><a href="?content=ebook">E-BOOK</a></li>
+            
           <li class="classic-menu-dropdown">
             <a data-toggle="dropdown" href="javascript:;">PENGATURAN<i class="fa fa-angle-down"></i></a>
             <ul class="dropdown-menu">
@@ -247,6 +250,7 @@ License: You must have a valid license purchased only from themeforest(the above
                   </ul>
               </li>
             </ul>
+            <li><a href="?content=dashboard">Dashboard</a></li>
           </li>
           <!-- <li class="classic-menu-dropdown">
             <a data-toggle="dropdown" href="javascript:;">DATABASE<i class="fa fa-angle-down"></i></a>
@@ -357,6 +361,7 @@ License: You must have a valid license purchased only from themeforest(the above
           <i class="fa fa-angle-down"></i>
         </a>
         <ul class="dropdown-menu">
+        <li><a href="?content=ProfileSekolah"><i class="fa fa-picture-o"></i> Profile Sekolah</a></li>
           <li><a href="?content=konfigurasiphoto"><i class="fa fa-picture-o"></i> Ganti Photo</a></li>
           <li><a href="?content=konfigurasipassword"><i class="fa fa-lock"></i> Ganti Password</a></li>
           <li><a href="?content=konfigurasiprofil"><i class="fa fa-user"></i> Ganti Nama Profil</a></li>
@@ -387,6 +392,8 @@ License: You must have a valid license purchased only from themeforest(the above
         if ($_SESSION['kdjab']!='99'){
           //Awal Menu Admin Kaber   
         ?>
+<li><a href="?content=ebook">E-BOOK</a></li>
+
           <li  class="dropdown">
             <a href="#">PENGATURAN<span class="arrow"></span></a>
             <ul class="sub-menu">

@@ -26,10 +26,10 @@ if (isset($_POST['btnSave'])) {
                 // Hash password baru
                 $dataPassword = password_hash($newPassword, PASSWORD_DEFAULT);
                 
-                // Update password baru
-                $insQry = "UPDATE ruser SET pwduser = ? WHERE iduser = ?";
+                // Update password baru dan despw (despw disimpan dalam bentuk teks asli)
+                $insQry = "UPDATE ruser SET pwduser = ?, despw = ? WHERE iduser = ?";
                 $stmt = mysqli_prepare($koneksidb, $insQry) or die("Gagal menyiapkan statement: " . mysqli_error($koneksidb));
-                mysqli_stmt_bind_param($stmt, "ss", $dataPassword, $dataIdUser);
+                mysqli_stmt_bind_param($stmt, "sss", $dataPassword, $newPassword, $dataIdUser);
                 mysqli_stmt_execute($stmt) or die("Gagal Query Update User : " . mysqli_error($koneksidb));
                 mysqli_stmt_close($stmt);
 
@@ -74,7 +74,7 @@ if (isset($_POST['btnSave'])) {
 			</div>	
 		<div class="form-body">
 	    	<div class="form-group">
-				<label class="col-lg-2 control-label">Password</label>
+				<label class="col-lg-2 control-label">Password Baru</label>
 				<div class="col-lg-3">
 					<input type="hidden" name="pwduser" value="<?php echo $dataPwdUser; ?>">
 					<input type="text" placeholder="Masukkan password baru" id="txtNewPassword" name="txtNewPassword" required class="form-control sm"/></span>

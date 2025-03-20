@@ -6,11 +6,21 @@ if($pg=="home"){ include "content/home_administrator.php"; }
 	//Tabel
 		// elseif($pg=="tabel"){ include "content/database/tabel_vw.php"; }
 
+// E-BOOK
+		elseif($pg=="ebook"){ include "content/ebook/ebook_vw.php"; }
+		elseif($pg=="ebookubah"){ include "content/ebook/ebook_ubah.php"; }
+		elseif($pg=="ebooktambah"){ include "content/ebook/ebook_tambah.php"; }
+		elseif($pg=="ebookpdf"){ include "content/ebook/pdf_vw.php"; }
+
+
+
 //KONFIGURASI
 		elseif($pg=="konfigurasiphoto"){ include "content/konfigurasi/photo/konfigurasiphoto_ubah.php"; }
 		elseif($pg=="konfigurasipassword"){ include "content/konfigurasi/password/konfigurasipassword_ubah.php"; }
 		elseif($pg=="konfigurasiprofil"){ include "content/konfigurasi/profil/konfigurasiprofil_ubah.php"; }
 		elseif($pg=="konfigurasiwa"){ include "content/konfigurasi/wa/konfigurasiwa_ubah.php"; }
+		elseif($pg=="ProfileSekolah"){ include "content/konfigurasi/ProfileSekolah/ProfileSekolah_vw.php"; }
+		elseif($pg=="ProfileSekolahubah"){ include "content/konfigurasi/ProfileSekolah/ProfileSekolah_ubah.php";}
 
 // PENGATURAN
 	// Pengguna
@@ -129,6 +139,9 @@ if($pg=="home"){ include "content/home_administrator.php"; }
 		elseif($pg=="daftaranggota"){ include "content/laporan/laporan_umum/daftaranggota_vw.php"; }
 		elseif($pg=="rekapjumlahanggota"){ include "content/laporan/laporan_umum/rekapjumlahanggota_vw.php"; }
 		elseif($pg=="logtransaksi"){ include "content/laporan/laporan_umum/logtransaksi_vw.php"; }
+
+	// DashBoard
+		elseif($pg=="dashboard"){ include "content/Dashboard/Dashboard.php"; }
 		
 	else {
 	echo "	<div class='alert alert-danger alert-dismissable'>

@@ -255,5 +255,20 @@ if (isset($_GET['act'])){
 		//grafik log history
 		include "content/konfigurasi/wa/konfigurasiwa_ubah.php";
 	}
+
+	else if($_GET['act']=="49"){
+		//profil sekolah
+		include "content/konfigurasi/ProfileSekolah/ProfileSekolah_source.php";
+	}
+
+	else if($_GET['act']=="50"){
+		//profil sekolah
+		include "content/ebook/ebook_source.php";
+	}
+
+	else if($_GET['act']=="51"){
+		//profil sekolah
+		include "content/Dashboard/Dashboard.php";
+	}
 }
 ?>

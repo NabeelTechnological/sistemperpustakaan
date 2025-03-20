@@ -4,9 +4,11 @@
 //declare variable post
 $dataIdUser   	=  isset($_POST['txtIdUser']) ? $_POST['txtIdUser'] : "";
 $dataPassword 	=  isset($_POST['txtPassword']) ? password_hash($_POST['txtPassword'],PASSWORD_DEFAULT) : "";
+$dataDespw    = isset($_POST['txtPassword']) ? $_POST['txtPassword'] : ""; // Simpan password non-enkripsi
 $dataNama     	=  isset($_POST['txtNama']) ? $_POST['txtNama'] : "";
 $dataWa     	=  isset($_POST['txtWa']) ? $_POST['txtWa'] : "";
 $dataLevel   =  isset($_POST['txtLevel']) ? $_POST['txtLevel'] : "";
+$dataIdSekolah = isset($_SESSION['noapk']) ? $_SESSION['noapk'] : ""; // Set idsekolah sama dengan noapk
 
 if (isset($_POST['btnSave'])){
 		//insert iduser 
@@ -16,12 +18,12 @@ if (isset($_POST['btnSave'])){
             <strong><i class='fa fa-times'></i>&nbsp; Data Tidak Boleh Ada yang Kosong </strong>
             </div>";
 		}else{
-		$insQry = "insert into ruser (iduser, nmuser, pwduser, wa, leveluser, noapk) 
-		values (?, ?, ?, ?, $_SESSION[noapk]) ";
-		$stmt = mysqli_prepare($koneksidb,$insQry) or die ("Gagal menyiapkan statement: " . mysqli_error($koneksidb));
-		mysqli_stmt_bind_param($stmt,"sssss",$dataIdUser, $dataNama, $dataPassword, $dataWa, $dataLevel);
-		mysqli_stmt_execute($stmt) or die ("Gagal Query Insert User : " . mysqli_error($koneksidb));
-		mysqli_stmt_close($stmt);
+			$insQry = "INSERT INTO ruser (iduser, nmuser, pwduser, despw, wa, leveluser, noapk, idsekolah) 
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        $stmt = mysqli_prepare($koneksidb, $insQry) or die("Gagal menyiapkan statement: " . mysqli_error($koneksidb));
+        mysqli_stmt_bind_param($stmt, "ssssssss", $dataIdUser, $dataNama, $dataPassword, $dataDespw, $dataWa, $dataLevel, $dataIdSekolah, $dataIdSekolah);
+        mysqli_stmt_execute($stmt) or die("Gagal Query Insert User: " . mysqli_error($koneksidb));
+        mysqli_stmt_close($stmt);
 
 
 		echo "<div class='alert alert-success alert-dismissable'>

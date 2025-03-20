@@ -5,18 +5,15 @@ $iduser = $_SESSION['iduser'];
 $noapk  = $_SESSION['noapk'];
 
 //declare variable post
-if (isset($_POST['btnSave'])) {
-    $dataIdUser = isset($_POST['txtIdUser']) ? $_POST['txtIdUser'] : "";     
-    if (isset($_POST['txtPassword']) && $_POST['txtPassword'] != "") {
-        $plainPassword = $_POST['txtPassword']; // Simpan password dalam bentuk non-enkripsi
-        $dataPassword = password_hash($plainPassword, PASSWORD_DEFAULT);
-    } else {
-        $dataPassword = $_POST['pwduser'];
-        $plainPassword = ""; // Kosong jika password tidak diubah
-    }
-    $dataNama = isset($_POST['txtNama']) ? $_POST['txtNama'] : "";
-    $datawa = isset($_POST['txtWa']) ? $_POST['txtWa'] : "";
-    $dataLevel = isset($_POST['txtLevel']) ? $_POST['txtLevel'] : "";
+if (isset($_POST['btnSave'])){
+	$dataIdUser   	=  isset($_POST['txtIdUser']) ? $_POST['txtIdUser'] : ""; 	
+	if(isset($_POST['txtPassword']) && $_POST['txtPassword'] !="")
+		{ $dataPassword = password_hash($_POST['txtPassword'],PASSWORD_DEFAULT); }
+	else
+		{ $dataPassword = $_POST['pwduser']; }
+	$dataNama     	=  isset($_POST['txtNama']) ? $_POST['txtNama'] : "";
+	$datawa         =  isset($_POST['txtWa']) ? $_POST['txtWa'] : "";
+	$dataLevel   	=  isset($_POST['txtLevel']) ? $_POST['txtLevel'] : "";
 
 		//update iduser 
 		if(empty($dataIdUser) || empty($dataPassword) || empty($dataNama) || empty($dataLevel) ){
@@ -25,12 +22,11 @@ if (isset($_POST['btnSave'])) {
             <strong><i class='fa fa-times'></i>&nbsp; Data Tidak Boleh Ada yang Kosong </strong>
             </div>";
 		}else{
-		// Update ruser termasuk kolom despw untuk menyimpan password tanpa enkripsi
-        $insQry = "UPDATE ruser SET nmuser = ?, pwduser = ?, despw = ?, wa = ?, leveluser = ? WHERE iduser = ?";
-        $stmt = mysqli_prepare($koneksidb, $insQry) or die("Gagal menyiapkan statement: " . mysqli_error($koneksidb));
-        mysqli_stmt_bind_param($stmt, "ssssss", $dataNama, $dataPassword, $plainPassword, $datawa, $dataLevel, $dataIdUser);
-        mysqli_stmt_execute($stmt) or die("Gagal Query Update User : " . mysqli_error($koneksidb));
-        mysqli_stmt_close($stmt);
+		$insQry = "update ruser set nmuser = ? , pwduser = ?, wa = ?, leveluser = ? WHERE iduser = ?";
+		$stmt = mysqli_prepare($koneksidb,$insQry) or die ("Gagal menyiapkan statement: " . mysqli_error($koneksidb));
+		mysqli_stmt_bind_param($stmt,"sssss", $dataNama, $dataPassword, $datawa, $dataLevel, $dataIdUser);
+		mysqli_stmt_execute($stmt) or die ("Gagal Query Update User : " . mysqli_error($koneksidb));
+		mysqli_stmt_close($stmt);
 
 		logTransaksi($iduser, date('Y-m-d H:i:s'), 'data Pengguna Diubah', $noapk);
 
@@ -41,13 +37,12 @@ if (isset($_POST['btnSave'])) {
 		}				
 }else {
 		$txtID    = isset($_GET['id']) ? $_GET['id'] : "";
-		$qryCek   = mysqli_query($koneksidb, "SELECT iduser,nmuser,pwduser, despw, wa, leveluser FROM ruser 
+		$qryCek   = mysqli_query($koneksidb, "SELECT iduser,nmuser,pwduser, wa, leveluser FROM ruser 
 								WHERE iduser = '".mysqli_real_escape_string($koneksidb, $txtID)."'	") or die('Gagal Query Cek.'. mysqli_error($koneksidb));
 		if (mysqli_num_rows($qryCek)>0){
 			  $rs = mysqli_fetch_array($qryCek);
 		   		$dataNama		  = $rs['nmuser'];
 			    $dataPwdUser      = $rs['pwduser']; 
-				$dataDesPw 		  = $rs['despw'];
 				$dataLevel        = $rs['leveluser']; 
 				$datawa			  = $rs['wa'];
 				$dataIdUser   	  = $txtID;

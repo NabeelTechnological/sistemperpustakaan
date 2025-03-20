@@ -12,11 +12,11 @@ if (isset($_POST['btnSaveAnggota']) && !empty(@$_POST['txtIdAnggota'])) {
         </div>";
 
     }else if($berlaku>=date("Y-m-d")){
-        $qry = "SELECT nipnis, Nama, idjnsang, berlaku FROM ranggota WHERE nipnis = ? ";
+        $qry = "SELECT nipnis, Nama, idjnsang, berlaku, timetrx FROM ranggota WHERE nipnis = ? ";
         $stmt = mysqli_prepare($koneksidb, $qry) or die("Gagal menyiapkan statement : " . mysqli_error($koneksidb));
         mysqli_stmt_bind_param($stmt, "s", $txtID);
         mysqli_stmt_execute($stmt) or die("Gagal Query Tampil Pengunjung : " . mysqli_error($koneksidb));
-        mysqli_stmt_bind_result($stmt, $dataNipnis, $dataNama, $dataStatus, $dataBerlaku);
+        mysqli_stmt_bind_result($stmt, $dataNipnis, $dataNama, $dataStatus, $dataBerlaku, $timetrx);
         mysqli_stmt_fetch($stmt);
         mysqli_stmt_close($stmt); 
 
@@ -184,6 +184,7 @@ if (isset($_POST['del'])) {
                                     </div>
                             </div>
 
+
                             <div class="form-group anggota">
                                 <label class="col-lg-2 control-label">Status</label>
                                 <div class="col-lg-2">
@@ -251,6 +252,7 @@ if (isset($_POST['del'])) {
                             <td>NAMA</td>
                             <td>KETERANGAN</td>
                             <td>STATUS</td>
+                            <td>Waktu Kunjung</td>
                             <td width="5%">ACTION</td>
                         </tr>
                     </thead>
@@ -275,6 +277,7 @@ if (isset($_POST['del'])) {
                     "bDestroy": true,
                     "sAjaxSource": "action.php?act=19",
                     "columns": [
+                        null,
                         null,
                         null,
                         null,
