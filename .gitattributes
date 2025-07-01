@@ -1,0 +1,15 @@
+# Semua file teks akan di‑normalize ke LF di repo, di‑checkout sesuai OS
+* text=auto
+
+# Khusus file PHP paksa LF
+*.php text eol=lf
+
+# Khusus file CSS, JS
+*.css text eol=lf
+*.js  text eol=lf
+
+# Binary files—jangan di‑convert
+*.png binary
+*.jpg binary
+*.pdf binary
+
