@@ -1,183 +1,124 @@
-<?php 
-	$dataNipnis     	=  isset($_POST['txtIdAnggota']) ? $_POST['txtIdAnggota'] : "";
-    $dataNama           =  isset($_POST['txtNama']) ? $_POST['txtNama'] : "";		       
-    $dataIdKelas        =  isset($_POST['txtKelas']) ? $_POST['txtKelas'] : "";	 
-    $dataJnskel 		=  isset($_POST['txtJnsKel']) ? $_POST['txtJnsKel'] : "";
-    $dataTelp 		    =  isset($_POST['txtTelp']) ? $_POST['txtTelp'] : "";
-    $dataBerlaku  	    =  isset($_POST['txtBerlaku']) ? $_POST['txtBerlaku'] : "";
-    $dataAlamat		    =  isset($_POST['txtAlamat']) ? $_POST['txtAlamat'] : "";
-    $dataAlamat2		=  isset($_POST['txtAlamatAlt']) ? $_POST['txtAlamatAlt'] : "";
+<?php
+$dataNipnis      = isset($_POST['txtIdAnggota']) ? $_POST['txtIdAnggota'] : "";
+$dataNama        = isset($_POST['txtNama']) ? $_POST['txtNama'] : "";
+$dataIdKelas     = isset($_POST['txtKelas']) ? $_POST['txtKelas'] : "";
+$dataJnskel      = isset($_POST['txtJnsKel']) ? $_POST['txtJnsKel'] : "";
+$dataTelp        = isset($_POST['txtTelp']) ? $_POST['txtTelp'] : "";
+$dataBerlaku     = isset($_POST['txtBerlaku']) ? $_POST['txtBerlaku'] : "";
+$dataAlamat      = isset($_POST['txtAlamat']) ? $_POST['txtAlamat'] : "";
+$dataAlamat2     = isset($_POST['txtAlamatAlt']) ? $_POST['txtAlamatAlt'] : "";
 
-    $dataPhoto = NULL;
-    if(isset($_FILES['txtFoto'])){
-    if ($_FILES['txtFoto']['error'] == UPLOAD_ERR_OK) {
-        // $fileTmp  = $_FILES['txtFoto']['tmp_name'];
-        // $fileData = file_get_contents($fileTmp); // Ubah menjadi binary
-        $qry = mysqli_query($koneksidb,"SELECT photo FROM ranggota WHERE nipnis = '$dataNipnis' AND noapk = $_SESSION[noapk]");
-        $cek = mysqli_fetch_row($qry);
-        if($cek){
-            if($cek[0] != NULL){
-                unlink($cek[0]);
-            }
-        }
+$dataPhoto = NULL;
+if (isset($_FILES['txtFoto']) && $_FILES['txtFoto']['error'] == UPLOAD_ERR_OK) {
+    $fileTmp = $_FILES['txtFoto']['tmp_name'];
+    $dataPhoto = file_get_contents($fileTmp);
+}
 
-        $dataPhoto = uploadFoto('txtFoto');
-    }
-    }
+$iduser = $_SESSION['iduser'];
+$noapk  = $_SESSION['noapk'];
 
-    $iduser = $_SESSION['iduser'];
-    $noapk  = $_SESSION['noapk'];
+if (isset($_POST['btnSaveSiswa']) || isset($_POST['btnSaveGuru'])) {
+    $isGuru = isset($_POST['btnSaveGuru']);
 
-if(isset($_POST['btnSaveSiswa'])){
-    if(empty($dataNipnis) || empty($dataIdKelas) || empty($dataNama) || empty($dataJnskel) || empty($dataBerlaku) || empty($dataAlamat) ){
-
+    // Validasi wajib
+    if (empty($dataNipnis) || empty($dataNama) || empty($dataJnskel) || empty($dataBerlaku) || empty($dataAlamat) || (!$isGuru && empty($dataIdKelas))) {
         echo "<div class='alert alert-danger alert-dismissable'>
-        <button type='button' class='close' data-dismiss='alert' aria-hidden='true'></button>
-        <strong><i class='fa fa-times'></i>&nbsp; Data Tidak Boleh Ada yang Kosong </strong>
-        </div>";
-    }else{
-
+                <button type='button' class='close' data-dismiss='alert' aria-hidden='true'></button>
+                <strong><i class='fa fa-times'></i>&nbsp; Data Tidak Boleh Ada yang Kosong </strong>
+              </div>";
+    } else {
         if ($_POST['idEdit'] != "") {
-            // Update Data
-            $insQry = "UPDATE ranggota SET idkelas = ?, nama = ?, jnskel = ?, telp = ?, berlaku = ?, alamat = ?, alamat2 = ?, photo = ? WHERE nipnis = ? AND noapk = $_SESSION[noapk]";
-            $stmt = mysqli_prepare($koneksidb, $insQry) or die("Gagal menyiapkan statement: " . mysqli_error($koneksidb));
-            mysqli_stmt_bind_param($stmt, "sssssssss", $dataIdKelas, $dataNama, $dataJnskel, $dataTelp, $dataBerlaku, $dataAlamat, $dataAlamat2, $dataPhoto, $dataNipnis);
+            // ===================== UPDATE =======================
+            if (!$isGuru) {
+                // Update SISWA
+                $insQry = "UPDATE ranggota SET 
+                              idkelas = ?, 
+                              nama = ?, 
+                              jnskel = ?, 
+                              telp = ?, 
+                              berlaku = ?, 
+                              alamat = ?, 
+                              alamat2 = ?, 
+                              photo = ? 
+                           WHERE nipnis = ? AND noapk = ?";
+                $stmt = mysqli_prepare($koneksidb, $insQry);
+                mysqli_stmt_bind_param($stmt, "sssssssssi", $dataIdKelas, $dataNama, $dataJnskel, $dataTelp, $dataBerlaku, $dataAlamat, $dataAlamat2, $dataPhoto, $dataNipnis, $noapk);
+            } else {
+                // Update GURU
+                $insQry = "UPDATE ranggota SET 
+                              nama = ?, 
+                              jnskel = ?, 
+                              telp = ?, 
+                              berlaku = ?, 
+                              alamat = ?, 
+                              alamat2 = ?, 
+                              photo = ? 
+                           WHERE nipnis = ? AND noapk = ?";
+                $stmt = mysqli_prepare($koneksidb, $insQry);
+                mysqli_stmt_bind_param($stmt, "ssssssssi", $dataNama, $dataJnskel, $dataTelp, $dataBerlaku, $dataAlamat, $dataAlamat2, $dataPhoto, $dataNipnis, $noapk);
+            }
+
             mysqli_stmt_execute($stmt) or die("Gagal Query Update Anggota : " . mysqli_error($koneksidb));
             mysqli_stmt_close($stmt);
-
             logTransaksi($iduser, date('Y-m-d H:i:s'), 'Data Anggota diubah', $noapk);
-    
+
             echo "<div class='alert alert-success alert-dismissable'>
-                <button type='button' class='close' data-dismiss='alert' aria-hidden='true'></button>
-                <strong><i class='fa fa-check'></i>&nbsp;</strong>Data Sukses diubah. 
-                </div>";
-    }else {
-        // Insert Data
-        try {
-            $insQry = "INSERT INTO ranggota (nipnis, idjnsang, tgldaftar, nama, alamat, telp, berlaku, alamat2, photo, jnskel, noapk) 
-            VALUES (?, 1, CURDATE(), ?, ?, ?, ?, ?, ?, ?, ?)";
-            
-            $stmt = mysqli_prepare($koneksidb, $insQry);
-            if ($stmt) {
-                mysqli_stmt_bind_param($stmt, "ssssssssi", $dataNipnis, $dataNama, $dataAlamat, $dataTelp, $dataBerlaku, $dataAlamat2, $dataPhoto, $dataJnskel, $_SESSION['noapk']);
+                    <button type='button' class='close' data-dismiss='alert' aria-hidden='true'></button>
+                    <strong><i class='fa fa-check'></i>&nbsp;</strong>Data berhasil diubah.
+                  </div>";
+        } else {
+            // ===================== INSERT =======================
+            try {
+                if (!$isGuru) {
+                    // Insert SISWA
+                    $insQry = "INSERT INTO ranggota 
+                                (nipnis, idjnsang, idkelas, tgldaftar, nama, alamat, telp, berlaku, alamat2, photo, jnskel, noapk) 
+                               VALUES (?, 1, ?, CURDATE(), ?, ?, ?, ?, ?, ?, ?, ?)";
+                    $stmt = mysqli_prepare($koneksidb, $insQry);
+                    mysqli_stmt_bind_param($stmt, "sssssssssi", $dataNipnis, $dataIdKelas, $dataNama, $dataAlamat, $dataTelp, $dataBerlaku, $dataAlamat2, $dataPhoto, $dataJnskel, $noapk);
+                } else {
+                    // Insert GURU
+                    $insQry = "INSERT INTO ranggota 
+                                (nipnis, idjnsang, tgldaftar, nama, alamat, telp, berlaku, alamat2, photo, jnskel, noapk) 
+                               VALUES (?, 2, CURDATE(), ?, ?, ?, ?, ?, ?, ?, ?)";
+                    $stmt = mysqli_prepare($koneksidb, $insQry);
+                    mysqli_stmt_bind_param($stmt, "ssssssssi", $dataNipnis, $dataNama, $dataAlamat, $dataTelp, $dataBerlaku, $dataAlamat2, $dataPhoto, $dataJnskel, $noapk);
+                }
+
                 if (mysqli_stmt_execute($stmt)) {
                     echo "<div class='alert alert-success alert-dismissable'>
-                        <button type='button' class='close' data-dismiss='alert' aria-hidden='true'></button>
-                        <strong><i class='fa fa-check'></i>&nbsp;</strong>Data Sukses insert. 
-                    </div>";
+                            <button type='button' class='close' data-dismiss='alert' aria-hidden='true'></button>
+                            <strong><i class='fa fa-check'></i>&nbsp;</strong>Data berhasil disimpan.
+                          </div>";
                     logTransaksi($iduser, date('Y-m-d H:i:s'), 'Data Anggota Ditambah', $noapk);
                 } else {
-                    echo "<div class='alert alert-danger'>Gagal insert data anggota.</div>";
+                    echo "<div class='alert alert-danger'>Gagal insert data anggota. " . mysqli_stmt_error($stmt) . "</div>";
                 }
-
-		mysqli_stmt_close($stmt);
-    }
-		echo "";
-        }catch(Exception $e){
-            if (strpos($e->getMessage(), "Duplicate entry") !== false) {
-               
-            echo "<div class='alert alert-danger alert-dismissable'>
-            <button type='button' class='close' data-dismiss='alert' aria-hidden='true'></button>
-            <strong><i class='fa fa-times'></i>&nbsp; NIP / NIS sudah ada, tidak boleh sama</strong>
-            </div>";
+                mysqli_stmt_close($stmt);
+            } catch (Exception $e) {
+                if (strpos($e->getMessage(), "Duplicate entry") !== false) {
+                    echo "<div class='alert alert-danger alert-dismissable'>
+                            <button type='button' class='close' data-dismiss='alert' aria-hidden='true'></button>
+                            <strong><i class='fa fa-times'></i>&nbsp; NIP / NIS sudah ada, tidak boleh sama</strong>
+                          </div>";
+                }
             }
         }
     }
 }
-}else if(isset($_POST['btnSaveGuru'])){
-    if(empty($dataNipnis) || empty($dataNama) || empty($dataJnskel) || empty($dataBerlaku) || empty($dataAlamat) ){
-        echo "<div class='alert alert-danger alert-dismissable'>
-        <button type='button' class='close' data-dismiss='alert' aria-hidden='true'></button>
-        <strong><i class='fa fa-times'></i>&nbsp; Data Tidak Boleh Ada yang Kosong </strong>
-        </div>";
-    }else{
-    
-        if ($_POST['idEdit'] != "") {
-            // Update Data
-            $insQry = "UPDATE ranggota SET idkelas = ?, nama = ?, jnskel = ?, telp = ?, berlaku = ?, alamat = ?, alamat2 = ?, photo = ? WHERE nipnis = ? AND noapk = $_SESSION[noapk]";
-            $stmt = mysqli_prepare($koneksidb, $insQry) or die("Gagal menyiapkan statement: " . mysqli_error($koneksidb));
-            mysqli_stmt_bind_param($stmt, "sssssssss", $dataIdKelas, $dataNama, $dataJnskel, $dataTelp, $dataBerlaku, $dataAlamat, $dataAlamat2, $dataPhoto, $dataNipnis);
-            mysqli_stmt_execute($stmt) or die("Gagal Query Update Anggota : " . mysqli_error($koneksidb));
-            mysqli_stmt_close($stmt);
-        
-    
-            echo "<div class='alert alert-success alert-dismissable'>
-                <button type='button' class='close' data-dismiss='alert' aria-hidden='true'></button>
-                <strong><i class='fa fa-check'></i>&nbsp;</strong>Data Sukses diubah. 
-                </div>";
-    }else{
-
-        try{
-            $insQry = "INSERT INTO ranggota (nipnis, idjnsang, tgldaftar, nama, alamat, telp, berlaku, alamat2, photo, jnskel, noapk) 
-                VALUES (?, 1, CURDATE(), ?, ?, ?, ?, ?, ?, ?, ?)";
-                
-                $stmt = mysqli_prepare($koneksidb, $insQry);
-                if ($stmt) {
-                    mysqli_stmt_bind_param($stmt, "ssssssssi", $dataNipnis, $dataNama, $dataAlamat, $dataTelp, $dataBerlaku, $dataAlamat2, $dataPhoto, $dataJnskel, $_SESSION['noapk']);
-                    if (mysqli_stmt_execute($stmt)) {
-                        echo "<div class='alert alert-success alert-dismissable'>
-                            <button type='button' class='close' data-dismiss='alert' aria-hidden='true'></button>
-                            <strong><i class='fa fa-check'></i>&nbsp;</strong>Data Sukses insert. 
-                        </div>";
-                    } else {
-                        echo "<div class='alert alert-danger'>Gagal insert data anggota.</div>";
-                    }
-                }
-    }catch(Exception $e){
-        if (strpos($e->getMessage(), "Duplicate entry") !== false) {
-           
-        echo "<div class='alert alert-danger alert-dismissable'>
-        <button type='button' class='close' data-dismiss='alert' aria-hidden='true'></button>
-        <strong><i class='fa fa-times'></i>&nbsp; NIP / NIS sudah ada, tidak boleh sama</strong>
-        </div>";
-        }
-    }
-
-    }
-}
-}
-    $txtID        = isset($_GET['id']) ? $_GET['id'] : "";
-    $txtJenis        = isset($_GET['jenis']) ? $_GET['jenis'] : "";
-
-    if($txtJenis!="guru"){
-        $qryCek   = mysqli_query($koneksidb, "SELECT nipnis, nama, idkelas, jnskel, telp, berlaku, alamat, alamat2 FROM ranggota 
-                                WHERE nipnis = '".$txtID."' AND	idjnsang = 1 AND noapk = $_SESSION[noapk]");
-        if (mysqli_num_rows($qryCek)>0){
-              $rs = mysqli_fetch_array($qryCek);
-              $dataNamaS		        =  $rs['nama'];
-              $dataIdKelas    		=  $rs['idkelas']; 
-              $dataJnskelS 		 	=  $rs['jnskel']; 
-              $dataTelpS 			=  $rs['telp']; 
-              $dataBerlakuS  		=  $rs['berlaku'];
-              $dataAlamatS			=  $rs['alamat'];
-              $dataAlamat2S			=  $rs['alamat2'];
-              $dataNipnisS   		=  $rs['nipnis'];
-        }
-    }else if ($txtJenis=="guru"){
-        $qryCek2   = mysqli_query($koneksidb, "SELECT nipnis, nama, jnskel, telp, berlaku, alamat, alamat2 FROM ranggota 
-                                WHERE nipnis = '".$txtID."' AND	idjnsang = 2 AND noapk = $_SESSION[noapk]");
-        
-        if (mysqli_num_rows($qryCek2)>0){
-             $rs = mysqli_fetch_array($qryCek2);
-             $dataNamaGK		        =  $rs['nama']; 
-             $dataJnskelGK 		 	=  $rs['jnskel']; 
-             $dataTelpGK			=  $rs['telp']; 
-             $dataBerlakuGK  		=  $rs['berlaku'];
-             $dataAlamatGK			=  $rs['alamat'];
-             $dataAlamat2GK			=  $rs['alamat2'];
-             $dataNipnisGK   		=  $rs['nipnis'];
-       } 
-    }
-
-
 ?>
 
+
+
+<!-- Sisa kode HTML dan Javascript Anda diletakkan di sini, tidak perlu ada perubahan -->
+<!-- ... -->
+<!-- PASTE THE REST OF YOUR HTML/JS CODE HERE -->
 
 <div id="pesan">
 </div>
 <div class="portlet box <?= $_SESSION['warnabar'] ?>">
-	<div class="portlet-title">
-		<div class="caption">Tambah / Edit Anggota Individu</div>
+    <div class="portlet-title">
+        <div class="caption">Tambah / Edit Anggota Individu</div>
         <div class="caption" style="margin-left: 10px;">
             <button onclick="jenis('siswa')" class="btn <?= $_SESSION['warnatombol'] ?>">SISWA</button>
             <button onclick="jenis('guru')" class="btn <?= $_SESSION['warnatombol'] ?>">GURU/KARYAWAN</button>
@@ -189,10 +130,45 @@ if(isset($_POST['btnSaveSiswa'])){
         </div>
     <div>
 </div>
-	</div>
+    </div>
 
 <div class="portlet-body">
-<?php if(@$_GET['jenis']!="guru"){ ?>
+<?php 
+// ... (Kode untuk mengambil data dan mengisi form)
+$txtID      = isset($_GET['id']) ? $_GET['id'] : "";
+$txtJenis   = isset($_GET['jenis']) ? $_GET['jenis'] : "";
+
+if($txtJenis!="guru"){
+    $qryCek  = mysqli_query($koneksidb, "SELECT nipnis, nama, idkelas, jnskel, telp, berlaku, alamat, alamat2 FROM ranggota 
+                            WHERE nipnis = '".$txtID."' AND idjnsang = 1 AND noapk = $_SESSION[noapk]");
+    if (mysqli_num_rows($qryCek)>0){
+            $rs = mysqli_fetch_array($qryCek);
+            $dataNamaS          =  $rs['nama'];
+            $dataIdKelas        =  $rs['idkelas']; 
+            $dataJnskelS        =  $rs['jnskel']; 
+            $dataTelpS          =  $rs['telp']; 
+            $dataBerlakuS       =  $rs['berlaku'];
+            $dataAlamatS        =  $rs['alamat'];
+            $dataAlamat2S       =  $rs['alamat2'];
+            $dataNipnisS        =  $rs['nipnis'];
+    }
+}else if ($txtJenis=="guru"){
+    $qryCek2  = mysqli_query($koneksidb, "SELECT nipnis, nama, jnskel, telp, berlaku, alamat, alamat2 FROM ranggota 
+                            WHERE nipnis = '".$txtID."' AND idjnsang = 2 AND noapk = $_SESSION[noapk]");
+    
+    if (mysqli_num_rows($qryCek2)>0){
+            $rs = mysqli_fetch_array($qryCek2);
+            $dataNamaGK         =  $rs['nama']; 
+            $dataJnskelGK       =  $rs['jnskel']; 
+            $dataTelpGK         =  $rs['telp']; 
+            $dataBerlakuGK      =  $rs['berlaku'];
+            $dataAlamatGK       =  $rs['alamat'];
+            $dataAlamat2GK      =  $rs['alamat2'];
+            $dataNipnisGK       =  $rs['nipnis'];
+    } 
+}
+
+if(@$_GET['jenis']!="guru"){ ?>
 <form action="<?php $_SERVER['PHP_SELF']; ?>" id="uploadForm" method="post" class="form-horizontal" role="form" autocomplete="off" name="form1" enctype="multipart/form-data">
 <div class="row-col-2">
 
@@ -200,34 +176,34 @@ if(isset($_POST['btnSaveSiswa'])){
 <div class="form-body siswa">
     <h4>Siswa</h4>
         <div class="form-group siswa">
-				<label class="col-lg-1 control-label">Kelas</label>
-				<div class="col-lg-3">
-				<select name="txtKelas" id="txtKelas"  data-placeholder="- Pilih Kelas -" class="select2me form-control" required >
-				<option value=""></option> 
-				<?php
-						$dataSql = "SELECT idkelas,deskelas FROM rkelas WHERE noapk = $_SESSION[noapk] ORDER BY idkelas";
-						$dataQry = mysqli_query( $koneksidb, $dataSql) or die ("Gagal Query".mysqli_error($koneksidb));
-						while ($dataRow = mysqli_fetch_array($dataQry)) {
+                <label class="col-lg-1 control-label">Kelas</label>
+                <div class="col-lg-3">
+                <select name="txtKelas" id="txtKelas"  data-placeholder="- Pilih Kelas -" class="select2me form-control" required >
+                <option value=""></option> 
+                <?php
+                        $dataSql = "SELECT idkelas,deskelas FROM rkelas WHERE noapk = $_SESSION[noapk] ORDER BY idkelas";
+                        $dataQry = mysqli_query( $koneksidb, $dataSql) or die ("Gagal Query".mysqli_error($koneksidb));
+                        while ($dataRow = mysqli_fetch_array($dataQry)) {
                         $cek = (@$dataIdKelas==$dataRow['idkelas']) ? "selected" :"";
-						echo "<option value='$dataRow[idkelas]' $cek>$dataRow[deskelas]</option>";
-						}
-						$sqlData ="";
-				?>
-				</select>
-	    		</div>
-		</div>
+                        echo "<option value='$dataRow[idkelas]' $cek>$dataRow[deskelas]</option>";
+                        }
+                        $sqlData ="";
+                ?>
+                </select>
+                </div>
+        </div>
 
         <div class="form-group">
             <input type="hidden" name="idEdit" value="<?=@$dataNipnisS?>">
-				<label class="col-lg-1 control-label">NIS</label>
+                <label class="col-lg-1 control-label">NIS</label>
                 (ID Anggota)
-				<div class="col-lg-3">
-					<input type="text" id="txtIdAnggotaS" name="txtIdAnggota" placeholder="NIS / ID ANGGOTA" value="<?=@$dataNipnisS?>" class="form-control sm" required/>
-	    		</div>
-				<div class="col-lg-1">
+                <div class="col-lg-3">
+                    <input type="text" id="txtIdAnggotaS" name="txtIdAnggota" placeholder="NIS / ID ANGGOTA" value="<?=@$dataNipnisS?>" class="form-control sm" required/>
+                </div>
+                <div class="col-lg-1">
                 <button type="button" id="cariAnggotaS" class="btn <?= $_SESSION['warnabar'] ?>"><i class="fa fa-search"></i> Cari</button>
-  		        </div>
-			</div>
+                </div>
+            </div>
 
         <div class="form-group">
             <label class="col-lg-1 control-label">Nama</label>
@@ -278,15 +254,15 @@ if(isset($_POST['btnSaveSiswa'])){
     </div>
 </div>
 <footer class="panel-footer siswa">
-			    <div class="row">
-			        <div class="form-group">
-			            <div class="col-lg-offset-2 col-lg-10">
-			                <button type="submit" name="btnSaveSiswa" class="btn <?= $_SESSION['warnabar'] ?>" ><i class="fa fa-save"></i> Simpan Data</button>
-			                <a href="?content=tambahindividu" class="btn <?= $_SESSION['warnabar'] ?>"><i class="fa fa-undo"></i> Kembali</a>
-			            </div>
-			        </div>
-			    </div>
-			</footer>
+                <div class="row">
+                    <div class="form-group">
+                        <div class="col-lg-offset-2 col-lg-10">
+                            <button type="submit" name="btnSaveSiswa" class="btn <?= $_SESSION['warnabar'] ?>" ><i class="fa fa-save"></i> Simpan Data</button>
+                            <a href="?content=tambahindividu" class="btn <?= $_SESSION['warnabar'] ?>"><i class="fa fa-undo"></i> Kembali</a>
+                        </div>
+                    </div>
+                </div>
+            </footer>
 
 </form>
 <?php }else{ ?>
@@ -298,15 +274,15 @@ if(isset($_POST['btnSaveSiswa'])){
 <h4>Guru/Karyawan</h4>
         <div class="form-group">
             <input type="hidden" name="idEdit" value="<?=@$dataNipnisGK?>">
-				<label class="col-lg-1 control-label">NIK</label>
+                <label class="col-lg-1 control-label">NIK</label>
                 (ID Anggota)
-				<div class="col-lg-3">
-					<input type="text" id="txtIdAnggotaGK" name="txtIdAnggota" placeholder="NIK / ID ANGGOTA" value="<?=@$dataNipnisGK?>" class="form-control sm" required/>
-	    		</div>
+                <div class="col-lg-3">
+                    <input type="text" id="txtIdAnggotaGK" name="txtIdAnggota" placeholder="NIK / ID ANGGOTA" value="<?=@$dataNipnisGK?>" class="form-control sm" required/>
+                </div>
                 <div class="col-lg-1">
                 <button type="button" id="cariAnggotaGK" class="btn <?= $_SESSION['warnabar'] ?>"><i class="fa fa-search"></i> Cari</button>
-  		        </div>
-			</div>
+                </div>
+            </div>
 
         <div class="form-group">
             <label class="col-lg-1 control-label">Nama</label>
@@ -357,15 +333,15 @@ if(isset($_POST['btnSaveSiswa'])){
     </div>
 </div>
     <footer class="panel-footer guru">
-			    <div class="row">
-			        <div class="form-group">
-			            <div class="col-lg-offset-2 col-lg-10">
-			                <button type="submit" name="btnSaveGuru" class="btn <?= $_SESSION['warnabar'] ?>"><i class="fa fa-save"></i> Simpan Data</button>
-			                <a href="?content=tambahindividu" class="btn <?= $_SESSION['warnabar'] ?>"><i class="fa fa-undo"></i> Kembali</a>
-			            </div>
-			        </div>
-			    </div>
-			</footer>
+                <div class="row">
+                    <div class="form-group">
+                        <div class="col-lg-offset-2 col-lg-10">
+                            <button type="submit" name="btnSaveGuru" class="btn <?= $_SESSION['warnabar'] ?>"><i class="fa fa-save"></i> Simpan Data</button>
+                            <a href="?content=tambahindividu" class="btn <?= $_SESSION['warnabar'] ?>"><i class="fa fa-undo"></i> Kembali</a>
+                        </div>
+                    </div>
+                </div>
+            </footer>
 </form>
 
 <?php } ?>

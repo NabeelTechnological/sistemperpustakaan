@@ -2,15 +2,20 @@
     <div class="portlet box <?= $_SESSION['warnabar'] ?>">
         <div class="portlet-title">
             <div class="caption">Data Buku</div>
-            <button id="btnPdf" type="button" class="btn btn-sm btn-primary pull-right" style="margin-top:5px;">
+            <!-- <button id="btnPdf" type="button" class="btn btn-sm btn-primary pull-right" style="margin-top:5px;">
                 <i class="fa fa-file-pdf-o"></i> Cetak PDF
-            </button>
+            </button> -->
         </div>
 
         <div class="portlet-body fieldset-form">
             <!-- Tabel untuk menampilkan daftar buku -->
             <div class="row">
-                <div class="col-lg-12">
+                <div class="col-lg-12"> 
+                <button id="btnPdf" type="button" class="btn btn-sm btn-danger pull-left" style="margin-top:5px; margin-bottom:10px;">
+    <i class="fa fa-file-pdf-o"></i> Cetak PDF
+</button>
+
+
                     <table class="table table-condensed table-bordered table-hover" id="sample_2" width="100%">
                         <thead>
                             <tr class="active">
