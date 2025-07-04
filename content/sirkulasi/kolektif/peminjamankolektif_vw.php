@@ -193,19 +193,34 @@ if (isset($_POST['del'])) {
                                     </div>
                             </div>
 
-                            <div class="form-group">
-                                <label class="col-lg-2 control-label">NIS - Nama Peminjam</label>
-                                <div class="col-lg-2">
-                                    <input type="text" id="txtIdAnggota" name="txtIdAnggota" placeholder="NIS / ID ANGGOTA" value="<?= @$dataIdAnggota ?>" class="form-control sm" required />
-                                </div>
-                                <div class="col-lg-4">
-                                    <input type="text" id="txtNama" name="txtNama" value="<?= @$dataNama ?>" class="form-control sm" readonly required/>
-                                </div>
-                                <div class="col-lg-1">
-                                    <button type="button" id="cariAnggota" class="btn <?= $_SESSION['warnabar'] ?>"><i class="fa fa-search"></i> Cari Siswa</button>
-                                </div>
-                            </div>
-                        </div>
+<div class="form-group">
+    <label class="col-lg-2 control-label">NIS - Nama Peminjam</label>
+    <div class="col-lg-6">
+        <select name="txtIdAnggota" id="txtIdAnggota" data-placeholder="- Pilih Anggota -" class="select2me form-control" required>
+            <option value=""></option>
+            <?php
+            // Variabel $dataIdAnggota digunakan untuk menandai opsi yang dipilih jika form disubmit
+            global $dataIdAnggota; 
+
+            // Query untuk mengambil semua anggota yang masa berlakunya belum habis
+            $anggotaSql = "SELECT nipnis, nama FROM ranggota WHERE noapk = ? AND berlaku >= CURDATE() ORDER BY nama";
+            $stmtAnggota = mysqli_prepare($koneksidb, $anggotaSql);
+            mysqli_stmt_bind_param($stmtAnggota, "i", $_SESSION['noapk']);
+            mysqli_stmt_execute($stmtAnggota);
+            $resultAnggota = mysqli_stmt_get_result($stmtAnggota);
+            
+            while ($anggotaRow = mysqli_fetch_array($resultAnggota)) {
+                // Tandai sebagai 'selected' jika ID anggota ini sama dengan yang sudah dipilih sebelumnya
+                $selected = ($dataIdAnggota == $anggotaRow['nipnis']) ? "selected" : "";
+                
+                // Tampilkan opsi dengan format "NIS - Nama"
+                echo "<option value='{$anggotaRow['nipnis']}' $selected>{$anggotaRow['nipnis']} - {$anggotaRow['nama']}</option>";
+            }
+            mysqli_stmt_close($stmtAnggota);
+            ?>
+        </select>
+    </div>
+    </div>
                         <div class="well">
 
                             <div class="form-group">
@@ -329,43 +344,41 @@ if (isset($_POST['del'])) {
 
         });
 
-        $(document).on("click", ".delPopUp", function() {
-            let tglPinjam = $(this).data('tglpinjam');
-            let idBuku = $(this).data('idbuku');
-            $(".modal-footer #d_idBuku").val(idBuku);
-            $(".modal-footer #d_tglPinjam").val(tglPinjam);
-        });
+    $(document).on("click", ".delPopUp", function() {
+        let tglPinjam = $(this).data('tglpinjam');
+        let idBuku = $(this).data('idbuku');
+        $(".modal-footer #d_idBuku").val(idBuku);
+        $(".modal-footer #d_tglPinjam").val(tglPinjam);
+    });
 
-        function replaceGetURL(input, param) {
-            var selectedType = input;
+    function replaceGetURL(input, param) {
+        var selectedType = input;
+        var currentUrl = window.location.href;
+        var newUrl = removeParameterFromUrl(currentUrl, param);
 
-            var currentUrl = window.location.href;
-
-            var newUrl = removeParameterFromUrl(currentUrl, param);
-
-            if (newUrl.includes('?')) {
-                newUrl += '&' + param + '=' + selectedType;
-            } else {
-                newUrl += '?' + param + '=' + selectedType;
-            }
-
-            window.history.pushState({
-                path: newUrl
-            }, '', newUrl);
-            window.location.reload();
+        if (newUrl.includes('?')) {
+            newUrl += '&' + param + '=' + selectedType;
+        } else {
+            newUrl += '?' + param + '=' + selectedType;
         }
 
-        document.getElementById('cariAnggota').addEventListener('click', function() {
-            replaceGetURL(document.getElementById('txtIdAnggota').value, "id");
+        window.history.pushState({
+            path: newUrl
+        }, '', newUrl);
+        window.location.reload();
+    }
+
+        // document.getElementById('cariAnggota').addEventListener('click', function() {
+        //     replaceGetURL(document.getElementById('txtIdAnggota').value, "id");
+        //     replaceGetURL(document.getElementById('txtKelas').value, "kelas");
+        // });
+
+    let cariBuku = document.getElementById('cariBuku');
+    if (cariBuku) {
+        document.getElementById('cariBuku').addEventListener('click', function() {
+            replaceGetURL(document.getElementById('txtIdBuku').value, "buku");
             replaceGetURL(document.getElementById('txtKelas').value, "kelas");
         });
-
-        let cariBuku = document.getElementById('cariBuku');
-        if (cariBuku) {
-            document.getElementById('cariBuku').addEventListener('click', function() {
-                replaceGetURL(document.getElementById('txtIdBuku').value, "buku");
-                replaceGetURL(document.getElementById('txtKelas').value, "kelas");
-            });
-        }
+    }
 
     </script>
